@@ -1,33 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-[#fff7fb] text-slate-800">
+<html lang="en" class="h-full bg-[#f6f5f7] text-slate-800">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>chandada | Cotton Candy Market</title>
-    <meta name="description" content="chandada lets anyone register a profile and business, add their own menu, and edit it anytime without any subscription." />
+    <title>chandada | Food Delivery App</title>
+    <meta name="description" content="Multi-role food delivery marketplace for customers, business owners, and riders." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        candy: {
-                            pink: '#ff9ecb',
-                            rose: '#ff7bb7',
-                            lilac: '#c9b7ff',
-                            sky: '#bfe8ff',
-                            mint: '#c9f5d9',
-                            peach: '#ffd7b5',
-                            cream: '#fffafc',
-                            peachy: '#ffefe8',
-                            plum: '#8d5ef1',
-                            berry: '#ff4fa3'
+                        panda: {
+                            pink: '#ff2b85',
+                            rose: '#ff5fa2',
+                            coral: '#ff8f6b',
+                            red: '#e31c5f',
+                            cream: '#fff7f9',
+                            gray: '#f5f5f7',
+                            ink: '#17171a'
                         }
                     },
                     boxShadow: {
-                        soft: '0 18px 40px rgba(129, 76, 128, 0.10)',
-                        card: '0 10px 22px rgba(143, 114, 168, 0.10)',
-                        glow: '0 18px 30px rgba(255, 124, 191, 0.18)'
+                        soft: '0 18px 40px rgba(31, 41, 55, 0.08)',
+                        card: '0 12px 28px rgba(15, 23, 42, 0.06)',
+                        brand: '0 18px 30px rgba(255, 43, 133, 0.22)'
                     }
                 }
             }
@@ -41,363 +38,403 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(255, 187, 220, 0.82), transparent 22%),
-                radial-gradient(circle at top right, rgba(201, 183, 255, 0.85), transparent 25%),
-                radial-gradient(circle at bottom left, rgba(191, 232, 255, 0.8), transparent 22%),
-                linear-gradient(180deg, #fffafc 0%, #fff4f9 35%, #f9f5ff 100%);
+            background: linear-gradient(180deg, #fffafc 0%, #f7f6f9 100%);
         }
-        .cotton-shell {
-            background: linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.2));
+        .app-shell {
+            background: linear-gradient(180deg, #fffdfd 0%, #f7f7fa 100%);
         }
-        .cotton-card {
-            background: rgba(255,255,255,0.82);
-            border: 1px solid rgba(201, 183, 255, 0.38);
-            box-shadow: 0 20px 40px rgba(188, 154, 219, 0.12);
-            backdrop-filter: blur(10px);
+        .brand-card {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(148,163,184,0.16);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+            backdrop-filter: blur(8px);
         }
-        .cotton-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 26px 48px rgba(160, 120, 196, 0.15);
-        }
-        .candy-btn {
-            background: linear-gradient(135deg, #ff7bb7 0%, #dca4ff 40%, #7ec9ff 100%);
+        .panda-btn {
+            background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
             color: white;
-            box-shadow: 0 16px 30px rgba(221, 143, 214, 0.30);
+            box-shadow: 0 16px 28px rgba(255, 43, 133, 0.22);
         }
-        .candy-btn:hover { filter: brightness(1.02); }
-        .mini-tag {
-            background: linear-gradient(135deg, rgba(255,158,203,0.18), rgba(201,183,255,0.18));
-            color: #8d5ef1;
+        .panda-btn:hover { filter: brightness(1.02); }
+        .soft-card {
+            background: rgba(255,255,255,0.88);
+            border: 1px solid rgba(148,163,184,0.18);
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
         }
-        .promo-gradient {
-            background: linear-gradient(135deg, rgba(255,158,203,0.18), rgba(255,215,181,0.22), rgba(201,183,255,0.18));
+        .role-btn.active {
+            background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
+            color: white;
+            box-shadow: 0 16px 28px rgba(255, 43, 133, 0.18);
         }
         .category-box {
-            background: rgba(255,255,255,0.78);
-            border: 1px solid rgba(201, 183, 255, 0.28);
-            box-shadow: 0 12px 22px rgba(126, 94, 151, 0.08);
+            background: white;
+            border: 1px solid rgba(148,163,184,0.18);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
         }
-        .section-title { letter-spacing: -0.05em; }
+        .menu-item-card:hover, .restaurant-card:hover, .order-card:hover { transform: translateY(-2px); }
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .menu-item-card:hover { transform: translateY(-2px); }
         .hidden-section { display: none !important; }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #e6cfe5; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb { background: #d9d3d8; border-radius: 9999px; }
     </style>
 </head>
 <body class="min-h-full text-slate-800 antialiased">
     <div id="toast-container" class="fixed right-5 top-5 z-50 flex flex-col gap-2"></div>
 
-    <div class="cotton-shell">
-        <header class="sticky top-0 z-40 border-b border-[#f2dbeb]/80 bg-white/70 backdrop-blur-xl">
+    <div class="app-shell">
+        <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
             <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-3">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff9ecb] via-[#dca4ff] to-[#7ec9ff] text-lg font-extrabold text-white shadow-glow">C</div>
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff2b85] via-[#ff7cb0] to-[#ffb36a] text-lg font-black text-white shadow-brand">C</div>
                     <div>
                         <div class="text-xl font-black tracking-tight text-slate-900">chandada</div>
-                        <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">cotton market</div>
+                        <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">food delivery</div>
                     </div>
                 </div>
 
-                <nav class="hidden items-center gap-1 md:flex">
-                    <a href="#home" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white/70 hover:text-slate-900">Home</a>
-                    <a href="#businesses" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white/70 hover:text-slate-900">Restaurants</a>
-                    <a href="#register" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white/70 hover:text-slate-900">Register</a>
-                    <a href="#menu-editor" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white/70 hover:text-slate-900">My Menu</a>
-                </nav>
+                <div class="hidden items-center gap-2 rounded-full bg-[#fff3f8] p-1 md:flex">
+                    <button data-role="customer" class="role-btn active rounded-full px-4 py-2 text-sm font-semibold">Customer</button>
+                    <button data-role="owner" class="role-btn rounded-full px-4 py-2 text-sm font-semibold text-slate-700">Owner</button>
+                    <button data-role="rider" class="role-btn rounded-full px-4 py-2 text-sm font-semibold text-slate-700">Rider</button>
+                </div>
 
                 <div class="flex items-center gap-3">
-                    <button class="hidden rounded-full bg-white/80 px-3 py-2 text-sm font-semibold text-slate-700 md:inline-flex">
-                        <i class="fa-solid fa-location-dot mr-2 text-[#ff7bb7]"></i> Makati
+                    <button class="hidden rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 md:inline-flex">
+                        <i class="fa-solid fa-location-dot mr-2 text-panda-pink"></i> Makati
                     </button>
-                    <button id="new-business-btn" class="candy-btn rounded-full px-4 py-2.5 text-sm font-bold text-white">Add business</button>
+                    <button class="rounded-full bg-slate-900 px-3 py-2 text-sm font-semibold text-white md:hidden">Menu</button>
                 </div>
             </div>
         </header>
 
-        <main id="home" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <section class="cotton-card rounded-[30px] p-4 sm:p-6 lg:p-8">
-                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div class="flex items-center gap-3 rounded-full bg-white/80 px-4 py-2.5 text-sm text-slate-600 shadow-sm">
-                        <i class="fa-solid fa-location-dot text-[#ff7bb7]"></i>
-                        <span>Deliver to <span class="font-bold text-slate-800">Makati</span></span>
-                    </div>
-                    <div class="flex items-center gap-2 rounded-full bg-[#fff0f7] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#b6548d]">
-                        <i class="fa-solid fa-ticket"></i> Cotton deal
-                    </div>
-                </div>
-
-                <div class="mt-6 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-                    <div class="space-y-5">
-                        <div class="inline-flex items-center rounded-full bg-[#fff0f7] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#b6548d]">
-                            <i class="fa-solid fa-bolt mr-2 text-[#ff7bb7]"></i> Sweet delivery • local favorites
+        <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <section id="customer-view" class="role-view">
+                <div class="brand-card rounded-[30px] p-4 sm:p-6 lg:p-8">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div class="flex items-center gap-3 rounded-full bg-[#fff7fa] px-4 py-2.5 text-sm text-slate-600 shadow-sm">
+                            <i class="fa-solid fa-location-dot text-panda-pink"></i>
+                            <span>Deliver to <span class="font-bold text-slate-800">Makati</span></span>
                         </div>
-
-                        <div class="space-y-4">
-                            <h1 class="section-title text-4xl font-black tracking-[-0.06em] text-slate-900 md:text-5xl lg:text-[4rem]">Good food, delivered fast.</h1>
-                            <p class="max-w-xl text-base text-slate-600 md:text-lg">Discover pastel-perfect meals, trendy cafés, cozy bakeshops, and local favorites right in your neighborhood.</p>
+                        <div class="flex items-center gap-2 rounded-full bg-[#fff3f7] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#bf2d6d]">
+                            <i class="fa-solid fa-ticket"></i> Panda deal
                         </div>
+                    </div>
 
-                        <div class="flex flex-col gap-3 sm:flex-row">
-                            <div class="flex flex-1 items-center gap-3 rounded-2xl border border-[#f1d7ea] bg-[#fff9fb] px-4 py-3 shadow-sm">
-                                <i class="fa-solid fa-magnifying-glass text-[#d58bd6]"></i>
-                                <input type="text" value="Search for food, drinks, or stores" class="w-full border-0 bg-transparent text-sm text-slate-500 outline-none" />
+                    <div class="mt-6 grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+                        <div class="space-y-5">
+                            <div class="inline-flex items-center rounded-full bg-[#fff1f7] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#bf2d6d]">
+                                <i class="fa-solid fa-bolt mr-2 text-panda-pink"></i> Fast delivery • local favorites
                             </div>
-                            <button class="candy-btn rounded-2xl px-5 py-3 text-sm font-bold text-white">Search</button>
-                        </div>
-
-                        <div class="flex flex-wrap gap-3 text-sm">
-                            <span class="rounded-full bg-[#fff0f7] px-3 py-1.5 font-semibold text-[#c05a94]">Pizza</span>
-                            <span class="rounded-full bg-[#f1efff] px-3 py-1.5 font-semibold text-[#7d5ae0]">Burgers</span>
-                            <span class="rounded-full bg-[#ebf9ff] px-3 py-1.5 font-semibold text-[#4b97d4]">Japanese</span>
-                            <span class="rounded-full bg-[#ecfdf5] px-3 py-1.5 font-semibold text-[#2a9d77]">Desserts</span>
-                        </div>
-                    </div>
-
-                    <div class="rounded-[28px] bg-gradient-to-br from-[#fff6fb] via-[#fffaf7] to-[#f3f3ff] p-4 shadow-soft">
-                        <div class="rounded-[24px] bg-white p-4 shadow-card">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Featured</p>
-                                    <h2 class="mt-1 text-2xl font-black text-slate-900">Bistro Box</h2>
+                            <div class="space-y-4">
+                                <h1 class="text-4xl font-black tracking-[-0.06em] text-slate-900 md:text-5xl lg:text-[4rem]">Good food, delivered fast.</h1>
+                                <p class="max-w-xl text-base text-slate-600 md:text-lg">Order from your favorite restaurants, bakeries, coffee shops, and food stalls with online payment options like GCash and Maya.</p>
+                            </div>
+                            <div class="flex flex-col gap-3 sm:flex-row">
+                                <div class="flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                                    <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+                                    <input id="customer-search" type="text" placeholder="Search for foods or stores" class="w-full border-0 bg-transparent text-sm text-slate-500 outline-none placeholder:text-slate-400" />
                                 </div>
-                                <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
+                                <button class="panda-btn rounded-2xl px-5 py-3 text-sm font-bold text-white">Search</button>
                             </div>
+                            <div class="flex flex-wrap gap-3 text-sm">
+                                <span class="rounded-full bg-[#fff1f7] px-3 py-1.5 font-semibold text-[#bf2d6d]">Pizza</span>
+                                <span class="rounded-full bg-[#eef2ff] px-3 py-1.5 font-semibold text-[#4957c9]">Burgers</span>
+                                <span class="rounded-full bg-[#ebf9ff] px-3 py-1.5 font-semibold text-[#377dc7]">Japanese</span>
+                                <span class="rounded-full bg-[#ecfdf5] px-3 py-1.5 font-semibold text-[#25815d]">Healthy</span>
+                            </div>
+                        </div>
 
-                            <div class="promo-gradient mt-4 rounded-[22px] p-4">
-                                <div class="flex items-center justify-between gap-4">
+                        <div class="rounded-[28px] bg-gradient-to-br from-[#fff4f8] via-white to-[#f5f1ff] p-4 shadow-soft">
+                            <div class="rounded-[24px] bg-white p-4 shadow-card">
+                                <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#b6548d]">Combo deal</p>
-                                        <p class="mt-3 text-3xl font-black text-slate-900">₱259</p>
+                                        <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Featured</p>
+                                        <h2 class="mt-1 text-2xl font-black text-slate-900">Bistro Box</h2>
                                     </div>
-                                    <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">🍔</div>
+                                    <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
+                                </div>
+                                <div class="mt-4 rounded-[22px] bg-gradient-to-r from-[#fff1f7] via-[#fff7fc] to-[#f3f0ff] p-4">
+                                    <div class="flex items-center justify-between gap-4">
+                                        <div>
+                                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Combo deal</p>
+                                            <p class="mt-3 text-3xl font-black text-slate-900">₱259</p>
+                                        </div>
+                                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">🍔</div>
+                                    </div>
+                                </div>
+                                <div class="mt-5 space-y-3">
+                                    <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
+                                        <div>
+                                            <p class="text-sm font-semibold text-slate-900">Classic Burger Meal</p>
+                                            <p class="text-xs text-slate-500">fries + drink</p>
+                                        </div>
+                                        <span class="text-sm font-black text-slate-900">₱199</span>
+                                    </div>
+                                    <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
+                                        <div>
+                                            <p class="text-sm font-semibold text-slate-900">Signature Pasta</p>
+                                            <p class="text-xs text-slate-500">creamy tomato sauce</p>
+                                        </div>
+                                        <span class="text-sm font-black text-slate-900">₱249</span>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="mt-5 space-y-3">
-                                <div class="flex items-center justify-between rounded-2xl border border-[#f1d7ea] bg-[#fffafb] px-3 py-2.5">
-                                    <div>
-                                        <p class="text-sm font-semibold text-slate-900">Classic Burger Meal</p>
-                                        <p class="text-xs text-slate-500">includes fries + drink</p>
-                                    </div>
-                                    <span class="text-sm font-black text-slate-900">₱199</span>
-                                </div>
-                                <div class="flex items-center justify-between rounded-2xl border border-[#f1d7ea] bg-[#fffafb] px-3 py-2.5">
-                                    <div>
-                                        <p class="text-sm font-semibold text-slate-900">Signature Pasta</p>
-                                        <p class="text-xs text-slate-500">creamy tomato sauce</p>
-                                    </div>
-                                    <span class="text-sm font-black text-slate-900">₱249</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section class="mt-12">
-                <div class="mb-5 flex items-center justify-between gap-4">
-                    <div>
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#c05a94]">Categories</p>
-                        <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Popular categories</h2>
-                    </div>
-                    <a href="#businesses" class="text-sm font-bold text-[#b6548d] hover:text-[#a34a80]">View all</a>
-                </div>
-
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                    <div class="category-box rounded-[24px] p-4">
-                        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff1c7] text-2xl">🍔</div>
-                        <p class="font-bold text-slate-900">Burgers</p>
-                        <p class="mt-1 text-sm text-slate-500">120 stores</p>
-                    </div>
-                    <div class="category-box rounded-[24px] p-4">
-                        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ffe0ee] text-2xl">🍕</div>
-                        <p class="font-bold text-slate-900">Pizza</p>
-                        <p class="mt-1 text-sm text-slate-500">90 stores</p>
-                    </div>
-                    <div class="category-box rounded-[24px] p-4">
-                        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e6f9ef] text-2xl">🥗</div>
-                        <p class="font-bold text-slate-900">Healthy</p>
-                        <p class="mt-1 text-sm text-slate-500">64 stores</p>
-                    </div>
-                    <div class="category-box rounded-[24px] p-4">
-                        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ebf6ff] text-2xl">🥤</div>
-                        <p class="font-bold text-slate-900">Drinks</p>
-                        <p class="mt-1 text-sm text-slate-500">75 stores</p>
-                    </div>
-                    <div class="category-box rounded-[24px] p-4">
-                        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fdf0f2] text-2xl">🍰</div>
-                        <p class="font-bold text-slate-900">Desserts</p>
-                        <p class="mt-1 text-sm text-slate-500">58 stores</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="businesses" class="mt-14">
-                <div class="mb-5 flex items-center justify-between gap-4">
-                    <div>
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#c05a94]">Marketplace</p>
-                        <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Restaurants near you</h2>
-                    </div>
-                    <div class="rounded-full bg-[#fff0f7] px-3 py-2 text-sm font-semibold text-[#b6548d]">12 open now</div>
-                </div>
-
-                <div id="business-list" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
-            </section>
-
-            <section id="register" class="mt-14 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
-                <div class="rounded-[30px] bg-white/85 p-6 shadow-soft border border-[#f1d7ea]">
-                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#c05a94]">Create profile</p>
-                    <h2 class="mt-2 text-3xl font-black tracking-[-0.05em] text-slate-900">Register your food business</h2>
-
-                    <form id="business-form" class="mt-6 space-y-4">
-                        <div class="grid gap-4 md:grid-cols-2">
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Business name</label>
-                                <input id="business-name" type="text" class="w-full rounded-2xl border border-[#f1d7ea] bg-[#fff9fb] px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb] focus:bg-white" placeholder="e.g. Sunset Grill" />
-                            </div>
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Owner name</label>
-                                <input id="owner-name" type="text" class="w-full rounded-2xl border border-[#f1d7ea] bg-[#fff9fb] px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb] focus:bg-white" placeholder="Your name" />
-                            </div>
-                        </div>
-
-                        <div class="grid gap-4 md:grid-cols-2">
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">City / Area</label>
-                                <input id="business-city" type="text" class="w-full rounded-2xl border border-[#f1d7ea] bg-[#fff9fb] px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb] focus:bg-white" placeholder="Makati" />
-                            </div>
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Business type</label>
-                                <select id="business-type" class="w-full rounded-2xl border border-[#f1d7ea] bg-[#fff9fb] px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb] focus:bg-white">
-                                    <option>Restaurant</option>
-                                    <option>Food Cart</option>
-                                    <option>Bakery</option>
-                                    <option>Coffee Shop</option>
-                                    <option>General Store</option>
-                                    <option>Other</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="rounded-[22px] border border-dashed border-[#f1d7ea] bg-[#fff9fb] p-4">
-                            <label class="mb-2 block text-sm font-medium text-slate-700">Restaurant photo</label>
-                            <input id="business-photo" type="file" accept="image/*" class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#ffe7f2] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#b6548d]" />
-                            <div id="business-photo-preview" class="mt-3 hidden overflow-hidden rounded-2xl border border-[#f1d7ea] bg-white">
-                                <img id="business-photo-img" class="h-28 w-full object-cover" alt="Business preview" />
-                            </div>
-                        </div>
-
+                <section class="mt-12">
+                    <div class="mb-5 flex items-center justify-between gap-4">
                         <div>
-                            <label class="mb-2 block text-sm font-medium text-slate-700">Business description</label>
-                            <textarea id="business-description" rows="4" class="w-full rounded-2xl border border-[#f1d7ea] bg-[#fff9fb] px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb] focus:bg-white" placeholder="Tell customers what makes your business special."></textarea>
+                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Popular</p>
+                            <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Categories</h2>
                         </div>
-
-                        <div class="flex gap-3">
-                            <button type="submit" class="candy-btn rounded-2xl px-5 py-3 font-bold text-white">Save business</button>
-                            <button type="button" id="reset-form" class="rounded-2xl border border-[#f1d7ea] bg-[#fff3fa] px-5 py-3 font-semibold text-slate-700 hover:bg-[#faedf5]">Reset</button>
+                        <a href="#" class="text-sm font-bold text-[#bf2d6d]">See all</a>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                        <div class="category-box rounded-[24px] p-4">
+                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff1c7] text-2xl">🍔</div>
+                            <p class="font-bold text-slate-900">Burgers</p>
+                            <p class="mt-1 text-sm text-slate-500">120 stores</p>
                         </div>
-                    </form>
-                </div>
-
-                <div class="rounded-[30px] bg-white/85 p-6 shadow-soft border border-[#f1d7ea]">
-                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#c05a94]">Why it works</p>
-                    <h2 class="mt-2 text-3xl font-black tracking-[-0.05em] text-slate-900">Built for local sellers</h2>
-
-                    <div class="mt-6 space-y-4">
-                        <div class="rounded-[24px] border border-[#f1d7ea] bg-[#fff9fb] p-4">
-                            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ffe4ef] text-[#d15b95]"><i class="fa-solid fa-user"></i></div>
-                            <h3 class="text-lg font-bold text-slate-900">Easy onboarding</h3>
-                            <p class="mt-2 text-sm text-slate-600">Set up your shop profile in minutes without paying a monthly subscription.</p>
+                        <div class="category-box rounded-[24px] p-4">
+                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ffe0ee] text-2xl">🍕</div>
+                            <p class="font-bold text-slate-900">Pizza</p>
+                            <p class="mt-1 text-sm text-slate-500">90 stores</p>
                         </div>
-                        <div class="rounded-[24px] border border-[#f1d7ea] bg-[#fff9fb] p-4">
-                            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#fce6d0] text-[#d98d43]"><i class="fa-solid fa-pen-to-square"></i></div>
-                            <h3 class="text-lg font-bold text-slate-900">Manage your menu</h3>
-                            <p class="mt-2 text-sm text-slate-600">Update items, prices, and descriptions anytime to match customer demand.</p>
+                        <div class="category-box rounded-[24px] p-4">
+                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e6f9ef] text-2xl">🥗</div>
+                            <p class="font-bold text-slate-900">Healthy</p>
+                            <p class="mt-1 text-sm text-slate-500">64 stores</p>
                         </div>
-                        <div class="rounded-[24px] border border-[#f1d7ea] bg-[#fff9fb] p-4">
-                            <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#e8f9ef] text-[#3ea06c]"><i class="fa-solid fa-store"></i></div>
-                            <h3 class="text-lg font-bold text-slate-900">Showcase your brand</h3>
-                            <p class="mt-2 text-sm text-slate-600">Create a standout storefront with your city, cuisine, and signature menu favorites.</p>
+                        <div class="category-box rounded-[24px] p-4">
+                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ebf6ff] text-2xl">🥤</div>
+                            <p class="font-bold text-slate-900">Drinks</p>
+                            <p class="mt-1 text-sm text-slate-500">75 stores</p>
+                        </div>
+                        <div class="category-box rounded-[24px] p-4">
+                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fdf0f2] text-2xl">🍰</div>
+                            <p class="font-bold text-slate-900">Desserts</p>
+                            <p class="mt-1 text-sm text-slate-500">58 stores</p>
                         </div>
                     </div>
-                </div>
+                </section>
+
+                <section class="mt-14">
+                    <div class="mb-5 flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Stores</p>
+                            <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Restaurants near you</h2>
+                        </div>
+                        <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-sm font-semibold text-[#bf2d6d]">12 open now</div>
+                    </div>
+
+                    <div id="customer-restaurants" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+                </section>
+
+                <section class="mt-14 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                    <div id="restaurant-menu-panel" class="soft-card rounded-[30px] p-5"></div>
+                    <div class="soft-card rounded-[30px] p-5">
+                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Cart</p>
+                        <h3 class="mt-2 text-2xl font-black text-slate-900">Your order</h3>
+                        <div id="cart-items" class="mt-4 space-y-3"></div>
+                        <div class="mt-5 border-t border-slate-200 pt-4">
+                            <div class="flex items-center justify-between text-sm text-slate-600">
+                                <span>Subtotal</span>
+                                <span id="cart-subtotal">₱0</span>
+                            </div>
+                            <div class="mt-2 flex items-center justify-between text-sm text-slate-600">
+                                <span>Delivery fee</span>
+                                <span>₱35</span>
+                            </div>
+                            <div class="mt-2 flex items-center justify-between text-lg font-black text-slate-900">
+                                <span>Total</span>
+                                <span id="cart-total">₱0</span>
+                            </div>
+                        </div>
+
+                        <form id="checkout-form" class="mt-6 space-y-4">
+                            <div>
+                                <label class="mb-2 block text-sm font-medium text-slate-700">Customer name</label>
+                                <input id="checkout-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="Your name" />
+                            </div>
+                            <div>
+                                <label class="mb-2 block text-sm font-medium text-slate-700">Delivery address</label>
+                                <textarea id="checkout-address" rows="3" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="House no., street, barangay"></textarea>
+                            </div>
+                            <div>
+                                <label class="mb-2 block text-sm font-medium text-slate-700">Payment method</label>
+                                <div class="grid gap-2 sm:grid-cols-2">
+                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
+                                        <input type="radio" name="payment" value="GCash" checked />
+                                        <span>GCash</span>
+                                    </label>
+                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
+                                        <input type="radio" name="payment" value="Maya" />
+                                        <span>Maya</span>
+                                    </label>
+                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
+                                        <input type="radio" name="payment" value="Card" />
+                                        <span>Card</span>
+                                    </label>
+                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
+                                        <input type="radio" name="payment" value="Cash on Delivery" />
+                                        <span>Cash on Delivery</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="panda-btn w-full rounded-2xl px-4 py-3 text-sm font-bold">Place order</button>
+                        </form>
+                    </div>
+                </section>
             </section>
 
-            <section id="menu-editor" class="mt-14 rounded-[30px] bg-white/85 p-6 shadow-soft border border-[#f1d7ea]">
-                <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                    <div>
-                        <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#c05a94]">Menu editor</p>
-                        <h2 class="mt-2 text-3xl font-black tracking-[-0.05em] text-slate-900">Customize your menu</h2>
-                    </div>
-                    <div id="active-business-name" class="rounded-full border border-[#f1d7ea] bg-[#fff0f7] px-3 py-2 text-xs font-bold text-[#b6548d]">Select a business</div>
-                </div>
+            <section id="owner-view" class="role-view hidden-section">
+                <div class="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+                    <div class="soft-card rounded-[30px] p-6">
+                        <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#bf2d6d]">Business dashboard</p>
+                        <h2 class="mt-2 text-3xl font-black text-slate-900">Register your storefront</h2>
 
-                <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                    <form id="menu-form" class="rounded-[28px] border border-[#f1d7ea] bg-[#fff9fb] p-5">
-                        <input type="hidden" id="menu-edit-id" value="" />
-                        <div class="space-y-4">
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Item name</label>
-                                <input id="menu-name" type="text" class="w-full rounded-2xl border border-[#f1d7ea] bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb]" placeholder="e.g. Chicken Burger" />
+                        <form id="business-form" class="mt-6 space-y-4">
+                            <div class="grid gap-4 md:grid-cols-2">
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">Business name</label>
+                                    <input id="business-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="e.g. Sunset Grill" />
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">Owner name</label>
+                                    <input id="owner-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Your name" />
+                                </div>
                             </div>
                             <div class="grid gap-4 md:grid-cols-2">
                                 <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Category</label>
-                                    <select id="menu-category" class="w-full rounded-2xl border border-[#f1d7ea] bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb]">
-                                        <option>Main</option>
-                                        <option>Drink</option>
-                                        <option>Snack</option>
-                                        <option>Rice Meal</option>
-                                        <option>Dessert</option>
-                                    </select>
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">City / Area</label>
+                                    <input id="business-city" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Makati" />
                                 </div>
                                 <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Price (₱)</label>
-                                    <input id="menu-price" type="number" min="1" step="1" class="w-full rounded-2xl border border-[#f1d7ea] bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb]" value="150" />
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">Business type</label>
+                                    <select id="business-type" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]">
+                                        <option>Restaurant</option>
+                                        <option>Food Cart</option>
+                                        <option>Bakery</option>
+                                        <option>Coffee Shop</option>
+                                        <option>General Store</option>
+                                        <option>Other</option>
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="rounded-[22px] border border-dashed border-[#f1d7ea] bg-white p-4">
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Product photo</label>
-                                <input id="menu-photo" type="file" accept="image/*" class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#ffe7f2] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#b6548d]" />
-                                <div id="menu-photo-preview" class="mt-3 hidden overflow-hidden rounded-2xl border border-[#f1d7ea] bg-white">
-                                    <img id="menu-photo-img" class="h-24 w-full object-cover" alt="Menu preview" />
+                            <div class="rounded-[22px] border border-dashed border-slate-200 bg-slate-50 p-4">
+                                <label class="mb-2 block text-sm font-medium text-slate-700">Restaurant photo</label>
+                                <input id="business-photo" type="file" accept="image/*" class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#ffe9f1] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#bf2d6d]" />
+                                <div id="business-photo-preview" class="mt-3 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                                    <img id="business-photo-img" class="h-28 w-full object-cover" alt="Business preview" />
                                 </div>
                             </div>
 
                             <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Description</label>
-                                <textarea id="menu-description" rows="3" class="w-full rounded-2xl border border-[#f1d7ea] bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-[#ff9ecb]" placeholder="What makes this dish special?"></textarea>
+                                <label class="mb-2 block text-sm font-medium text-slate-700">Business description</label>
+                                <textarea id="business-description" rows="4" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Tell customers what makes your business special."></textarea>
                             </div>
-                            <div class="flex gap-3">
-                                <button type="submit" class="candy-btn rounded-2xl px-5 py-3 font-bold text-white">Save item</button>
-                                <button type="button" id="cancel-menu-edit" class="rounded-2xl border border-[#f1d7ea] bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-[#fdf3f9]">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
 
-                    <div class="rounded-[28px] border border-[#f1d7ea] bg-[#fff9fb] p-5">
-                        <p class="mb-4 text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Current menu</p>
-                        <div id="menu-list" class="space-y-3"></div>
+                            <div class="flex gap-3">
+                                <button type="submit" class="panda-btn rounded-2xl px-5 py-3 font-bold text-white">Save business</button>
+                                <button type="button" id="reset-form" class="rounded-2xl border border-slate-200 bg-slate-100 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-200">Reset</button>
+                            </div>
+                        </form>
                     </div>
+
+                    <div class="soft-card rounded-[30px] p-6">
+                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Orders</p>
+                        <h2 class="mt-2 text-3xl font-black text-slate-900">Incoming requests</h2>
+                        <div id="owner-orders" class="mt-5 space-y-3"></div>
+                    </div>
+                </div>
+
+                <section class="mt-14 rounded-[30px] soft-card p-6">
+                    <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Menu editor</p>
+                            <h2 class="mt-2 text-3xl font-black text-slate-900">Customize your menu</h2>
+                        </div>
+                        <div id="active-business-name" class="rounded-full bg-[#fff1f7] px-3 py-2 text-xs font-bold text-[#bf2d6d]">Select a business</div>
+                    </div>
+
+                    <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+                        <form id="menu-form" class="rounded-[28px] border border-slate-200 bg-slate-50 p-5">
+                            <input type="hidden" id="menu-edit-id" value="" />
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">Item name</label>
+                                    <input id="menu-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="e.g. Chicken Burger" />
+                                </div>
+                                <div class="grid gap-4 md:grid-cols-2">
+                                    <div>
+                                        <label class="mb-2 block text-sm font-medium text-slate-700">Category</label>
+                                        <select id="menu-category" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]">
+                                            <option>Main</option>
+                                            <option>Drink</option>
+                                            <option>Snack</option>
+                                            <option>Rice Meal</option>
+                                            <option>Dessert</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="mb-2 block text-sm font-medium text-slate-700">Price (₱)</label>
+                                        <input id="menu-price" type="number" min="1" step="1" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" value="150" />
+                                    </div>
+                                </div>
+                                <div class="rounded-[22px] border border-dashed border-slate-200 bg-white p-4">
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">Product photo</label>
+                                    <input id="menu-photo" type="file" accept="image/*" class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#ffe9f1] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#bf2d6d]" />
+                                    <div id="menu-photo-preview" class="mt-3 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                                        <img id="menu-photo-img" class="h-24 w-full object-cover" alt="Menu preview" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-slate-700">Description</label>
+                                    <textarea id="menu-description" rows="3" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="What makes this dish special?"></textarea>
+                                </div>
+                                <div class="flex gap-3">
+                                    <button type="submit" class="panda-btn rounded-2xl px-5 py-3 font-bold text-white">Save item</button>
+                                    <button type="button" id="cancel-menu-edit" class="rounded-2xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="rounded-[28px] border border-slate-200 bg-slate-50 p-5">
+                            <p class="mb-4 text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Current menu</p>
+                            <div id="menu-list" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section id="rider-view" class="role-view hidden-section">
+                <div class="soft-card rounded-[30px] p-6">
+                    <div class="mb-6 flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Rider panel</p>
+                            <h2 class="mt-2 text-3xl font-black text-slate-900">Delivery tasks</h2>
+                        </div>
+                        <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-xs font-bold text-[#bf2d6d]">Rider 01</div>
+                    </div>
+                    <div id="rider-orders" class="grid gap-4 md:grid-cols-2"></div>
                 </div>
             </section>
         </main>
 
-        <footer class="border-t border-[#f1d7ea] bg-white/70">
+        <footer class="border-t border-slate-200 bg-white/80">
             <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:px-8">
                 <p>© <span id="year"></span> chandada</p>
                 <div class="flex gap-4">
-                    <a href="#home" class="hover:text-[#c05a94]">Home</a>
-                    <a href="#register" class="hover:text-[#c05a94]">Register</a>
-                    <a href="#businesses" class="hover:text-[#c05a94]">Restaurants</a>
+                    <a href="#" class="hover:text-[#bf2d6d]">Home</a>
+                    <a href="#" class="hover:text-[#bf2d6d]">Terms</a>
+                    <a href="#" class="hover:text-[#bf2d6d]">Support</a>
                 </div>
             </div>
         </footer>
@@ -405,6 +442,9 @@
 
     <script>
         const profileStorageKey = 'chandada_business_profiles';
+        const orderStorageKey = 'chandada_orders';
+        const cartStorageKey = 'chandada_cart';
+
         const defaultProfiles = [
             {
                 id: 1,
@@ -436,8 +476,50 @@
             }
         ];
 
+        const defaultOrders = [
+            {
+                id: 1,
+                businessId: 1,
+                businessName: 'La Mesa Grill',
+                customerName: 'Ana Reyes',
+                customerAddress: '123 P. Cruz St., Makati',
+                paymentMethod: 'GCash',
+                total: 430,
+                status: 'pending',
+                items: [
+                    { id: 101, name: 'Chicken Inasal', quantity: 1, price: 180 },
+                    { id: 103, name: 'Fresh Lemonade', quantity: 2, price: 70 }
+                ],
+                rider: 'Rider 01',
+                createdAt: Date.now() - 1000 * 60 * 18
+            },
+            {
+                id: 2,
+                businessId: 2,
+                businessName: 'Sunset Bakeshop',
+                customerName: 'Mark Dela Cruz',
+                customerAddress: '88 M. Ponce St., Makati',
+                paymentMethod: 'Maya',
+                total: 310,
+                status: 'accepted',
+                items: [
+                    { id: 201, name: 'Cheese Ensaymada', quantity: 2, price: 60 },
+                    { id: 202, name: 'Ube Cake Slice', quantity: 1, price: 140 }
+                ],
+                rider: 'Rider 01',
+                createdAt: Date.now() - 1000 * 60 * 8
+            }
+        ];
+
         let profiles = JSON.parse(localStorage.getItem(profileStorageKey)) || defaultProfiles;
+        const savedOrders = JSON.parse(localStorage.getItem(orderStorageKey)) || defaultOrders;
+        const cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
         let selectedBusinessId = profiles[0]?.id || null;
+        let currentMode = 'customer';
+
+        function saveProfiles() { localStorage.setItem(profileStorageKey, JSON.stringify(profiles)); }
+        function saveOrders() { localStorage.setItem(orderStorageKey, JSON.stringify(savedOrders)); }
+        function saveCart() { localStorage.setItem(cartStorageKey, JSON.stringify(cart)); }
 
         function readFileAsDataURL(file) {
             return new Promise((resolve, reject) => {
@@ -455,7 +537,6 @@
                 previewImg.src = '';
                 return;
             }
-
             const reader = new FileReader();
             reader.onload = (event) => {
                 previewImg.src = event.target.result;
@@ -464,74 +545,354 @@
             reader.readAsDataURL(file);
         }
 
-        function saveProfiles() {
-            localStorage.setItem(profileStorageKey, JSON.stringify(profiles));
-        }
-
         function showToast(message) {
             const container = document.getElementById('toast-container');
             if (!container) return;
             const toast = document.createElement('div');
-            toast.className = 'pointer-events-auto rounded-2xl border border-[#f1d7ea] bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-lg';
-            toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#ff7bb7]"></i><span>' + message + '</span></div>';
+            toast.className = 'pointer-events-auto rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-lg';
+            toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-panda-pink"></i><span>' + message + '</span></div>';
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 2600);
         }
 
-        function updatePreview() {
-            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
-            if (!business) return;
-            const activeName = document.getElementById('active-business-name');
-            if (activeName) activeName.textContent = 'Selected: ' + business.name;
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                const isActive = btn.dataset.role === mode;
+                btn.classList.toggle('active', isActive);
+                btn.classList.toggle('text-slate-700', !isActive);
+                btn.classList.toggle('text-white', isActive);
+            });
+            document.querySelectorAll('.role-view').forEach(view => {
+                view.classList.toggle('hidden-section', view.id !== `${mode}-view`);
+            });
         }
 
-        function renderBusinessList() {
-            const container = document.getElementById('business-list');
-            if (!profiles.length) {
-                container.innerHTML = '<div class="col-span-full rounded-[28px] border border-dashed border-[#f1d7ea] bg-white/80 p-8 text-center text-slate-500">No businesses registered yet.</div>';
+        function getCartSubtotal() {
+            return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        }
+
+        function renderCart() {
+            const cartItemsEl = document.getElementById('cart-items');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+
+            if (!cart.length) {
+                cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">Your cart is empty. Add items from a restaurant.</div>';
+                subtotalEl.textContent = '₱0';
+                totalEl.textContent = '₱0';
                 return;
             }
 
-            container.innerHTML = profiles.map(profile => `
-                <article class="cotton-card rounded-[28px] p-4 transition duration-200">
-                    <div class="overflow-hidden rounded-[20px] border border-[#f1d7ea] bg-white">
-                        ${profile.photo ? `<img src="${profile.photo}" alt="${profile.name}" class="h-28 w-full object-cover" />` : `<div class="flex h-28 w-full items-center justify-center bg-gradient-to-br from-[#ff9ecb] via-[#dca4ff] to-[#7ec9ff] text-3xl font-black text-white">${profile.name.charAt(0)}</div>`}
+            cartItemsEl.innerHTML = cart.map(item => `
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <div class="font-bold text-slate-900">${item.name}</div>
+                            <div class="text-xs text-slate-500">₱${item.price} each</div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="decrease-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">-</button>
+                            <span class="text-sm font-bold text-slate-900">${item.quantity}</span>
+                            <button class="increase-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">+</button>
+                        </div>
                     </div>
-                    <div class="mt-4 flex items-center justify-between gap-4">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff9ecb] via-[#dca4ff] to-[#7ec9ff] text-lg font-black text-white">${profile.name.charAt(0)}</div>
-                        <button class="delete-business text-slate-400 hover:text-red-500" data-business-id="${profile.id}" title="Delete business"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+
+            const subtotal = getCartSubtotal();
+            subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
+            totalEl.textContent = `₱${(subtotal + 35).toLocaleString()}`;
+
+            document.querySelectorAll('.increase-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const itemId = Number(btn.dataset.itemId);
+                    const existing = cart.find(entry => entry.id === itemId);
+                    if (existing) existing.quantity += 1;
+                    saveCart();
+                    renderCart();
+                });
+            });
+
+            document.querySelectorAll('.decrease-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const itemId = Number(btn.dataset.itemId);
+                    const existingIndex = cart.findIndex(entry => entry.id === itemId);
+                    if (existingIndex === -1) return;
+                    if (cart[existingIndex].quantity > 1) {
+                        cart[existingIndex].quantity -= 1;
+                    } else {
+                        cart.splice(existingIndex, 1);
+                    }
+                    saveCart();
+                    renderCart();
+                });
+            });
+        }
+
+        function addToCart(menuItem, restaurantId) {
+            const existing = cart.find(item => item.id === menuItem.id && item.restaurantId === restaurantId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: menuItem.id,
+                    restaurantId,
+                    name: menuItem.name,
+                    price: Number(menuItem.price),
+                    quantity: 1
+                });
+            }
+            saveCart();
+            renderCart();
+            showToast(`${menuItem.name} added to cart.`);
+        }
+
+        function renderCustomerRestaurants() {
+            const container = document.getElementById('customer-restaurants');
+            const search = document.getElementById('customer-search')?.value?.toLowerCase() || '';
+            const filtered = profiles.filter(profile =>
+                profile.name.toLowerCase().includes(search) ||
+                profile.type.toLowerCase().includes(search) ||
+                profile.city.toLowerCase().includes(search)
+            );
+
+            if (!filtered.length) {
+                container.innerHTML = '<div class="col-span-full rounded-[28px] border border-dashed border-slate-200 bg-white p-8 text-center text-slate-500">No matching restaurants found.</div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(profile => `
+                <article class="restaurant-card soft-card rounded-[28px] p-4 transition duration-200">
+                    <div class="overflow-hidden rounded-[20px] border border-slate-200 bg-white">
+                        <img src="${profile.photo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'}" alt="${profile.name}" class="h-34 w-full object-cover" />
                     </div>
-                    <h3 class="mt-4 text-xl font-black text-slate-900">${profile.name}</h3>
-                    <p class="mt-1 text-sm text-slate-500">${profile.type} • ${profile.city}</p>
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900">${profile.name}</h3>
+                            <p class="text-sm text-slate-500">${profile.type} • ${profile.city}</p>
+                        </div>
+                        <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
+                    </div>
                     <p class="mt-3 text-sm text-slate-600 line-clamp-2">${profile.description}</p>
-                    <div class="mt-5 flex items-center justify-between gap-3">
-                        <button class="open-business rounded-2xl bg-gradient-to-r from-[#ff7bb7] to-[#c7a5ff] px-3 py-2 text-sm font-bold text-white hover:brightness-105" data-business-id="${profile.id}">Open menu</button>
-                        <span class="rounded-full bg-[#fff0f7] px-2 py-1 text-xs font-bold text-[#b6548d]">${profile.menu?.length || 0} items</span>
+                    <div class="mt-4 flex items-center justify-between gap-3">
+                        <button class="open-restaurant rounded-2xl bg-[#fff1f7] px-3 py-2 text-sm font-bold text-[#bf2d6d]" data-restaurant-id="${profile.id}">View menu</button>
+                        <span class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">25-35 min</span>
                     </div>
                 </article>
             `).join('');
 
-            document.querySelectorAll('.open-business').forEach(btn => {
+            document.querySelectorAll('.open-restaurant').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    selectedBusinessId = Number(btn.dataset.businessId);
-                    updatePreview();
-                    renderMenuList();
-                    showToast('Opened business menu.');
+                    selectedBusinessId = Number(btn.dataset.restaurantId);
+                    renderRestaurantMenu();
+                    showToast('Loaded restaurant menu.');
                 });
             });
+        }
 
-            document.querySelectorAll('.delete-business').forEach(btn => {
+        function renderRestaurantMenu() {
+            const panel = document.getElementById('restaurant-menu-panel');
+            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
+            if (!business) {
+                panel.innerHTML = '<div class="rounded-[20px] border border-dashed border-slate-200 bg-slate-50 p-6 text-center text-slate-500">Select a restaurant to view its menu.</div>';
+                return;
+            }
+
+            panel.innerHTML = `
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Selected store</p>
+                        <h3 class="mt-2 text-3xl font-black text-slate-900">${business.name}</h3>
+                        <p class="mt-1 text-sm text-slate-500">${business.type} • ${business.city}</p>
+                    </div>
+                    <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
+                </div>
+                <div class="mt-4 overflow-hidden rounded-[22px] border border-slate-200 bg-white">
+                    <img src="${business.photo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'}" alt="${business.name}" class="h-48 w-full object-cover" />
+                </div>
+                <div class="mt-5 grid gap-3">
+                    ${(business.menu || []).map(item => `
+                        <div class="menu-item-card rounded-[22px] border border-slate-200 bg-white p-3 transition duration-200">
+                            <div class="flex items-start gap-3">
+                                <div class="h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                                    <img src="${item.photo || 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80'}" alt="${item.name}" class="h-full w-full object-cover" />
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-start justify-between gap-3">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <h4 class="text-lg font-black text-slate-900">${item.name}</h4>
+                                                <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${item.category}</span>
+                                            </div>
+                                            <p class="mt-1 text-sm text-slate-500">${item.description}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-base font-black text-slate-900">₱${Number(item.price).toLocaleString()}</div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 flex justify-end">
+                                        <button class="add-item rounded-2xl bg-[#ff2b85] px-3 py-2 text-sm font-bold text-white" data-item-id="${item.id}" data-item-name="${item.name}" data-item-price="${item.price}">Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            document.querySelectorAll('.add-item').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const businessId = Number(btn.dataset.businessId);
-                    profiles = profiles.filter(profile => profile.id !== businessId);
-                    if (selectedBusinessId === businessId) {
-                        selectedBusinessId = profiles[0]?.id || null;
-                    }
-                    saveProfiles();
-                    renderBusinessList();
-                    renderMenuList();
-                    updatePreview();
-                    showToast('Business removed.');
+                    const itemId = Number(btn.dataset.itemId);
+                    const item = business.menu.find(entry => entry.id === itemId);
+                    if (!item) return;
+                    addToCart(item, business.id);
+                });
+            });
+        }
+
+        document.getElementById('customer-search').addEventListener('input', renderCustomerRestaurants);
+
+        document.getElementById('checkout-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (!cart.length) {
+                showToast('Your cart is empty.');
+                return;
+            }
+
+            const name = document.getElementById('checkout-name').value.trim();
+            const address = document.getElementById('checkout-address').value.trim();
+            const payment = document.querySelector('input[name="payment"]:checked')?.value || 'GCash';
+
+            if (!name || !address) {
+                showToast('Please enter your name and delivery address.');
+                return;
+            }
+
+            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
+            const total = getCartSubtotal() + 35;
+            const order = {
+                id: Date.now(),
+                businessId: business.id,
+                businessName: business.name,
+                customerName: name,
+                customerAddress: address,
+                paymentMethod: payment,
+                total,
+                status: 'pending',
+                rider: 'Rider 01',
+                items: cart.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price
+                })),
+                createdAt: Date.now()
+            };
+
+            savedOrders.unshift(order);
+            saveOrders();
+            cart.length = 0;
+            saveCart();
+            renderCart();
+            renderOwnerOrders();
+            renderRiderOrders();
+            event.target.reset();
+            document.querySelector('input[name="payment"][value="GCash"]').checked = true;
+            showToast('Order placed successfully!');
+        });
+
+        function renderOwnerOrders() {
+            const container = document.getElementById('owner-orders');
+            const owned = savedOrders.filter(order => profiles.some(profile => profile.id === order.businessId));
+
+            if (!owned.length) {
+                container.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">No orders yet.</div>';
+                return;
+            }
+
+            container.innerHTML = owned.map(order => `
+                <div class="order-card rounded-[22px] border border-slate-200 bg-white p-4 transition duration-200">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <div class="text-sm font-bold uppercase tracking-[0.12em] text-slate-400">${order.businessName}</div>
+                            <h3 class="mt-1 text-lg font-black text-slate-900">${order.customerName}</h3>
+                        </div>
+                        <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${order.status}</span>
+                    </div>
+                    <p class="mt-2 text-sm text-slate-500">${order.customerAddress}</p>
+                    <div class="mt-3 text-sm text-slate-700">
+                        ${order.items.map(item => `<div class="flex justify-between py-1"><span>${item.name} x${item.quantity}</span><span>₱${(item.price * item.quantity).toLocaleString()}</span></div>`).join('')}
+                    </div>
+                    <div class="mt-3 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
+                        <span class="font-bold text-slate-900">Total</span>
+                        <span class="font-black text-slate-900">₱${order.total.toLocaleString()}</span>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button class="owner-status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-xs font-bold text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
+                        <button class="owner-status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="on-the-way">On the way</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.owner-status-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const orderId = Number(btn.dataset.orderId);
+                    const order = savedOrders.find(item => item.id === orderId);
+                    if (!order) return;
+                    order.status = btn.dataset.status;
+                    saveOrders();
+                    renderOwnerOrders();
+                    renderRiderOrders();
+                    showToast(`Order marked as ${btn.dataset.status}.`);
+                });
+            });
+        }
+
+        function renderRiderOrders() {
+            const container = document.getElementById('rider-orders');
+            const active = savedOrders.filter(order => ['pending','accepted','on-the-way'].includes(order.status));
+
+            if (!active.length) {
+                container.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">No delivery tasks right now.</div>';
+                return;
+            }
+
+            container.innerHTML = active.map(order => `
+                <div class="order-card rounded-[24px] border border-slate-200 bg-white p-4 transition duration-200">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">${order.businessName}</div>
+                            <h3 class="mt-1 text-xl font-black text-slate-900">${order.customerName}</h3>
+                        </div>
+                        <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${order.status}</span>
+                    </div>
+                    <p class="mt-3 text-sm text-slate-500">${order.customerAddress}</p>
+                    <div class="mt-3 text-sm text-slate-700">
+                        ${order.items.map(item => `<div class="flex justify-between py-1"><span>${item.name} x${item.quantity}</span><span>₱${(item.price * item.quantity).toLocaleString()}</span></div>`).join('')}
+                    </div>
+                    <div class="mt-3 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
+                        <span class="font-bold text-slate-900">Payment</span>
+                        <span class="font-black text-slate-900">${order.paymentMethod}</span>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button class="rider-status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-xs font-bold text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
+                        <button class="rider-status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="on-the-way">On the way</button>
+                        <button class="rider-status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="completed">Delivered</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.rider-status-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const orderId = Number(btn.dataset.orderId);
+                    const order = savedOrders.find(item => item.id === orderId);
+                    if (!order) return;
+                    order.status = btn.dataset.status;
+                    saveOrders();
+                    renderOwnerOrders();
+                    renderRiderOrders();
+                    showToast(`Delivery status updated to ${btn.dataset.status}.`);
                 });
             });
         }
@@ -539,28 +900,27 @@
         function renderMenuList() {
             const selectedBusiness = profiles.find(item => item.id === selectedBusinessId);
             const list = document.getElementById('menu-list');
-
             if (!selectedBusiness) {
-                list.innerHTML = '<div class="rounded-[24px] border border-dashed border-[#f1d7ea] bg-white p-6 text-center text-slate-500">No business selected.</div>';
+                list.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-white p-6 text-center text-slate-500">No business selected.</div>';
                 return;
             }
 
             if (!selectedBusiness.menu || !selectedBusiness.menu.length) {
-                list.innerHTML = '<div class="rounded-[24px] border border-dashed border-[#f1d7ea] bg-white p-6 text-center text-slate-500">This business has no menu items yet.</div>';
+                list.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-white p-6 text-center text-slate-500">This business has no menu items yet.</div>';
                 return;
             }
 
             list.innerHTML = selectedBusiness.menu.map(item => `
-                <div class="menu-item-card rounded-[24px] border border-[#f1d7ea] bg-white p-4 transition duration-200">
+                <div class="menu-item-card rounded-[24px] border border-slate-200 bg-white p-4 transition duration-200">
                     <div class="flex items-start gap-3">
-                        <div class="h-16 w-16 overflow-hidden rounded-2xl border border-[#f1d7ea] bg-[#fff9fb]">
-                            ${item.photo ? `<img src="${item.photo}" alt="${item.name}" class="h-full w-full object-cover" />` : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#ff9ecb] to-[#c7a5ff] text-xl text-white">${item.name.charAt(0)}</div>`}
+                        <div class="h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                            ${item.photo ? `<img src="${item.photo}" alt="${item.name}" class="h-full w-full object-cover" />` : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#ff2b85] to-[#ff9f6e] text-xl font-black text-white">${item.name.charAt(0)}</div>`}
                         </div>
                         <div class="flex-1">
                             <div class="flex items-center justify-between gap-2">
                                 <div class="flex items-center gap-2">
                                     <h3 class="text-lg font-black text-slate-900">${item.name}</h3>
-                                    <span class="rounded-full bg-[#fff0f7] px-2 py-1 text-[10px] font-bold uppercase text-[#b6548d]">${item.category}</span>
+                                    <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${item.category}</span>
                                 </div>
                                 <div class="text-right">
                                     <div class="text-base font-black text-slate-900">₱${Number(item.price).toLocaleString()}</div>
@@ -586,14 +946,14 @@
                     document.getElementById('menu-category').value = item.category;
                     document.getElementById('menu-price').value = item.price;
                     document.getElementById('menu-description').value = item.description;
-                    const photoPreview = document.getElementById('menu-photo-preview');
-                    const photoImg = document.getElementById('menu-photo-img');
+                    const preview = document.getElementById('menu-photo-preview');
+                    const img = document.getElementById('menu-photo-img');
                     if (item.photo) {
-                        photoImg.src = item.photo;
-                        photoPreview.classList.remove('hidden');
+                        img.src = item.photo;
+                        preview.classList.remove('hidden');
                     } else {
-                        photoPreview.classList.add('hidden');
-                        photoImg.src = '';
+                        preview.classList.add('hidden');
+                        img.src = '';
                     }
                     document.getElementById('menu-name').focus();
                 });
@@ -621,6 +981,10 @@
             document.getElementById('menu-photo-img').src = '';
         }
 
+        document.querySelectorAll('.role-btn').forEach(btn => {
+            btn.addEventListener('click', () => setMode(btn.dataset.role));
+        });
+
         document.getElementById('business-photo').addEventListener('change', (event) => {
             setImagePreview(event.target, document.getElementById('business-photo-preview'), document.getElementById('business-photo-img'));
         });
@@ -629,14 +993,13 @@
             setImagePreview(event.target, document.getElementById('menu-photo-preview'), document.getElementById('menu-photo-img'));
         });
 
-        document.getElementById('new-business-btn').addEventListener('click', () => {
+        document.getElementById('new-business-btn')?.addEventListener('click', () => {
+            setMode('owner');
             document.getElementById('business-name').focus();
-            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
         });
 
         document.getElementById('business-form').addEventListener('submit', async (event) => {
             event.preventDefault();
-
             const photoFile = document.getElementById('business-photo').files[0];
             const photoData = photoFile ? await readFileAsDataURL(photoFile) : '';
 
@@ -659,9 +1022,10 @@
             profiles.unshift(data);
             selectedBusinessId = data.id;
             saveProfiles();
-            renderBusinessList();
+            renderCustomerRestaurants();
+            renderRestaurantMenu();
             renderMenuList();
-            updatePreview();
+            updateBusinessName();
             event.target.reset();
             document.getElementById('business-photo-preview').classList.add('hidden');
             document.getElementById('business-photo-img').src = '';
@@ -674,6 +1038,12 @@
             document.getElementById('business-photo-img').src = '';
         });
 
+        function updateBusinessName() {
+            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
+            const active = document.getElementById('active-business-name');
+            if (active && business) active.textContent = 'Selected: ' + business.name;
+        }
+
         document.getElementById('menu-form').addEventListener('submit', async (event) => {
             event.preventDefault();
             const business = profiles.find(item => item.id === selectedBusinessId);
@@ -684,7 +1054,6 @@
 
             const photoFile = document.getElementById('menu-photo').files[0];
             const photoData = photoFile ? await readFileAsDataURL(photoFile) : '';
-
             const itemId = document.getElementById('menu-edit-id').value;
             const newItem = {
                 id: itemId ? Number(itemId) : Date.now(),
@@ -708,18 +1077,24 @@
             }
 
             saveProfiles();
-            renderBusinessList();
+            renderCustomerRestaurants();
+            renderRestaurantMenu();
             renderMenuList();
             resetMenuForm();
             showToast('Menu item saved.');
         });
 
         document.getElementById('cancel-menu-edit').addEventListener('click', resetMenuForm);
-
         document.getElementById('year').textContent = new Date().getFullYear();
-        updatePreview();
-        renderBusinessList();
+
+        updateBusinessName();
+        renderCustomerRestaurants();
+        renderRestaurantMenu();
+        renderCart();
+        renderOwnerOrders();
+        renderRiderOrders();
         renderMenuList();
+        setMode('customer');
     </script>
 </body>
 </html>
