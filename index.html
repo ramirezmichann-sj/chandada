@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fusion Nook | Food Delivery</title>
-  <meta name="description" content="Fusion Nook — a single-brand food delivery and ordering website." />
+  <title>Fusion Nook | Live Orders</title>
+  <meta name="description" content="Fusion Nook live order tracker with preparation timer and delivery status." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -36,259 +36,93 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #fffafc 0%, #f7f6f9 100%); }
-    .brand-card { background: rgba(255,255,255,0.8); border: 1px solid rgba(148,163,184,0.16); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06); backdrop-filter: blur(8px); }
-    .fusion-btn { background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%); color: white; box-shadow: 0 16px 28px rgba(255, 43, 133, 0.22); }
-    .soft-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(148,163,184,0.18); box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05); }
-    .hidden-section { display: none !important; }
-    .chat-float { position: fixed; right: 20px; bottom: 20px; z-index: 60; }
-    .chat-modal { position: fixed; inset: 0; z-index: 70; display: none; background: rgba(15, 23, 42, 0.52); backdrop-filter: blur(3px); }
-    .chat-modal.show { display: flex; align-items: center; justify-content: center; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #fffafc 0%, #f7f6f9 100%);
+    }
+    .fusion-btn {
+      background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
+      color: white;
+      box-shadow: 0 16px 28px rgba(255, 43, 133, 0.2);
+    }
+    .soft-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .timer-box {
+      border: 1px solid rgba(148,163,184,0.15);
+      background: linear-gradient(180deg, #fff7fb 0%, #fff 100%);
+    }
   </style>
 </head>
-<body class="min-h-full text-slate-800 antialiased">
+<body class="min-h-full antialiased">
   <div id="toast-container" class="fixed right-5 top-5 z-50 flex flex-col gap-2"></div>
 
-  <div id="chat-float" class="chat-float">
-    <button id="chat-open-btn" class="fusion-btn flex h-14 w-14 items-center justify-center rounded-full text-xl shadow-2xl">
-      <i class="fa-brands fa-facebook-messenger"></i>
-    </button>
-  </div>
-
-  <div id="chat-modal" class="chat-modal" aria-hidden="true">
-    <div class="w-full max-w-md rounded-[28px] bg-white p-5 shadow-2xl">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Fusion Nook</p>
-          <h3 class="mt-1 text-2xl font-black text-slate-900">Order accepted</h3>
-        </div>
-        <button id="chat-close-btn" class="rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="mt-4 rounded-[20px] bg-[#fff1f7] p-4 text-sm text-slate-700">
-        Your order has been accepted. Please chat with Fusion Nook on your preferred channel to confirm details.
-      </div>
-
-      <div class="mt-5 grid gap-3">
-        <a id="viber-link" href="https://invite.viber.com/?g2=AQARxT7B3u0u0zM1Jx5mCOv%2BqFB1DgY8%2B9YvVmH3WQ%3D" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl border border-slate-200 bg-[#f4f5f7] px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-100">
-          <span class="flex items-center gap-3"><i class="fa-brands fa-viber text-[#7c3aed]"></i> Viber</span>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
-        </a>
-
-        <a id="messenger-link" href="https://m.me/FusionNook" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl border border-slate-200 bg-[#f4f5f7] px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-100">
-          <span class="flex items-center gap-3"><i class="fa-brands fa-facebook-messenger text-[#0a7cff]"></i> Messenger</span>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="app-shell">
-    <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <header class="soft-card rounded-[30px] p-4 sm:p-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div class="flex items-center gap-3">
-          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff2b85] via-[#ff7cb0] to-[#ffb36a] text-lg font-black text-white shadow-brand">F</div>
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff2b85] via-[#ff7cb0] to-[#ffb36a] text-xl font-black text-white shadow-brand">F</div>
           <div>
-            <div class="text-xl font-black tracking-tight text-slate-900">Fusion Nook</div>
-            <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">single brand</div>
+            <div class="text-2xl font-black tracking-tight text-slate-900">Fusion Nook</div>
+            <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">live order tracker</div>
           </div>
         </div>
 
-        <nav class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
-          <a href="#home" class="hover:text-[#bf2d6d]">Home</a>
-          <a href="#menu" class="hover:text-[#bf2d6d]">Menu</a>
-          <a href="#orders" class="hover:text-[#bf2d6d]">Orders</a>
-          <a href="#contact" class="hover:text-[#bf2d6d]">Contact</a>
-        </nav>
-
-        <div class="flex items-center gap-3">
-          <button class="hidden rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 md:inline-flex">
-            <i class="fa-solid fa-location-dot mr-2 text-[#ff2b85]"></i> Makati
-          </button>
+        <div class="flex flex-wrap gap-3 text-sm font-semibold text-slate-600">
+          <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-[#bf2d6d]">Pending: <span id="pending-count">0</span></div>
+          <div class="rounded-full bg-[#ecfeff] px-3 py-2 text-[#0f766e]">Preparing: <span id="accepted-count">0</span></div>
+          <div class="rounded-full bg-[#ecfdf5] px-3 py-2 text-[#15803d]">Finished: <span id="finished-count">0</span></div>
+          <div class="rounded-full bg-[#eef2ff] px-3 py-2 text-[#4f46e5]">In Delivery: <span id="delivery-count">0</span></div>
         </div>
       </div>
     </header>
 
-    <main id="home" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <section class="brand-card rounded-[30px] p-4 sm:p-6 lg:p-8">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-3 rounded-full bg-[#fff7fa] px-4 py-2.5 text-sm text-slate-600 shadow-sm">
-            <i class="fa-solid fa-location-dot text-[#ff2b85]"></i>
-            <span>Deliver to <span class="font-bold text-slate-800">Makati</span></span>
-          </div>
-          <div class="flex items-center gap-2 rounded-full bg-[#fff3f7] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#bf2d6d]">
-            <i class="fa-solid fa-ticket"></i> Fusion Nook Deal
-          </div>
-        </div>
-
-        <div class="mt-6 grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-          <div class="space-y-5">
-            <div class="inline-flex items-center rounded-full bg-[#fff1f7] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#bf2d6d]">
-              <i class="fa-solid fa-bolt mr-2 text-[#ff2b85]"></i> Fresh • Fast • Fusion Nook
-            </div>
-            <div class="space-y-4">
-              <h1 class="text-4xl font-black tracking-[-0.06em] text-slate-900 md:text-5xl lg:text-[4rem]">Own the taste. Own the brand.</h1>
-              <p class="max-w-xl text-base text-slate-600 md:text-lg">Fusion Nook brings together crowd-favorite meals, cozy bites, and fast delivery under one trusted brand.</p>
-            </div>
-            <div class="flex flex-col gap-3 sm:flex-row">
-              <div class="flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-                <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-                <input id="search-input" type="text" placeholder="Search dishes or meals" class="w-full border-0 bg-transparent text-sm text-slate-500 outline-none placeholder:text-slate-400" />
-              </div>
-              <button class="fusion-btn rounded-2xl px-5 py-3 text-sm font-bold text-white">Order now</button>
-            </div>
-            <div class="flex flex-wrap gap-3 text-sm">
-              <span class="rounded-full bg-[#fff1f7] px-3 py-1.5 font-semibold text-[#bf2d6d]">Pizza</span>
-              <span class="rounded-full bg-[#eef2ff] px-3 py-1.5 font-semibold text-[#4957c9]">Burgers</span>
-              <span class="rounded-full bg-[#ebf9ff] px-3 py-1.5 font-semibold text-[#377dc7]">Japanese</span>
-              <span class="rounded-full bg-[#ecfdf5] px-3 py-1.5 font-semibold text-[#25815d]">Healthy</span>
-            </div>
-          </div>
-
-          <div class="rounded-[28px] bg-gradient-to-br from-[#fff4f8] via-white to-[#f5f1ff] p-4 shadow-soft">
-            <div class="rounded-[24px] bg-white p-4 shadow-card">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Featured</p>
-                  <h2 class="mt-1 text-2xl font-black text-slate-900">Fusion Combo</h2>
-                </div>
-                <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.9 ★</div>
-              </div>
-              <div class="mt-4 rounded-[22px] bg-gradient-to-r from-[#fff1f7] via-[#fff7fc] to-[#f3f0ff] p-4">
-                <div class="flex items-center justify-between gap-4">
-                  <div>
-                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Combo deal</p>
-                    <p class="mt-3 text-3xl font-black text-slate-900">₱299</p>
-                  </div>
-                  <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">🍔</div>
-                </div>
-              </div>
-              <div class="mt-5 space-y-3">
-                <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
-                  <div>
-                    <p class="text-sm font-semibold text-slate-900">Classic Burger Meal</p>
-                    <p class="text-xs text-slate-500">fries + drink</p>
-                  </div>
-                  <span class="text-sm font-black text-slate-900">₱199</span>
-                </div>
-                <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
-                  <div>
-                    <p class="text-sm font-semibold text-slate-900">Signature Pasta</p>
-                    <p class="text-xs text-slate-500">creamy tomato sauce</p>
-                  </div>
-                  <span class="text-sm font-black text-slate-900">₱249</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="menu" class="mt-12">
-        <div class="mb-5 flex items-center justify-between gap-4">
+    <main class="mt-8 space-y-6">
+      <section class="soft-card rounded-[30px] p-5 sm:p-6">
+        <div class="flex items-center justify-between gap-4">
           <div>
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Popular</p>
-            <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Fusion Nook Menu</h2>
+            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Operations</p>
+            <h2 class="mt-2 text-3xl font-black tracking-[-0.05em] text-slate-900">Ongoing orders</h2>
           </div>
-          <a href="#orders" class="text-sm font-bold text-[#bf2d6d]">View orders</a>
+          <button id="add-demo-order" class="fusion-btn rounded-2xl px-4 py-2.5 text-sm font-bold">Add demo order</button>
         </div>
 
-        <div id="menu-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
-      </section>
-
-      <section class="mt-14 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <div id="restaurant-menu-panel" class="soft-card rounded-[30px] p-5"></div>
-        <div class="soft-card rounded-[30px] p-5">
-          <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Cart</p>
-          <h3 class="mt-2 text-2xl font-black text-slate-900">Your order</h3>
-          <div id="cart-items" class="mt-4 space-y-3"></div>
-          <div class="mt-5 border-t border-slate-200 pt-4">
-            <div class="flex items-center justify-between text-sm text-slate-600"><span>Subtotal</span><span id="cart-subtotal">₱0</span></div>
-            <div class="mt-2 flex items-center justify-between text-sm text-slate-600"><span>Delivery fee</span><span>₱35</span></div>
-            <div class="mt-2 flex items-center justify-between text-lg font-black text-slate-900"><span>Total</span><span id="cart-total">₱0</span></div>
-          </div>
-
-          <form id="checkout-form" class="mt-6 space-y-4">
-            <div>
-              <label class="mb-2 block text-sm font-medium text-slate-700">Customer name</label>
-              <input id="checkout-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="Your name" />
-            </div>
-            <div>
-              <label class="mb-2 block text-sm font-medium text-slate-700">Delivery address</label>
-              <textarea id="checkout-address" rows="3" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="Your address"></textarea>
-            </div>
-            <div>
-              <label class="mb-2 block text-sm font-medium text-slate-700">Payment method</label>
-              <select id="checkout-payment" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]">
-                <option>GCash</option>
-                <option>Maya</option>
-                <option>Card</option>
-                <option>Cash on Delivery</option>
-              </select>
-            </div>
-            <button type="submit" class="fusion-btn w-full rounded-2xl px-4 py-3 text-sm font-bold">Place order</button>
-          </form>
-        </div>
-      </section>
-
-      <section id="orders" class="mt-14 rounded-[30px] soft-card p-6">
-        <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Fusion Nook</p>
-            <h2 class="mt-2 text-3xl font-black text-slate-900">Incoming orders</h2>
-          </div>
-          <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-xs font-bold text-[#bf2d6d]">Owned by Fusion Nook</div>
-        </div>
-        <div id="owner-orders" class="grid gap-4"></div>
+        <div id="orders-list" class="mt-6 grid gap-4"></div>
       </section>
     </main>
-
-    <footer id="contact" class="border-t border-slate-200 bg-white/80">
-      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:px-8">
-        <p>© <span id="year"></span> Fusion Nook</p>
-        <div class="flex gap-4">
-          <a href="#home" class="hover:text-[#bf2d6d]">Home</a>
-          <a href="#menu" class="hover:text-[#bf2d6d]">Menu</a>
-          <a href="#orders" class="hover:text-[#bf2d6d]">Orders</a>
-        </div>
-      </div>
-    </footer>
   </div>
 
   <script>
-    const menuItems = [
-      { id: 1, name: 'Fusion Burger', category: 'Main', price: 180, description: 'Juicy beef burger with cheddar and crispy fries.', photo: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80' },
-      { id: 2, name: 'Chicken Alfredo', category: 'Main', price: 220, description: 'Creamy pasta with grilled chicken and parmesan.', photo: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80' },
-      { id: 3, name: 'Crispy Bites', category: 'Snack', price: 120, description: 'Golden crunchy bites with Fusion Nook dip.', photo: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80' },
-      { id: 4, name: 'Iced Coffee', category: 'Drink', price: 95, description: 'Smooth chilled coffee with creamy finish.', photo: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=900&q=80' },
-      { id: 5, name: 'Mango Cheesecake', category: 'Dessert', price: 140, description: 'Creamy cheesecake with mango sweetness.', photo: 'https://images.unsplash.com/photo-1533134242443-d6c10f37e3a8?auto=format&fit=crop&w=900&q=80' },
-      { id: 6, name: 'Fusion Bowl', category: 'Healthy', price: 170, description: 'Fresh salad bowl with grilled protein and rice.', photo: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80' }
-    ];
+    const orderStorageKey = 'fusion_nook_live_orders';
 
-    const orderStorageKey = 'fusion_nook_orders';
-    const cartStorageKey = 'fusion_nook_cart';
-    const chatModal = document.getElementById('chat-modal');
-    const chatOpenBtn = document.getElementById('chat-open-btn');
-    const chatCloseBtn = document.getElementById('chat-close-btn');
-    const messengerLink = document.getElementById('messenger-link');
-    const viberLink = document.getElementById('viber-link');
-
-    let cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
-    let savedOrders = JSON.parse(localStorage.getItem(orderStorageKey)) || [
+    let orders = JSON.parse(localStorage.getItem(orderStorageKey)) || [
       {
         id: 1,
         customerName: 'Maria Santos',
         customerAddress: '123 P. Cruz St., Makati',
         paymentMethod: 'GCash',
         total: 430,
-        status: 'pending',
+        status: 'accepted',
+        acceptedAt: Date.now() - 1000 * 60 * 4,
+        finishedAt: Date.now() - 1000 * 60 * 1,
+        deliveryStartedAt: Date.now() - 1000 * 30,
         items: [
           { name: 'Fusion Burger', quantity: 1, price: 180 },
           { name: 'Iced Coffee', quantity: 2, price: 95 }
-        ],
-        createdAt: Date.now() - 1000 * 60 * 18
+        ]
       },
       {
         id: 2,
@@ -296,250 +130,206 @@
         customerAddress: '88 M. Ponce St., Makati',
         paymentMethod: 'Maya',
         total: 310,
-        status: 'accepted',
+        status: 'finished',
+        acceptedAt: Date.now() - 1000 * 60 * 10,
+        finishedAt: Date.now() - 1000 * 60 * 2,
+        deliveryStartedAt: Date.now() - 1000 * 60 * 0.5,
         items: [
           { name: 'Chicken Alfredo', quantity: 1, price: 220 },
           { name: 'Mango Cheesecake', quantity: 1, price: 140 }
-        ],
-        createdAt: Date.now() - 1000 * 60 * 8
+        ]
+      },
+      {
+        id: 3,
+        customerName: 'Ria Gomez',
+        customerAddress: '40 Lapu-Lapu Ave., Makati',
+        paymentMethod: 'Cash on Delivery',
+        total: 250,
+        status: 'in-delivery',
+        acceptedAt: Date.now() - 1000 * 60 * 12,
+        finishedAt: Date.now() - 1000 * 60 * 5,
+        deliveryStartedAt: Date.now() - 1000 * 60 * 2,
+        items: [
+          { name: 'Fusion Bowl', quantity: 1, price: 170 },
+          { name: 'Iced Coffee', quantity: 1, price: 95 }
+        ]
       }
     ];
 
     function saveOrders() {
-      localStorage.setItem(orderStorageKey, JSON.stringify(savedOrders));
-    }
-
-    function saveCart() {
-      localStorage.setItem(cartStorageKey, JSON.stringify(cart));
-    }
-
-    function openChatPopup() {
-      chatModal.classList.add('show');
-      chatModal.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeChatPopup() {
-      chatModal.classList.remove('show');
-      chatModal.setAttribute('aria-hidden', 'true');
+      localStorage.setItem(orderStorageKey, JSON.stringify(orders));
     }
 
     function showToast(message) {
       const container = document.getElementById('toast-container');
-      if (!container) return;
       const toast = document.createElement('div');
       toast.className = 'pointer-events-auto rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-lg';
       toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#ff2b85]"></i><span>' + message + '</span></div>';
       container.appendChild(toast);
-      setTimeout(() => toast.remove(), 2600);
+      setTimeout(() => toast.remove(), 2200);
     }
 
-    function notifyAcceptedOrder(orderId) {
-      const order = savedOrders.find(item => item.id === Number(orderId));
-      if (!order) return;
+    function formatDuration(ms) {
+      const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function getStatusMeta(status) {
+      const map = {
+        pending: { label: 'Pending', className: 'bg-yellow-100 text-yellow-700' },
+        accepted: { label: 'Preparing', className: 'bg-cyan-100 text-cyan-700' },
+        finished: { label: 'Finished', className: 'bg-emerald-100 text-emerald-700' },
+        'in-delivery': { label: 'In Delivery', className: 'bg-indigo-100 text-indigo-700' }
+      };
+      return map[status] || map.pending;
+    }
+
+    function getTimerText(order) {
+      const now = Date.now();
+
+      if (order.status === 'pending') return 'Waiting for acceptance';
+
       if (order.status === 'accepted') {
-        openChatPopup();
-        showToast('Order accepted! Chat with Fusion Nook now.');
+        const acceptedAt = order.acceptedAt || order.createdAt || now;
+        const prepLimit = 1000 * 60 * 12;
+        const remaining = Math.max(0, prepLimit - (now - acceptedAt));
+        return `Prep: ${formatDuration(remaining)}`;
       }
+
+      if (order.status === 'finished') {
+        const finishedAt = order.finishedAt || order.acceptedAt || now;
+        const readyLimit = 1000 * 60 * 6;
+        const remaining = Math.max(0, readyLimit - (now - finishedAt));
+        return `Ready in: ${formatDuration(remaining)}`;
+      }
+
+      if (order.status === 'in-delivery') {
+        const deliveryStartedAt = order.deliveryStartedAt || order.finishedAt || now;
+        const etaLimit = 1000 * 60 * 15;
+        const remaining = Math.max(0, etaLimit - (now - deliveryStartedAt));
+        return `ETA: ${formatDuration(remaining)}`;
+      }
+
+      return 'No timer';
     }
 
-    function renderMenuGrid() {
-      const grid = document.getElementById('menu-grid');
-      const search = document.getElementById('search-input').value.toLowerCase();
-      const filtered = menuItems.filter(item =>
-        item.name.toLowerCase().includes(search) ||
-        item.category.toLowerCase().includes(search) ||
-        item.description.toLowerCase().includes(search)
-      );
+    function updateStatusCounts() {
+      document.getElementById('pending-count').textContent = orders.filter(o => o.status === 'pending').length;
+      document.getElementById('accepted-count').textContent = orders.filter(o => o.status === 'accepted').length;
+      document.getElementById('finished-count').textContent = orders.filter(o => o.status === 'finished').length;
+      document.getElementById('delivery-count').textContent = orders.filter(o => o.status === 'in-delivery').length;
+    }
 
-      if (!filtered.length) {
-        grid.innerHTML = '<div class="col-span-full rounded-[24px] border border-dashed border-slate-200 bg-white p-8 text-center text-slate-500">No matching items found.</div>';
+    function renderOrders() {
+      const list = document.getElementById('orders-list');
+
+      if (!orders.length) {
+        list.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-500">No orders available.</div>';
+        updateStatusCounts();
         return;
       }
 
-      grid.innerHTML = filtered.map(item => `
-        <div class="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
-          <img src="${item.photo}" alt="${item.name}" class="h-32 w-full rounded-[20px] object-cover" />
-          <div class="mt-4 flex items-center justify-between gap-2">
-            <div>
-              <h3 class="text-lg font-black text-slate-900">${item.name}</h3>
-              <p class="text-sm text-slate-500">${item.category}</p>
+      list.innerHTML = orders.map(order => {
+        const meta = getStatusMeta(order.status);
+        const timerText = getTimerText(order);
+        return `
+          <article class="soft-card rounded-[28px] p-4 sm:p-5">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <span class="status-pill ${meta.className}">${meta.label}</span>
+                  <span class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Order #${order.id}</span>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">${order.customerName}</h3>
+                <p class="text-sm text-slate-500">${order.customerAddress}</p>
+              </div>
+
+              <div class="timer-box w-full max-w-[210px] rounded-[20px] p-3 text-left">
+                <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Live timer</div>
+                <div class="mt-1 text-2xl font-black text-slate-900">${timerText}</div>
+              </div>
             </div>
-            <span class="text-base font-black text-slate-900">₱${item.price}</span>
-          </div>
-          <p class="mt-2 text-sm text-slate-600">${item.description}</p>
-          <button class="add-item mt-4 w-full rounded-2xl bg-[#fff1f7] px-3 py-2 text-sm font-bold text-[#bf2d6d]" data-item-id="${item.id}">Add to cart</button>
-        </div>
-      `).join('');
 
-      document.querySelectorAll('.add-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const item = menuItems.find(entry => entry.id === Number(btn.dataset.itemId));
-          if (!item) return;
-          const existing = cart.find(entry => entry.id === item.id);
-          if (existing) existing.quantity += 1;
-          else cart.push({ id: item.id, name: item.name, price: Number(item.price), quantity: 1 });
-          saveCart();
-          renderCart();
-          showToast(`${item.name} added to cart.`);
-        });
-      });
-    }
+            <div class="mt-5 grid gap-3 md:grid-cols-[1.2fr_0.8fr]">
+              <div class="rounded-[22px] border border-slate-200 bg-slate-50 p-3">
+                <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Items</div>
+                <div class="mt-3 space-y-2 text-sm text-slate-700">
+                  ${order.items.map(item => `
+                    <div class="flex items-center justify-between gap-3">
+                      <span>${item.name} x${item.quantity}</span>
+                      <span>₱${(item.price * item.quantity).toLocaleString()}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
 
-    function renderCart() {
-      const cartItemsEl = document.getElementById('cart-items');
-      const subtotalEl = document.getElementById('cart-subtotal');
-      const totalEl = document.getElementById('cart-total');
-
-      if (!cart.length) {
-        cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">Your cart is empty.</div>';
-        subtotalEl.textContent = '₱0';
-        totalEl.textContent = '₱0';
-        return;
-      }
-
-      cartItemsEl.innerHTML = cart.map(item => `
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-          <div class="flex items-center justify-between gap-3">
-            <div>
-              <div class="font-bold text-slate-900">${item.name}</div>
-              <div class="text-xs text-slate-500">₱${item.price} each</div>
+              <div class="rounded-[22px] border border-slate-200 bg-slate-50 p-3">
+                <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Payment</div>
+                <div class="mt-2 text-lg font-black text-slate-900">₱${Number(order.total).toLocaleString()}</div>
+                <div class="mt-2 text-sm text-slate-600">${order.paymentMethod}</div>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <button class="status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
+                  <button class="status-btn rounded-xl bg-emerald-500 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white" data-order-id="${order.id}" data-status="finished">Finished</button>
+                  <button class="status-btn rounded-xl bg-indigo-500 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white" data-order-id="${order.id}" data-status="in-delivery">In delivery</button>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <button class="decrease-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">-</button>
-              <span class="text-sm font-bold text-slate-900">${item.quantity}</span>
-              <button class="increase-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">+</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
+          </article>
+        `;
+      }).join('');
 
-      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
-      totalEl.textContent = `₱${(subtotal + 35).toLocaleString()}`;
+      document.querySelectorAll('.status-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const id = Number(button.dataset.orderId);
+          const status = button.dataset.status;
+          const targetOrder = orders.find(order => order.id === id);
+          if (!targetOrder) return;
 
-      document.querySelectorAll('.increase-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const itemId = Number(btn.dataset.itemId);
-          const existing = cart.find(entry => entry.id === itemId);
-          if (existing) existing.quantity += 1;
-          saveCart();
-          renderCart();
-        });
-      });
+          targetOrder.status = status;
+          if (status === 'accepted' && !targetOrder.acceptedAt) targetOrder.acceptedAt = Date.now();
+          if (status === 'finished' && !targetOrder.finishedAt) targetOrder.finishedAt = Date.now();
+          if (status === 'in-delivery' && !targetOrder.deliveryStartedAt) targetOrder.deliveryStartedAt = Date.now();
 
-      document.querySelectorAll('.decrease-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const itemId = Number(btn.dataset.itemId);
-          const index = cart.findIndex(entry => entry.id === itemId);
-          if (index === -1) return;
-          if (cart[index].quantity > 1) cart[index].quantity -= 1;
-          else cart.splice(index, 1);
-          saveCart();
-          renderCart();
-        });
-      });
-    }
-
-    function renderOwnerOrders() {
-      const container = document.getElementById('owner-orders');
-      if (!savedOrders.length) {
-        container.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">No orders yet.</div>';
-        return;
-      }
-
-      container.innerHTML = savedOrders.map(order => `
-        <div class="rounded-[22px] border border-slate-200 bg-white p-4">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold uppercase tracking-[0.12em] text-slate-400">Fusion Nook</div>
-              <h3 class="mt-1 text-lg font-black text-slate-900">${order.customerName}</h3>
-            </div>
-            <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${order.status}</span>
-          </div>
-          <p class="mt-2 text-sm text-slate-500">${order.customerAddress}</p>
-          <div class="mt-3 text-sm text-slate-700">
-            ${order.items.map(item => `<div class="flex justify-between py-1"><span>${item.name} x${item.quantity}</span><span>₱${(item.price * item.quantity).toLocaleString()}</span></div>`).join('')}
-          </div>
-          <div class="mt-3 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
-            <span class="font-bold text-slate-900">Total</span>
-            <span class="font-black text-slate-900">₱${Number(order.total).toLocaleString()}</span>
-          </div>
-          <div class="mt-3 flex gap-2">
-            <button class="status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-xs font-bold text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
-            <button class="status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="on-the-way">On the way</button>
-          </div>
-        </div>
-      `).join('');
-
-      document.querySelectorAll('.status-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const order = savedOrders.find(item => item.id === Number(btn.dataset.orderId));
-          if (!order) return;
-          order.status = btn.dataset.status;
           saveOrders();
-          renderOwnerOrders();
-          notifyAcceptedOrder(order.id);
-          showToast(`Order marked as ${btn.dataset.status}.`);
+          renderOrders();
+          updateStatusCounts();
+          showToast(`Order ${id} set to ${getStatusMeta(status).label}.`);
         });
       });
+
+      updateStatusCounts();
     }
 
-    document.getElementById('search-input').addEventListener('input', renderMenuGrid);
-
-    document.getElementById('checkout-form').addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!cart.length) {
-        showToast('Your cart is empty.');
-        return;
-      }
-
-      const name = document.getElementById('checkout-name').value.trim();
-      const address = document.getElementById('checkout-address').value.trim();
-      const payment = document.getElementById('checkout-payment').value;
-
-      if (!name || !address) {
-        showToast('Please enter your name and address.');
-        return;
-      }
-
-      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 35;
-      savedOrders.unshift({
-        id: Date.now(),
-        customerName: name,
-        customerAddress: address,
-        paymentMethod: payment,
-        total,
+    function addDemoOrder() {
+      const nextId = orders.length ? Math.max(...orders.map(o => o.id)) + 1 : 1;
+      orders.unshift({
+        id: nextId,
+        customerName: `Customer ${nextId}`,
+        customerAddress: `Block ${nextId}, New City`,
+        paymentMethod: 'GCash',
+        total: 290 + nextId * 15,
         status: 'pending',
-        items: cart.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
-        createdAt: Date.now()
+        acceptedAt: null,
+        finishedAt: null,
+        deliveryStartedAt: null,
+        items: [
+          { name: 'Fusion Burger', quantity: 1, price: 180 },
+          { name: 'Iced Coffee', quantity: 1, price: 95 }
+        ]
       });
       saveOrders();
-      cart = [];
-      saveCart();
-      renderCart();
-      renderOwnerOrders();
-      event.target.reset();
-      showToast('Order placed successfully!');
-    });
-
-    chatOpenBtn.addEventListener('click', openChatPopup);
-    chatCloseBtn.addEventListener('click', closeChatPopup);
-    chatModal.addEventListener('click', (event) => {
-      if (event.target === chatModal) closeChatPopup();
-    });
-
-    messengerLink.href = 'https://m.me/FusionNook';
-    viberLink.href = 'https://invite.viber.com/?g2=AQARxT7B3u0u0zM1Jx5mCOv%2BqFB1DgY8%2B9YvVmH3WQ%3D';
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-    renderMenuGrid();
-    renderCart();
-    renderOwnerOrders();
-
-    const acceptedOrderExists = savedOrders.some(order => order.status === 'accepted');
-    if (acceptedOrderExists) {
-      openChatPopup();
+      renderOrders();
+      showToast('Demo order added.');
     }
+
+    document.getElementById('add-demo-order').addEventListener('click', addDemoOrder);
+
+    renderOrders();
+    setInterval(() => {
+      renderOrders();
+    }, 1000);
   </script>
 </body>
 </html>
