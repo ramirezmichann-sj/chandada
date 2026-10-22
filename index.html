@@ -4,30 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion Nook | Menu</title>
-    <meta name="description" content="Fusion Nook menu in a FoodPanda-inspired cotton candy style." />
+    <meta name="description" content="Fusion Nook menu in a FoodPanda-inspired style." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              cotton: {
-                bg: '#fff8fb',
-                soft: '#fff0f7',
-                pink: '#ff5ca8',
-                rose: '#ff7aac',
-                peach: '#ffd9c2',
-                cream: '#fff6dd',
-                violet: '#7b5af8',
-                ink: '#1f1f1f',
-                muted: '#6b7280',
-                line: '#f3e8ef',
-                card: '#ffffff'
+              panda: {
+                orange: '#ff6b22',
+                orangeDark: '#ea5b1d',
+                peach: '#fff4eb',
+                pink: '#ffe9f1',
+                cream: '#fff9f5',
+                ink: '#1d1d1f',
+                muted: '#5b6473',
+                line: '#f2ece8',
+                soft: '#f7f4f2',
+                white: '#ffffff'
               }
             },
             boxShadow: {
-              soft: '0 12px 28px rgba(31, 41, 55, 0.08)',
-              card: '0 18px 30px rgba(255, 92, 168, 0.12)'
+              soft: '0 12px 28px rgba(17, 24, 39, 0.06)',
+              card: '0 16px 32px rgba(255, 107, 34, 0.12)'
             }
           }
         }
@@ -36,45 +35,51 @@
     <style>
       html { scroll-behavior: smooth; }
       body {
-        background: linear-gradient(180deg, #fffafc 0%, #fff3f9 100%);
+        background: linear-gradient(180deg, #fffaf7 0%, #fff5f0 100%);
         font-family: 'Inter', sans-serif;
       }
       .brand-text {
         font-family: 'Black Ops One', cursive;
         letter-spacing: -0.08em;
       }
-      .promo-banner {
-        background: linear-gradient(135deg, #ff5ca8 0%, #ff9c66 100%);
+      .promo-bar {
+        background: linear-gradient(135deg, #ff7a29 0%, #ffb866 100%);
       }
-      .nav-pill {
-        background: rgba(255,255,255,0.82);
-        border: 1px solid #f4dfe8;
-        color: #5a5361;
-        transition: all 0.2s ease;
+      .section-card {
+        background: #fffdfd;
+        border: 1px solid #f3e8df;
+        border-radius: 28px;
+        box-shadow: 0 10px 20px rgba(17,24,39,0.03);
       }
-      .nav-pill.active {
-        background: #fff0f7;
-        border-color: #ffbfd9;
-        color: #d61c71;
-      }
-      .menu-card {
+      .menu-item-card {
         background: #fff;
-        border: 1px solid #f4e7ee;
+        border: 1px solid #f4e9e1;
         border-radius: 22px;
-        box-shadow: 0 8px 20px rgba(17,24,39,0.04);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
       }
-      .menu-card:hover {
-        box-shadow: 0 16px 26px rgba(17,24,39,0.08);
+      .menu-item-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 22px rgba(17, 24, 39, 0.08);
       }
-      .badge-peach {
-        background: #fff0e6;
-        color: #d46021;
+      .pill {
+        background: rgba(255,255,255,0.9);
+        border: 1px solid #f7e2d5;
+        color: #4b5563;
+      }
+      .pill.active {
+        background: #fff2ea;
+        border-color: #ffd5b7;
+        color: #d8571b;
+      }
+      .badge-soft {
+        background: #fff0e7;
+        color: #d65d1d;
       }
       .badge-pink {
         background: #ffeaf4;
-        color: #d02872;
+        color: #cf1a69;
       }
-      .order-panel {
+      .cart-panel {
         position: sticky;
         top: 1rem;
       }
@@ -88,7 +93,7 @@
     <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
 
     <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-      <div class="promo-banner mb-4 rounded-[28px] p-4 text-white shadow-card">
+      <div class="promo-bar mb-4 rounded-[28px] p-4 text-white shadow-soft">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div class="text-[10px] font-black uppercase tracking-[0.22em] text-white/80">Promo</div>
@@ -98,17 +103,17 @@
         </div>
       </div>
 
-      <header class="sticky top-0 z-40 rounded-[26px] border border-[#f5dfe8] bg-white/90 px-4 py-3 shadow-soft backdrop-blur-xl">
+      <header class="sticky top-0 z-40 rounded-[26px] border border-[#f5e5d9] bg-white/90 px-4 py-3 shadow-soft backdrop-blur-xl">
         <div class="flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff5ca8] via-[#ff7aac] to-[#ffb678] text-2xl font-black text-white shadow-soft">F</div>
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff7a29] via-[#ff6b22] to-[#ff4fa1] text-2xl font-black text-white shadow-soft">F</div>
             <div>
-              <div class="brand-text text-3xl leading-none text-[#1f1f1f]">fusion</div>
-              <div class="text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7280]">Nook</div>
+              <div class="brand-text text-3xl leading-none text-[#1d1d1f]">fusion</div>
+              <div class="text-[10px] font-black uppercase tracking-[0.22em] text-[#5b6473]">Nook</div>
             </div>
           </div>
 
-          <button type="button" class="rounded-full bg-[#1f1f1f] px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-soft">
+          <button type="button" class="rounded-full bg-[#1d1d1f] px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-soft">
             Cart
           </button>
         </div>
@@ -119,21 +124,21 @@
       <main class="mt-6 grid gap-6 xl:grid-cols-[1.65fr_0.85fr]">
         <div id="menu-container" class="space-y-6"></div>
 
-        <aside class="order-panel">
-          <div class="rounded-[30px] bg-[#fffdfc] p-5 shadow-soft ring-1 ring-[#f8e6ee]">
+        <aside class="cart-panel">
+          <div class="rounded-[30px] bg-[#fffdfb] p-5 shadow-soft ring-1 ring-[#f4eae4]">
             <div class="mb-4 flex items-center justify-between">
               <div>
-                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#8a8a8a]">Your order</p>
-                <h3 class="mt-1 text-2xl font-black text-[#1f1f1f]">Cart</h3>
+                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#858c97]">Your order</p>
+                <h3 class="mt-1 text-2xl font-black text-[#1d1d1f]">Cart</h3>
               </div>
-              <div class="rounded-full bg-[#1f1f1f] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-white" id="cart-count">0</div>
+              <div class="rounded-full bg-[#1d1d1f] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#fff]" id="cart-count">0</div>
             </div>
 
             <div id="cart-items" class="space-y-3">
-              <div class="rounded-2xl border border-dashed border-[#eddfe6] bg-[#fffafc] p-4 text-sm text-[#6b7280]">Your cart is empty.</div>
+              <div class="rounded-2xl border border-dashed border-[#eddccb] bg-[#fffaf7] p-4 text-sm text-[#5b6473]">Your cart is empty.</div>
             </div>
 
-            <div class="mt-5 border-t border-[#f5dfe8] pt-4">
+            <div class="mt-5 border-t border-[#f2eae4] pt-4">
               <div class="flex items-center justify-between text-sm font-medium text-[#4b5563]">
                 <span>Subtotal</span>
                 <span id="subtotal">₱0</span>
@@ -142,27 +147,27 @@
                 <span>Delivery fee</span>
                 <span>₱60</span>
               </div>
-              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#1f1f1f]">
+              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#1d1d1f]">
                 <span>Total</span>
                 <span id="total">₱0</span>
               </div>
-              <p class="mt-3 text-[11px] font-semibold text-[#6b7280]">Base delivery fee is ₱60 and may vary depending on your location.</p>
+              <p class="mt-3 text-[11px] font-semibold text-[#5b6473]">Base delivery fee is ₱60 and may vary depending on your location.</p>
             </div>
 
             <form id="order-form" class="mt-6 space-y-3">
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">Complete name</label>
-                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#f0dfe7] bg-white px-3 py-2.5 text-sm text-[#1f1f1f] outline-none focus:border-[#ff5ca8]" placeholder="Enter your name" />
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#5b6473]">Complete name</label>
+                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#f0e5dc] bg-white px-3 py-2.5 text-sm text-[#1d1d1f] outline-none focus:border-[#ff7a29]" placeholder="Enter your name" />
               </div>
 
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">Address</label>
-                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#f0dfe7] bg-white px-3 py-2.5 text-sm text-[#1f1f1f] outline-none focus:border-[#ff5ca8]" placeholder="Enter delivery address"></textarea>
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#5b6473]">Address</label>
+                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#f0e5dc] bg-white px-3 py-2.5 text-sm text-[#1d1d1f] outline-none focus:border-[#ff7a29]" placeholder="Enter delivery address"></textarea>
               </div>
 
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">How do you want to pay?</label>
-                <select id="payment-method" class="w-full rounded-2xl border border-[#f0dfe7] bg-white px-3 py-2.5 text-sm text-[#1f1f1f] outline-none focus:border-[#ff5ca8]">
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#5b6473]">How do you want to pay?</label>
+                <select id="payment-method" class="w-full rounded-2xl border border-[#f0e5dc] bg-white px-3 py-2.5 text-sm text-[#1d1d1f] outline-none focus:border-[#ff7a29]">
                   <option>Cash on Delivery</option>
                   <option>GCash</option>
                   <option>Maya</option>
@@ -170,7 +175,7 @@
                 </select>
               </div>
 
-              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#ff5ca8] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-white shadow-soft">Confirm order</button>
+              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#ff7a29] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-white shadow-soft">Confirm order</button>
             </form>
           </div>
         </aside>
@@ -178,17 +183,17 @@
     </div>
 
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#17100d]/70 p-4">
-      <div class="w-full max-w-md rounded-[28px] bg-[#1b1b1b] p-5 text-white shadow-2xl">
+      <div class="w-full max-w-md rounded-[28px] bg-[#1d1d1f] p-5 text-white shadow-2xl">
         <div class="mb-4 flex items-center justify-between">
           <div>
-            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#ffb9d6]">Order ready</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#ffc98d]">Order ready</p>
             <h3 class="mt-1 text-2xl font-black">Confirm</h3>
           </div>
           <button id="close-modal" class="rounded-full bg-white/10 p-2 text-lg">×</button>
         </div>
 
         <div class="rounded-2xl bg-white/5 p-4 text-sm text-white/90">
-          Your order total is <span id="modal-total" class="font-black text-[#ffb9d6]">₱0</span>.
+          Your order total is <span id="modal-total" class="font-black text-[#ffc98d]">₱0</span>.
         </div>
 
         <div class="mt-5 grid gap-3">
@@ -267,14 +272,14 @@
       function renderNavigation() {
         const nav = document.getElementById('category-nav');
         nav.innerHTML = menuData.map((section, index) => `
-          <a href="#${slugify(section.title)}" class="nav-pill ${index === 0 ? 'active' : ''} inline-flex shrink-0 items-center rounded-full px-4 py-2 text-sm font-bold">
+          <a href="#${slugify(section.title)}" class="pill ${index === 0 ? 'active' : ''} inline-flex shrink-0 items-center rounded-full px-4 py-2 text-sm font-bold">
             ${section.title}
           </a>
         `).join('');
 
-        document.querySelectorAll('.nav-pill').forEach(link => {
+        document.querySelectorAll('.pill').forEach(link => {
           link.addEventListener('click', () => {
-            document.querySelectorAll('.nav-pill').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.pill').forEach(item => item.classList.remove('active'));
             link.classList.add('active');
           });
         });
@@ -284,23 +289,23 @@
         const container = document.getElementById('menu-container');
         container.innerHTML = menuData.map(section => {
           const items = section.items.map(item => `
-            <div class="menu-card flex items-center justify-between gap-4 p-4">
+            <div class="menu-item-card flex items-center justify-between gap-4 p-4">
               <div>
-                <div class="badge-pink mb-2 inline-flex items-center rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Popular</div>
-                <h3 class="text-xl font-black text-[#1f1f1f]">${item.name}</h3>
+                <div class="badge-soft mb-2 inline-flex items-center rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Popular</div>
+                <h3 class="text-xl font-black text-[#1d1d1f]">${item.name}</h3>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-lg font-black text-[#1f1f1f]">₱${Number(item.price || 0).toLocaleString()}</span>
-                <button type="button" class="add-item-btn rounded-full bg-[#1f1f1f] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
+                <span class="text-lg font-black text-[#1d1d1f]">₱${Number(item.price || 0).toLocaleString()}</span>
+                <button type="button" class="add-item-btn rounded-full bg-[#1d1d1f] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
               </div>
             </div>
           `).join('');
 
           return `
-            <section id="${slugify(section.title)}" class="rounded-[30px] bg-[#fffefc] p-4 shadow-soft ring-1 ring-[#f5dfe8]">
+            <section id="${slugify(section.title)}" class="section-card p-4">
               <div class="mb-4 flex items-center justify-between gap-3">
-                <h2 class="text-2xl font-black text-[#1f1f1f]">${section.title}</h2>
-                <span class="badge-peach rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Hot</span>
+                <h2 class="text-2xl font-black text-[#1d1d1f]">${section.title}</h2>
+                <span class="badge-pink rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Hot</span>
               </div>
               <div class="space-y-3">${items}</div>
             </section>
@@ -347,7 +352,7 @@
         const cartCountEl = document.getElementById('cart-count');
 
         if (!cart.length) {
-          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#eddfe6] bg-[#fffafc] p-4 text-sm text-[#6b7280]">Your cart is empty.</div>';
+          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#eddccb] bg-[#fffaf7] p-4 text-sm text-[#5b6473]">Your cart is empty.</div>';
           subtotalEl.textContent = '₱0';
           totalEl.textContent = '₱0';
           cartCountEl.textContent = '0';
@@ -358,16 +363,16 @@
         cartItemsEl.innerHTML = cart.map(item => {
           subtotal += item.price * item.quantity;
           return `
-            <div class="rounded-2xl border border-[#f5dfe8] bg-[#fffafc] p-3">
+            <div class="rounded-2xl border border-[#f3e5dd] bg-[#fffaf7] p-3">
               <div class="flex items-center justify-between gap-3">
                 <div>
-                  <div class="font-black text-[#1f1f1f]">${item.name}</div>
-                  <div class="text-xs text-[#6b7280]">₱${item.price} each</div>
+                  <div class="font-black text-[#1d1d1f]">${item.name}</div>
+                  <div class="text-xs text-[#5b6473]">₱${item.price} each</div>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button class="minus-item rounded-full border border-[#f0dfe7] bg-white px-2 text-xs font-black text-[#1f1f1f]" data-name="${item.name}">−</button>
-                  <span class="text-sm font-black text-[#1f1f1f]">${item.quantity}</span>
-                  <button class="plus-item rounded-full border border-[#f0dfe7] bg-white px-2 text-xs font-black text-[#1f1f1f]" data-name="${item.name}">+</button>
+                  <button class="minus-item rounded-full border border-[#f0e5dc] bg-white px-2 text-xs font-black text-[#1d1d1f]" data-name="${item.name}">−</button>
+                  <span class="text-sm font-black text-[#1d1d1f]">${item.quantity}</span>
+                  <button class="plus-item rounded-full border border-[#f0e5dc] bg-white px-2 text-xs font-black text-[#1d1d1f]" data-name="${item.name}">+</button>
                 </div>
               </div>
             </div>
