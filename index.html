@@ -1,30 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-[#f6f5f7] text-slate-800">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fusion Nook | Food Delivery</title>
-    <meta name="description" content="Fusion Nook food delivery app with private order visibility and live status tracking." />
+    <title>Fusion K | Menu</title>
+    <meta name="description" content="Simple food ordering menu for Fusion K with messenger and viber order confirmation." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              panda: {
-                pink: '#ff2b85',
-                rose: '#ff5fa2',
-                coral: '#ff8f6b',
-                red: '#e31c5f',
-                cream: '#fff7f9',
-                gray: '#f5f5f7',
-                ink: '#17171a'
-              }
+              cream: '#f8f0dc',
+              gold: '#f9c74f',
+              dark: '#120b0b',
+              rose: '#ff3d7a',
+              red: '#d92d2d',
+              green: '#7ac142'
             },
             boxShadow: {
-              soft: '0 18px 40px rgba(31,41,55,0.08)',
-              card: '0 12px 28px rgba(15,23,42,0.06)',
-              brand: '0 18px 30px rgba(255,43,133,0.22)'
+              punch: '0 10px 24px rgba(0,0,0,0.18)',
+              soft: '0 18px 40px rgba(31,41,55,0.08)'
             }
           }
         }
@@ -32,801 +28,551 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
-      html { scroll-behavior: smooth; }
       body {
+        background: linear-gradient(180deg, #f9f0df 0%, #f5f1ea 100%);
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(180deg, #fffafc 0%, #f7f6f9 100%);
       }
-      .app-shell {
-        background: linear-gradient(180deg, #fffdfd 0%, #f7f7fa 100%);
+      .fusion-title {
+        font-family: 'Black Ops One', cursive;
+        letter-spacing: -0.08em;
       }
-      .brand-card {
-        background: rgba(255,255,255,0.82);
-        border: 1px solid rgba(148,163,184,0.16);
-        box-shadow: 0 18px 40px rgba(15,23,42,0.06);
-        backdrop-filter: blur(8px);
+      .menu-section {
+        background: #17100d;
+        border: 3px solid #f7c75d;
+        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.15);
       }
-      .panda-btn {
-        background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
-        color: white;
-        box-shadow: 0 16px 28px rgba(255, 43, 133, 0.22);
+      .menu-header {
+        background: linear-gradient(135deg, #f8c75d 0%, #f9e7b8 100%);
+        border-bottom: 3px solid #f7c75d;
       }
-      .panda-btn:hover { filter: brightness(1.02); }
-      .soft-card {
-        background: rgba(255,255,255,0.88);
-        border: 1px solid rgba(148,163,184,0.18);
-        box-shadow: 0 12px 26px rgba(15,23,42,0.05);
+      .price-tag {
+        color: #ffd859;
+        font-weight: 900;
       }
-      .promo-card {
-        background: linear-gradient(135deg, #fff1f7 0%, #fff 100%);
-        border: 1px solid rgba(148,163,184,0.14);
+      .menu-item {
+        border-bottom: 1px dashed rgba(255,255,255,0.15);
       }
-      .status-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 9999px;
-        padding: 0.4rem 0.8rem;
-        font-size: 0.62rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
+      .menu-item:last-child {
+        border-bottom: none;
       }
-      .timer-box {
-        border: 1px solid rgba(148,163,184,0.15);
-        background: linear-gradient(180deg, #fff7fb 0%, #ffffff 100%);
+      .order-panel {
+        position: sticky;
+        top: 1rem;
       }
-      .chat-float { position: fixed; right: 20px; bottom: 20px; z-index: 60; }
-      .chat-modal { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); display: none; z-index: 70; }
-      .chat-modal.show { display: flex; align-items: center; justify-content: center; }
-      .hidden-section { display: none !important; }
-      .menu-scroll::-webkit-scrollbar { display: none; }
-      .menu-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-      .view-toggle.active {
-        background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
-        color: white;
+      .modal-open {
+        overflow: hidden;
+      }
+      .order-sheet {
+        background: rgba(22, 15, 14, 0.92);
       }
     </style>
   </head>
-  <body class="min-h-full text-slate-800 antialiased">
-    <div id="toast-container" class="fixed right-5 top-5 z-50 flex flex-col gap-2"></div>
+  <body class="text-slate-800 antialiased">
+    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#12100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
 
-    <div id="chat-float" class="chat-float">
-      <button id="chat-open-btn" class="panda-btn flex h-14 w-14 items-center justify-center rounded-full text-xl shadow-2xl">
-        <i class="fa-brands fa-facebook-messenger"></i>
-      </button>
-    </div>
-
-    <div id="chat-modal" class="chat-modal" aria-hidden="true">
-      <div class="w-full max-w-md rounded-[28px] bg-white p-5 shadow-2xl">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Fusion Nook</p>
-            <h3 class="mt-1 text-2xl font-black text-slate-900">Chat now</h3>
-          </div>
-          <button id="chat-close-btn" class="rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-
-        <div class="mt-4 rounded-[20px] bg-[#fff1f7] p-4 text-sm text-slate-700">
-          Need help with your order? We will message your order total and update status automatically.
-        </div>
-
-        <div class="mt-5 grid gap-3">
-          <a href="https://www.facebook.com/profile.php?id=61594674580769" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl border border-slate-200 bg-[#f4f5f7] px-4 py-3 text-sm font-semibold text-slate-700">
-            <span class="flex items-center gap-3"><i class="fa-brands fa-facebook text-[#0a7cff]"></i> Facebook</span>
-            <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
-          </a>
-
-          <a href="https://viber.me/09670876519" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl border border-slate-200 bg-[#f4f5f7] px-4 py-3 text-sm font-semibold text-slate-700">
-            <span class="flex items-center gap-3"><i class="fa-brands fa-viber text-[#7c3aed]"></i> Viber</span>
-            <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="app-shell">
-      <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-          <div class="flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff2b85] via-[#ff7cb0] to-[#ffb36a] text-lg font-black text-white shadow-brand">F</div>
-            <div>
-              <div class="text-xl font-black tracking-tight text-slate-900">Fusion Nook</div>
-              <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">One store</div>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <header class="mb-6 rounded-[28px] bg-[#f5e4b4] p-4 shadow-soft ring-2 ring-[#1f1612]">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex items-center gap-4">
+            <div class="fusion-title text-5xl leading-none text-[#111111] sm:text-6xl">fusion</div>
+            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#17100d] text-3xl font-black text-[#f7c75d]">K</div>
+            <div class="flex flex-col text-[#111111]">
+              <div class="text-xs font-extrabold uppercase tracking-[0.35em] text-[#111111]/75">Diverse restaurant cafe</div>
+              <div class="mt-1 text-[10px] font-semibold uppercase tracking-[0.38em] text-[#111111]/60">Est. 2022</div>
             </div>
           </div>
 
-          <nav class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
-            <a href="#home" class="hover:text-[#bf2d6d]">Home</a>
-            <a href="#menu" class="hover:text-[#bf2d6d]">Menu</a>
-            <a href="#promo" class="hover:text-[#bf2d6d]">Promos</a>
-            <a href="#orders" class="hover:text-[#bf2d6d]">Track order</a>
-          </nav>
-
-          <div class="flex items-center gap-2 rounded-full bg-slate-100 p-1">
-            <button id="view-customer" class="view-toggle active rounded-full px-3 py-1.5 text-xs font-bold sm:text-sm">Customer</button>
-            <button id="view-owner" class="view-toggle rounded-full px-3 py-1.5 text-xs font-bold sm:text-sm">Owner</button>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <button id="chat-navbar-btn" class="hidden rounded-full bg-[#fff1f7] px-3 py-2 text-sm font-bold text-[#bf2d6d] md:inline-flex">
-              <i class="fa-solid fa-comments mr-2"></i> Chat now
-            </button>
-            <button class="rounded-full bg-slate-900 px-3 py-2 text-sm font-semibold text-white md:hidden">Menu</button>
+          <div class="flex items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
+            <span>Good food</span>
+            <span class="text-white">•</span>
+            <span>Great vibes</span>
           </div>
         </div>
       </header>
 
-      <main id="home" class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-        <section class="brand-card rounded-[28px] p-3 sm:p-5 lg:p-6">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-2 rounded-full bg-[#fff7fa] px-3 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
-              <i class="fa-solid fa-location-dot text-[#ff2b85]"></i>
-              <span>Deliver to <span class="font-bold text-slate-800">Makati</span></span>
-            </div>
-            <div class="flex items-center gap-2 rounded-full bg-[#fff3f7] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#bf2d6d] sm:text-xs">
-              <i class="fa-solid fa-bolt"></i> Fast delivery
-            </div>
+      <section class="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <div class="rounded-[26px] bg-[#f5e4b4] p-5 shadow-soft ring-2 ring-[#1f1612]">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="rounded-full bg-[#17100d] px-3 py-1 text-[10px] font-black uppercase tracking-[0.25em] text-[#f7c75d]">Best seller</span>
+            <span class="rounded-full border border-[#17100d]/40 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#17100d]">Hot & crispy</span>
           </div>
 
-          <div class="mt-4 grid gap-4 xl:grid-cols-[1.15fr_0.85fr] xl:items-center">
-            <div>
-              <div class="inline-flex items-center rounded-full bg-[#fff1f7] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#bf2d6d] sm:text-xs">
-                <i class="fa-solid fa-star mr-2 text-[#ff2b85]"></i> Rated 4.9 • 1,200+ orders
-              </div>
+          <h1 class="mt-4 text-4xl font-black leading-none text-[#17100d] sm:text-5xl lg:text-6xl">
+            Good Food<br />
+            Great Vibes<br />
+            Always!
+          </h1>
 
-              <h1 class="mt-4 text-3xl font-black tracking-[-0.06em] text-slate-900 sm:text-4xl lg:text-5xl">Your favorite favorites, delivered faster.</h1>
-              <p class="mt-3 max-w-xl text-sm text-slate-600 sm:text-base">One-store food delivery built for quick ordering, live updates, and direct chat support.</p>
+          <p class="mt-4 max-w-lg text-sm text-[#17100d]/70 sm:text-base">
+            Simple ordering for your favorite meals. Pick your food, choose how you want to pay, then confirm your details.
+          </p>
+        </div>
 
-              <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-                <div class="flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-                  <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-                  <input type="text" placeholder="Search your favorite dish" class="w-full border-0 bg-transparent text-sm text-slate-500 outline-none placeholder:text-slate-400" />
+        <div class="overflow-hidden rounded-[26px] bg-[#17100d] p-2 shadow-punch ring-2 ring-[#f7c75d]">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Food" class="h-full min-h-[220px] w-full rounded-[20px] object-cover" />
+        </div>
+      </section>
+
+      <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
+        <div class="space-y-6">
+          <section class="menu-section rounded-[26px] overflow-hidden">
+            <div class="menu-header px-5 py-4">
+              <h2 class="fusion-title text-4xl text-[#17100d]">Wings</h2>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">6 PCS</div>
                 </div>
-                <button class="panda-btn rounded-2xl px-5 py-3 text-sm font-bold text-white">Search</button>
+                <div class="price-tag">₱189</div>
               </div>
-
-              <div class="mt-5 flex flex-wrap gap-2 text-xs sm:text-sm">
-                <span class="rounded-full bg-[#fff1f7] px-3 py-1.5 font-semibold text-[#bf2d6d]">Burger</span>
-                <span class="rounded-full bg-[#eef2ff] px-3 py-1.5 font-semibold text-[#4957c9]">Pasta</span>
-                <span class="rounded-full bg-[#ebf9ff] px-3 py-1.5 font-semibold text-[#377dc7]">Pizza</span>
-                <span class="rounded-full bg-[#ecfdf5] px-3 py-1.5 font-semibold text-[#25815d]">Healthy</span>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">8 PCS</div>
+                </div>
+                <div class="price-tag">₱240</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">12 PCS</div>
+                </div>
+                <div class="price-tag">₱329</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">16 PCS</div>
+                </div>
+                <div class="price-tag">₱419</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">30 PCS</div>
+                </div>
+                <div class="price-tag">₱690</div>
               </div>
             </div>
+          </section>
 
-            <div class="rounded-[24px] bg-gradient-to-br from-[#fff4f8] via-white to-[#f5f1ff] p-3 shadow-soft sm:p-4">
-              <div class="rounded-[22px] bg-white p-3 shadow-card sm:p-4">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Featured store</p>
-                    <h2 class="mt-1 text-2xl font-black text-slate-900">Fusion Nook</h2>
+          <section class="menu-section rounded-[26px] overflow-hidden">
+            <div class="menu-header px-5 py-4">
+              <h2 class="fusion-title text-4xl text-[#17100d]">Fries</h2>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Plain</div>
+                </div>
+                <div class="price-tag">₱70</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Flavored</div>
+                </div>
+                <div class="price-tag">₱85</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Cheesy Beef Fries</div>
+                </div>
+                <div class="price-tag">₱130</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Wings with Fries</div>
+                </div>
+                <div class="price-tag">₱260</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="menu-section rounded-[26px] overflow-hidden">
+            <div class="menu-header px-5 py-4">
+              <h2 class="fusion-title text-4xl text-[#17100d]">Chicken Biryani</h2>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Solo</div>
+                </div>
+                <div class="price-tag">₱229</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Duo</div>
+                </div>
+                <div class="price-tag">₱429</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Barkada</div>
+                </div>
+                <div class="price-tag">₱1,499</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="menu-section rounded-[26px] overflow-hidden">
+            <div class="menu-header px-5 py-4">
+              <h2 class="fusion-title text-4xl text-[#17100d]">Rice Meals</h2>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Shanghai Rice</div>
+                </div>
+                <div class="price-tag">₱70</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Chicken Fillet</div>
+                </div>
+                <div class="price-tag">₱130</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Pork Tonkatsu</div>
+                </div>
+                <div class="price-tag">₱180</div>
+              </div>
+              <div class="menu-item flex items-center justify-between gap-3 py-3">
+                <div>
+                  <div class="font-black text-lg">Tempura Rice</div>
+                </div>
+                <div class="price-tag">₱230</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="menu-section rounded-[26px] overflow-hidden">
+            <div class="menu-header px-5 py-4">
+              <h2 class="fusion-title text-4xl text-[#17100d]">More Favorites</h2>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="grid gap-3 sm:grid-cols-2">
+                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="font-black">Cakes</div>
+                    <div class="price-tag">₱160</div>
                   </div>
-                  <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.9 ★</div>
                 </div>
-
-                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Fusion Nook restaurant" class="mt-4 h-52 w-full rounded-[18px] object-cover" />
-
-                <div class="mt-4 rounded-[18px] bg-gradient-to-r from-[#fff1f7] via-[#fff7fc] to-[#f3f0ff] p-3">
-                  <div class="flex items-center justify-between gap-4">
-                    <div>
-                      <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Combo deal</p>
-                      <p class="mt-2 text-3xl font-black text-slate-900">₱299</p>
-                    </div>
-                    <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">🍔</div>
+                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="font-black">Frappe</div>
+                    <div class="price-tag">₱220</div>
+                  </div>
+                </div>
+                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="font-black">Latte</div>
+                    <div class="price-tag">₱180</div>
+                  </div>
+                </div>
+                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="font-black">Add-ons</div>
+                    <div class="price-tag">₱15</div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
-        <section class="mt-8">
-          <div class="mb-3 flex items-center justify-between gap-2">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Categories</p>
-            <a href="#menu" class="text-xs font-bold text-[#bf2d6d] sm:text-sm">See all</a>
-          </div>
-
-          <div class="menu-scroll flex gap-3 overflow-x-auto pb-2">
-            <button class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Burger</button>
-            <button class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Pizza</button>
-            <button class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Pasta</button>
-            <button class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Healthy</button>
-            <button class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Dessert</button>
-            <button class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Drinks</button>
-          </div>
-        </section>
-
-        <section id="promo" class="mt-8">
-          <div class="mb-3 flex items-center justify-between gap-2">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Promos</p>
-            <a href="#menu" class="text-xs font-bold text-[#bf2d6d] sm:text-sm">More deals</a>
-          </div>
-
-          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            <div class="promo-card rounded-[24px] p-4">
-              <div class="flex items-center justify-between">
-                <span class="rounded-full bg-[#fff1f7] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#bf2d6d]">Hot deal</span>
-                <span class="text-xs font-semibold text-slate-500">Ends in 2h</span>
-              </div>
-              <h3 class="mt-4 text-2xl font-black text-slate-900">₱249</h3>
-              <p class="mt-1 text-sm text-slate-600">Burger combo + iced coffee</p>
-              <button class="mt-4 panda-btn rounded-xl px-3 py-2 text-xs font-bold">Claim deal</button>
-            </div>
-
-            <div class="promo-card rounded-[24px] p-4">
-              <div class="flex items-center justify-between">
-                <span class="rounded-full bg-[#eef2ff] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#4f46e5]">Free delivery</span>
-                <span class="text-xs font-semibold text-slate-500">Min. ₱500</span>
-              </div>
-              <h3 class="mt-4 text-2xl font-black text-slate-900">₱0 fee</h3>
-              <p class="mt-1 text-sm text-slate-600">For orders over ₱500</p>
-              <button class="mt-4 panda-btn rounded-xl px-3 py-2 text-xs font-bold">Order now</button>
-            </div>
-
-            <div class="promo-card rounded-[24px] p-4 sm:col-span-2 xl:col-span-1">
-              <div class="flex items-center justify-between">
-                <span class="rounded-full bg-[#ecfdf5] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#15803d]">Family meal</span>
-                <span class="text-xs font-semibold text-slate-500">Best seller</span>
-              </div>
-              <h3 class="mt-4 text-2xl font-black text-slate-900">₱499</h3>
-              <p class="mt-1 text-sm text-slate-600">2 mains + 2 drinks</p>
-              <button class="mt-4 panda-btn rounded-xl px-3 py-2 text-xs font-bold">Get meals</button>
-            </div>
-          </div>
-        </section>
-
-        <section id="menu" class="mt-10">
-          <div class="mb-4 flex items-center justify-between gap-2">
-            <div>
-              <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Popular</p>
-              <h2 class="mt-1 text-2xl font-black tracking-[-0.05em] text-slate-900 sm:text-3xl">Fusion Nook menu</h2>
-            </div>
-            <a href="#orders" class="text-sm font-bold text-[#bf2d6d]">Track orders</a>
-          </div>
-
-          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" id="menu-grid"></div>
-        </section>
-
-        <section id="orders" class="mt-10 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <div class="soft-card rounded-[28px] p-4 sm:p-5">
-            <div class="mb-4 flex items-center justify-between gap-4">
+        <aside class="order-panel">
+          <div class="rounded-[30px] bg-[#f7efdf] p-5 shadow-soft ring-2 ring-[#17100d]">
+            <div class="mb-4 flex items-center justify-between">
               <div>
-                <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Order status</p>
-                <h3 class="mt-2 text-2xl font-black text-slate-900">Live tracking</h3>
+                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#17100d]/60">Your order</p>
+                <h3 class="mt-1 text-2xl font-black text-[#17100d]">Cart</h3>
               </div>
-              <button id="add-demo-order" class="panda-btn rounded-xl px-3 py-2 text-xs font-bold">Add demo order</button>
+              <div class="rounded-full bg-[#17100d] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#f7c75d]" id="cart-count">0</div>
             </div>
 
-            <div id="orders-list" class="space-y-4"></div>
-          </div>
+            <div id="cart-items" class="space-y-3">
+              <div class="rounded-2xl border border-dashed border-[#17100d]/30 bg-[#fffaf2] p-4 text-sm text-[#17100d]/60">Your cart is empty.</div>
+            </div>
 
-          <div class="soft-card rounded-[28px] p-4 sm:p-5">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Cart</p>
-            <h3 class="mt-2 text-2xl font-black text-slate-900">Your order</h3>
-            <div id="cart-items" class="mt-4 space-y-3"></div>
-
-            <div class="mt-5 border-t border-slate-200 pt-4">
-              <div class="flex items-center justify-between text-sm text-slate-600">
+            <div class="mt-5 border-t border-[#17100d]/20 pt-4">
+              <div class="flex items-center justify-between text-sm font-medium text-[#17100d]/70">
                 <span>Subtotal</span>
-                <span id="cart-subtotal">₱0</span>
+                <span id="subtotal">₱0</span>
               </div>
-              <div class="mt-2 flex items-center justify-between text-sm text-slate-600">
+              <div class="mt-2 flex items-center justify-between text-sm font-medium text-[#17100d]/70">
                 <span>Delivery fee</span>
                 <span>₱35</span>
               </div>
-              <div class="mt-2 flex items-center justify-between text-lg font-black text-slate-900">
+              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#17100d]">
                 <span>Total</span>
-                <span id="cart-total">₱0</span>
+                <span id="total">₱0</span>
               </div>
             </div>
 
-            <form id="checkout-form" class="mt-6 space-y-4">
+            <form id="order-form" class="mt-6 space-y-3">
               <div>
-                <label class="mb-2 block text-sm font-medium text-slate-700">Customer name</label>
-                <input id="checkout-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Your full name" />
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Complete name</label>
+                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your full name" required />
               </div>
+
               <div>
-                <label class="mb-2 block text-sm font-medium text-slate-700">Delivery address</label>
-                <textarea id="checkout-address" rows="3" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Your delivery location"></textarea>
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Address</label>
+                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your delivery address" required></textarea>
               </div>
+
               <div>
-                <label class="mb-2 block text-sm font-medium text-slate-700">Payment method</label>
-                <select id="checkout-payment" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]">
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">How do you want to pay?</label>
+                <select id="payment-method" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]">
+                  <option>Cash on Delivery</option>
                   <option>GCash</option>
                   <option>Maya</option>
                   <option>Card</option>
-                  <option>Cash on Delivery</option>
                 </select>
               </div>
-              <button type="submit" class="panda-btn w-full rounded-2xl px-4 py-3 text-sm font-bold">Place order</button>
+
+              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-[#f7c75d]">Confirm order</button>
             </form>
           </div>
-        </section>
+        </aside>
       </main>
+    </div>
 
-      <footer class="border-t border-slate-200 bg-white/80">
-        <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:px-8">
-          <p>© <span id="year"></span> Fusion Nook</p>
-          <div class="flex gap-4">
-            <a href="https://www.facebook.com/profile.php?id=61594674580769" target="_blank" rel="noopener" class="hover:text-[#bf2d6d]">Facebook</a>
-            <a href="https://viber.me/09670876519" target="_blank" rel="noopener" class="hover:text-[#bf2d6d]">Viber</a>
-            <a href="#orders" class="hover:text-[#bf2d6d]">Track order</a>
+    <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#17100d]/70 p-4">
+      <div class="order-sheet w-full max-w-md rounded-[28px] p-5 text-white shadow-2xl">
+        <div class="mb-4 flex items-center justify-between">
+          <div>
+            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#f7c75d]">Order ready</p>
+            <h3 class="mt-1 text-2xl font-black">Confirm</h3>
           </div>
+          <button id="close-modal" class="rounded-full bg-white/10 p-2 text-lg">×</button>
         </div>
-      </footer>
+
+        <div class="rounded-2xl bg-white/5 p-4 text-sm text-white/90">
+          Your order total is <span id="modal-total" class="font-black text-[#f7c75d]">₱0</span>.
+        </div>
+
+        <div class="mt-5 grid gap-3">
+          <a id="open-messenger" href="#" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl bg-[#0084ff] px-4 py-3 text-sm font-bold text-white">
+            <span>Open Messenger</span>
+            <span>→</span>
+          </a>
+          <a id="open-viber" href="#" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl bg-[#7c3aed] px-4 py-3 text-sm font-bold text-white">
+            <span>Open Viber</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <p class="mt-5 text-center text-xs text-white/70">Please click the link to confirm payment and send your order details.</p>
+      </div>
     </div>
 
     <script>
+      const cartKey = 'fusion_k_cart';
       const menuItems = [
-        { id: 1, name: 'Fusion Burger', category: 'Main', price: 180, description: 'Juicy beef burger with cheddar, bacon, and fries.', photo: 'https://images.unsplash.com/photo-1568901346375-23c9345f5f4b?auto=format&fit=crop&w=900&q=80' },
-        { id: 2, name: 'Creamy Chicken Pasta', category: 'Main', price: 249, description: 'Creamy and savory chicken pasta with parmesan.', photo: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80' },
-        { id: 3, name: 'Crispy Bites', category: 'Snack', price: 120, description: 'Golden crunchy bites with house dip.', photo: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80' },
-        { id: 4, name: 'Iced Coffee', category: 'Drink', price: 95, description: 'Smooth chilled coffee with creamy finish.', photo: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=900&q=80' },
-        { id: 5, name: 'Mango Cheesecake', category: 'Dessert', price: 140, description: 'Creamy cheesecake with mango sweetness.', photo: 'https://images.unsplash.com/photo-1533134242443-d6c10f3d5f68?auto=format&fit=crop&w=900&q=80' },
-        { id: 6, name: 'Fusion Bowl', category: 'Healthy', price: 170, description: 'Fresh salad bowl with grilled protein and rice.', photo: 'https://images.unsplash.com/photo-1547592180-85f1739f4f6d?auto=format&fit=crop&w=900&q=80' }
+        { name: '6 PCS Wings', price: 189 },
+        { name: '8 PCS Wings', price: 240 },
+        { name: '12 PCS Wings', price: 329 },
+        { name: '16 PCS Wings', price: 419 },
+        { name: '30 PCS Wings', price: 690 },
+        { name: 'Plain Fries', price: 70 },
+        { name: 'Flavored Fries', price: 85 },
+        { name: 'Cheesy Beef Fries', price: 130 },
+        { name: 'Wings with Fries', price: 260 },
+        { name: 'Chicken Biryani Solo', price: 229 },
+        { name: 'Chicken Biryani Duo', price: 429 },
+        { name: 'Chicken Biryani Barkada', price: 1499 },
+        { name: 'Shanghai Rice', price: 70 },
+        { name: 'Chicken Fillet', price: 130 },
+        { name: 'Pork Tonkatsu', price: 180 },
+        { name: 'Tempura Rice', price: 230 },
+        { name: 'Cakes', price: 160 },
+        { name: 'Frappe', price: 220 },
+        { name: 'Latte', price: 180 },
+        { name: 'Add-on', price: 15 }
       ];
 
-      const orderStorageKey = 'fusion_nook_live_orders';
-      const cartStorageKey = 'fusion_nook_cart';
-      const viewModeKey = 'fusion_nook_view_mode';
-      const customerSessionKey = 'fusion_nook_customer_session';
-      const customerViewBtn = document.getElementById('view-customer');
-      const ownerViewBtn = document.getElementById('view-owner');
-      const chatModal = document.getElementById('chat-modal');
-      const chatOpenBtn = document.getElementById('chat-open-btn');
-      const chatCloseBtn = document.getElementById('chat-close-btn');
-      const navbarChatBtn = document.getElementById('chat-navbar-btn');
-
-      function makeAccessKey() {
-        if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
-        return 'cust-' + Date.now() + '-' + Math.random().toString(16).slice(2);
-      }
-
-      let cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
-      let ownerMode = localStorage.getItem(viewModeKey) === 'owner';
-      let customerSession = JSON.parse(localStorage.getItem(customerSessionKey)) || { name: '', address: '', accessKey: makeAccessKey() };
-      if (!customerSession.accessKey) customerSession.accessKey = makeAccessKey();
-      let orders = JSON.parse(localStorage.getItem(orderStorageKey)) || [
-        {
-          id: 1,
-          customerName: 'Maria Santos',
-          customerAddress: '123 P. Cruz St., Makati',
-          customerKey: 'maria santos|123 p. cruz st., makati',
-          customerAccessKey: 'demo-owner-01',
-          paymentMethod: 'GCash',
-          total: 430,
-          status: 'accepted',
-          acceptedAt: Date.now() - 1000 * 60 * 4,
-          finishedAt: Date.now() - 1000 * 60 * 1,
-          deliveryStartedAt: Date.now() - 1000 * 30,
-          items: [
-            { name: 'Fusion Burger', quantity: 1, price: 180 },
-            { name: 'Iced Coffee', quantity: 2, price: 95 }
-          ]
-        },
-        {
-          id: 2,
-          customerName: 'Carl Dela Cruz',
-          customerAddress: '88 M. Ponce St., Makati',
-          customerKey: 'carl dela cruz|88 m. ponce st., makati',
-          customerAccessKey: 'demo-owner-02',
-          paymentMethod: 'Maya',
-          total: 310,
-          status: 'finished',
-          acceptedAt: Date.now() - 1000 * 60 * 10,
-          finishedAt: Date.now() - 1000 * 60 * 2,
-          deliveryStartedAt: Date.now() - 1000 * 60 * 0.5,
-          items: [
-            { name: 'Creamy Chicken Pasta', quantity: 1, price: 249 },
-            { name: 'Mango Cheesecake', quantity: 1, price: 140 }
-          ]
-        },
-        {
-          id: 3,
-          customerName: 'Ria Gomez',
-          customerAddress: '40 Lapu-Lapu Ave., Makati',
-          customerKey: 'ria gomez|40 lapu-lapu ave., makati',
-          customerAccessKey: 'demo-owner-03',
-          paymentMethod: 'Cash on Delivery',
-          total: 250,
-          status: 'in-delivery',
-          acceptedAt: Date.now() - 1000 * 60 * 12,
-          finishedAt: Date.now() - 1000 * 60 * 5,
-          deliveryStartedAt: Date.now() - 1000 * 60 * 2,
-          items: [
-            { name: 'Fusion Bowl', quantity: 1, price: 170 },
-            { name: 'Iced Coffee', quantity: 1, price: 95 }
-          ]
-        }
-      ];
-
-      function normalizeText(value) {
-        return String(value || '').trim();
-      }
-
-      function getCustomerKey(name, address) {
-        return `${normalizeText(name).toLowerCase()}|${normalizeText(address).toLowerCase()}`;
-      }
-
-      function saveOrders() {
-        localStorage.setItem(orderStorageKey, JSON.stringify(orders));
-      }
+      let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
       function saveCart() {
-        localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+        localStorage.setItem(cartKey, JSON.stringify(cart));
       }
 
-      function saveCustomerSession() {
-        localStorage.setItem(customerSessionKey, JSON.stringify(customerSession));
+      function addToCart(name, price) {
+        const item = cart.find(entry => entry.name === name);
+        if (item) item.quantity += 1;
+        else cart.push({ name, price, quantity: 1 });
+        saveCart();
+        renderCart();
+        showToast(`${name} added to cart.`);
+      }
+
+      function minusFromCart(name) {
+        const found = cart.find(entry => entry.name === name);
+        if (!found) return;
+        if (found.quantity > 1) found.quantity -= 1;
+        else cart = cart.filter(entry => entry.name !== name);
+        saveCart();
+        renderCart();
       }
 
       function showToast(message) {
-        const container = document.getElementById('toast-container');
-        const toast = document.createElement('div');
-        toast.className = 'pointer-events-auto rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-lg';
-        toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#ff2b85]"></i><span>' + message + '</span></div>';
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 2200);
-      }
-
-      function openChatModal() {
-        chatModal.classList.add('show');
-        chatModal.setAttribute('aria-hidden', 'false');
-      }
-
-      function closeChatModal() {
-        chatModal.classList.remove('show');
-        chatModal.setAttribute('aria-hidden', 'true');
-      }
-
-      function formatDuration(ms) {
-        const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      }
-
-      function getStatusMeta(status) {
-        const map = {
-          pending: { label: 'Pending', className: 'bg-yellow-100 text-yellow-700' },
-          accepted: { label: 'Preparing', className: 'bg-cyan-100 text-cyan-700' },
-          finished: { label: 'Finished', className: 'bg-emerald-100 text-emerald-700' },
-          'in-delivery': { label: 'In Delivery', className: 'bg-indigo-100 text-indigo-700' }
-        };
-        return map[status] || map.pending;
-      }
-
-      function getTimerText(order) {
-        const now = Date.now();
-
-        if (order.status === 'pending') return 'Waiting for acceptance';
-
-        if (order.status === 'accepted') {
-          const acceptedAt = order.acceptedAt || now;
-          const prepLimit = 1000 * 60 * 12;
-          const remaining = Math.max(0, prepLimit - (now - acceptedAt));
-          return `Prep: ${formatDuration(remaining)}`;
-        }
-
-        if (order.status === 'finished') {
-          const finishedAt = order.finishedAt || now;
-          const readyLimit = 1000 * 60 * 6;
-          const remaining = Math.max(0, readyLimit - (now - finishedAt));
-          return `Ready in: ${formatDuration(remaining)}`;
-        }
-
-        if (order.status === 'in-delivery') {
-          const deliveryStartedAt = order.deliveryStartedAt || now;
-          const etaLimit = 1000 * 60 * 15;
-          const remaining = Math.max(0, etaLimit - (now - deliveryStartedAt));
-          return `ETA: ${formatDuration(remaining)}`;
-        }
-
-        return 'No timer';
-      }
-
-      function applyViewMode() {
-        customerViewBtn.classList.toggle('active', !ownerMode);
-        ownerViewBtn.classList.toggle('active', ownerMode);
-        localStorage.setItem(viewModeKey, ownerMode ? 'owner' : 'customer');
-      }
-
-      function getVisibleOrders() {
-        if (ownerMode) return orders;
-
-        const currentAccessKey = customerSession.accessKey;
-        if (!currentAccessKey) return [];
-
-        return orders.filter((order) => {
-          const orderKey = order.customerAccessKey || order.customerKey || '';
-          return orderKey === currentAccessKey || (!order.customerAccessKey && order.customerKey === getCustomerKey(customerSession.name || '', customerSession.address || ''));
-        });
-      }
-
-      function renderMenuGrid() {
-        const grid = document.getElementById('menu-grid');
-        grid.innerHTML = menuItems.map(item => `
-          <div class="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
-            <img src="${item.photo}" alt="${item.name}" class="h-32 w-full rounded-[20px] object-cover" />
-            <div class="mt-4 flex items-center justify-between gap-2">
-              <div>
-                <h3 class="text-lg font-black text-slate-900">${item.name}</h3>
-                <p class="text-sm text-slate-500">${item.category}</p>
-              </div>
-              <span class="text-base font-black text-slate-900">₱${item.price}</span>
-            </div>
-            <p class="mt-2 text-sm text-slate-600">${item.description}</p>
-            <button class="add-item mt-4 w-full rounded-2xl bg-[#fff1f7] px-3 py-2 text-sm font-bold text-[#bf2d6d]" data-item-id="${item.id}">Add to cart</button>
-          </div>
-        `).join('');
-
-        document.querySelectorAll('.add-item').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const item = menuItems.find(entry => entry.id === Number(btn.dataset.itemId));
-            if (!item) return;
-            const existing = cart.find(entry => entry.id === item.id);
-            if (existing) existing.quantity += 1;
-            else cart.push({ id: item.id, name: item.name, price: item.price, quantity: 1 });
-            saveCart();
-            renderCart();
-            showToast(`${item.name} added to cart.`);
-          });
-        });
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(() => toast.classList.add('hidden'), 1800);
       }
 
       function renderCart() {
         const cartItemsEl = document.getElementById('cart-items');
-        const subtotalEl = document.getElementById('cart-subtotal');
-        const totalEl = document.getElementById('cart-total');
+        const subtotalEl = document.getElementById('subtotal');
+        const totalEl = document.getElementById('total');
+        const cartCountEl = document.getElementById('cart-count');
 
         if (!cart.length) {
-          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">Your cart is empty.</div>';
+          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#17100d]/30 bg-[#fffaf2] p-4 text-sm text-[#17100d]/60">Your cart is empty.</div>';
           subtotalEl.textContent = '₱0';
           totalEl.textContent = '₱0';
+          cartCountEl.textContent = '0';
           return;
         }
 
-        cartItemsEl.innerHTML = cart.map(item => `
-          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-            <div class="flex items-center justify-between gap-3">
-              <div>
-                <div class="font-bold text-slate-900">${item.name}</div>
-                <div class="text-xs text-slate-500">₱${item.price} each</div>
-              </div>
-              <div class="flex items-center gap-2">
-                <button class="decrease-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">-</button>
-                <span class="text-sm font-bold text-slate-900">${item.quantity}</span>
-                <button class="increase-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">+</button>
+        let subtotal = 0;
+        cartItemsEl.innerHTML = cart.map(item => {
+          subtotal += item.price * item.quantity;
+          return `
+            <div class="rounded-2xl border border-[#17100d]/10 bg-[#fffaf2] p-3">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <div class="font-black text-[#17100d]">${item.name}</div>
+                  <div class="text-xs text-[#17100d]/55">₱${item.price} each</div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="minus-item rounded-full border border-[#17100d]/20 bg-white px-2 text-xs font-black text-[#17100d]" data-name="${item.name}">−</button>
+                  <span class="text-sm font-black text-[#17100d]">${item.quantity}</span>
+                  <button class="plus-item rounded-full border border-[#17100d]/20 bg-white px-2 text-xs font-black text-[#17100d]" data-name="${item.name}">+</button>
+                </div>
               </div>
             </div>
-          </div>
-        `).join('');
-
-        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
-        totalEl.textContent = `₱${(subtotal + 35).toLocaleString()}`;
-
-        document.querySelectorAll('.increase-item').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const itemId = Number(btn.dataset.itemId);
-            const existing = cart.find(entry => entry.id === itemId);
-            if (existing) existing.quantity += 1;
-            saveCart();
-            renderCart();
-          });
-        });
-
-        document.querySelectorAll('.decrease-item').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const itemId = Number(btn.dataset.itemId);
-            const index = cart.findIndex(entry => entry.id === itemId);
-            if (index === -1) return;
-            if (cart[index].quantity > 1) cart[index].quantity -= 1;
-            else cart.splice(index, 1);
-            saveCart();
-            renderCart();
-          });
-        });
-      }
-
-      function renderOrders() {
-        const list = document.getElementById('orders-list');
-        const visibleOrders = getVisibleOrders();
-
-        if (!visibleOrders.length) {
-          list.innerHTML = ownerMode
-            ? '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-500">No orders available.</div>'
-            : '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-500">No orders yet for this customer.</div>';
-          return;
-        }
-
-        list.innerHTML = visibleOrders.map(order => {
-          const meta = getStatusMeta(order.status);
-          const timerText = getTimerText(order);
-          const actions = ownerMode ? `
-            <div class="mt-4 flex flex-wrap gap-2">
-              <button class="status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
-              <button class="status-btn rounded-xl bg-emerald-500 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white" data-order-id="${order.id}" data-status="finished">Done</button>
-              <button class="status-btn rounded-xl bg-indigo-500 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white" data-order-id="${order.id}" data-status="in-delivery">Delivery</button>
-            </div>` : `
-            <div class="mt-4 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700">This order is private to your account only.</div>`;
-
-          return `
-            <article class="rounded-[24px] border border-slate-200 bg-slate-50 p-4">
-              <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                  <div class="flex items-center gap-3">
-                    <span class="status-pill ${meta.className}">${meta.label}</span>
-                    <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Order #${order.id}</span>
-                  </div>
-                  <h3 class="mt-2 text-xl font-black text-slate-900">${order.customerName}</h3>
-                  <p class="text-sm text-slate-500">${order.customerAddress}</p>
-                </div>
-
-                <div class="timer-box w-full max-w-[210px] rounded-[18px] p-3 text-left">
-                  <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Prep timer</div>
-                  <div class="mt-1 text-2xl font-black text-slate-900">${timerText}</div>
-                </div>
-              </div>
-
-              <div class="mt-4 grid gap-3 md:grid-cols-[1.2fr_0.8fr]">
-                <div class="rounded-[18px] border border-slate-200 bg-white p-3">
-                  <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Items</div>
-                  <div class="mt-3 space-y-2 text-sm text-slate-700">
-                    ${order.items.map(item => `
-                      <div class="flex items-center justify-between gap-3">
-                        <span>${item.name} x${item.quantity}</span>
-                        <span>₱${(item.price * item.quantity).toLocaleString()}</span>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-
-                <div class="rounded-[18px] border border-slate-200 bg-white p-3">
-                  <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Payment</div>
-                  <div class="mt-2 text-lg font-black text-slate-900">₱${Number(order.total).toLocaleString()}</div>
-                  <div class="mt-2 text-sm text-slate-600">${order.paymentMethod}</div>
-                  ${actions}
-                </div>
-              </div>
-            </article>
           `;
         }).join('');
 
-        document.querySelectorAll('.status-btn').forEach(button => {
+        const total = subtotal + 35;
+        subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
+        totalEl.textContent = `₱${total.toLocaleString()}`;
+        cartCountEl.textContent = String(cart.reduce((sum, item) => sum + item.quantity, 0));
+
+        document.querySelectorAll('.minus-item').forEach(button => {
+          button.addEventListener('click', () => minusFromCart(button.dataset.name));
+        });
+
+        document.querySelectorAll('.plus-item').forEach(button => {
           button.addEventListener('click', () => {
-            const id = Number(button.dataset.orderId);
-            const status = button.dataset.status;
-            const targetOrder = orders.find(order => order.id === id);
-            if (!targetOrder) return;
-
-            targetOrder.status = status;
-            if (status === 'accepted' && !targetOrder.acceptedAt) targetOrder.acceptedAt = Date.now();
-            if (status === 'finished' && !targetOrder.finishedAt) targetOrder.finishedAt = Date.now();
-            if (status === 'in-delivery' && !targetOrder.deliveryStartedAt) targetOrder.deliveryStartedAt = Date.now();
-
-            saveOrders();
-            renderOrders();
-            showToast(`Order ${id} set to ${getStatusMeta(status).label}.`);
+            const entry = cart.find(item => item.name === button.dataset.name);
+            if (entry) {
+              entry.quantity += 1;
+              saveCart();
+              renderCart();
+            }
           });
         });
       }
 
-      function sendOrderToMessenger(order) {
-        const itemsSummary = order.items.map(item => `${item.name} x${item.quantity}`).join(', ');
-        const message = `Fusion Nook order received\nCustomer: ${order.customerName}\nAddress: ${order.customerAddress}\nItems: ${itemsSummary}\nTotal: ₱${Number(order.total).toLocaleString()}\nPayment: ${order.paymentMethod}`;
-        const messengerUrl = `https://m.me/61594674580769?text=${encodeURIComponent(message)}`;
-        window.open(messengerUrl, '_blank', 'noopener,noreferrer');
+      function createMenuButton(itemName, price) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = 'Add';
+        btn.className = 'rounded-full bg-[#f7c75d] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-[#17100d]';
+        btn.addEventListener('click', () => addToCart(itemName, price));
+        return btn;
       }
 
-      function addDemoOrder() {
-        const nextId = orders.length ? Math.max(...orders.map(o => o.id)) + 1 : 1;
-        const customerName = `Customer ${nextId}`;
-        const address = `Block ${nextId}, New City`;
-
-        orders.unshift({
-          id: nextId,
-          customerName,
-          customerAddress: address,
-          customerKey: getCustomerKey(customerName, address),
-          customerAccessKey: 'demo-owner-' + nextId,
-          paymentMethod: 'GCash',
-          total: 290 + nextId * 15,
-          status: 'pending',
-          acceptedAt: null,
-          finishedAt: null,
-          deliveryStartedAt: null,
-          items: [
-            { name: 'Fusion Burger', quantity: 1, price: 180 },
-            { name: 'Iced Coffee', quantity: 1, price: 95 }
-          ]
+      function bindMenuItems() {
+        const menuButtons = document.querySelectorAll('[data-menu]');
+        menuButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const name = button.dataset.menuName;
+            const price = Number(button.dataset.menuPrice);
+            addToCart(name, price);
+          });
         });
-        saveOrders();
-        renderOrders();
-        showToast('Demo order added.');
       }
 
-      document.getElementById('checkout-form').addEventListener('submit', (event) => {
-        event.preventDefault();
-        if (!cart.length) {
-          showToast('Your cart is empty.');
-          return;
-        }
+      function setInitialMenu() {
+        const presets = [
+          { name: '6 PCS Wings', price: 189 },
+          { name: 'Plain Fries', price: 70 },
+          { name: 'Chicken Biryani Solo', price: 229 },
+          { name: 'Shanghai Rice', price: 70 },
+          { name: 'Latte', price: 180 }
+        ];
 
-        const name = normalizeText(document.getElementById('checkout-name').value);
-        const address = normalizeText(document.getElementById('checkout-address').value);
-        const payment = document.getElementById('checkout-payment').value;
-
-        if (!name || !address) {
-          showToast('Please enter your name and address.');
-          return;
-        }
-
-        customerSession = { name, address, accessKey: customerSession.accessKey || makeAccessKey() };
-        saveCustomerSession();
-
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 35;
-        const order = {
-          id: Date.now(),
-          customerName: name,
-          customerAddress: address,
-          customerKey: getCustomerKey(name, address),
-          customerAccessKey: customerSession.accessKey,
-          paymentMethod: payment,
-          total,
-          status: 'pending',
-          acceptedAt: null,
-          finishedAt: null,
-          deliveryStartedAt: null,
-          items: cart.map(item => ({ name: item.name, quantity: item.quantity, price: item.price }))
-        };
-
-        orders.unshift(order);
-        saveOrders();
-        cart = [];
+        cart = presets.map(item => ({ ...item, quantity: 1 }));
         saveCart();
         renderCart();
-        renderOrders();
-        event.target.reset();
-        sendOrderToMessenger(order);
-        showToast('Order placed successfully and sent to Fusion Nook Messenger!');
+      }
+
+      function collectOrderText() {
+        const name = document.getElementById('customer-name').value.trim();
+        const address = document.getElementById('customer-address').value.trim();
+        const payment = document.getElementById('payment-method').value;
+
+        if (!name || !address || !cart.length) return null;
+
+        const itemsText = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 35;
+        return {
+          name,
+          address,
+          payment,
+          itemsText,
+          total
+        };
+      }
+
+      function openConfirmModal() {
+        const data = collectOrderText();
+        if (!data) {
+          showToast('Please add items and fill in your details.');
+          return;
+        }
+
+        const modal = document.getElementById('confirm-modal');
+        const totalEl = document.getElementById('modal-total');
+        totalEl.textContent = `₱${data.total.toLocaleString()}`;
+
+        const messengerText = `Fusion K Order\nCustomer: ${data.name}\nAddress: ${data.address}\nPayment: ${data.payment}\nItems: ${data.itemsText}\nTotal: ₱${data.total.toLocaleString()}`;
+        const messengerLink = `https://m.me/61594674580769?text=${encodeURIComponent(messengerText)}`;
+        const viberLink = `https://viber.me/09670876519?text=${encodeURIComponent(messengerText)}`;
+
+        document.getElementById('open-messenger').href = messengerLink;
+        document.getElementById('open-viber').href = viberLink;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('modal-open');
+      }
+
+      function closeConfirmModal() {
+        const modal = document.getElementById('confirm-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.classList.remove('modal-open');
+      }
+
+      document.getElementById('order-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        openConfirmModal();
       });
 
-      document.getElementById('add-demo-order').addEventListener('click', addDemoOrder);
-      chatOpenBtn.addEventListener('click', openChatModal);
-      chatCloseBtn.addEventListener('click', closeChatModal);
-      navbarChatBtn.addEventListener('click', openChatModal);
-      chatModal.addEventListener('click', (event) => {
-        if (event.target === chatModal) closeChatModal();
+      document.getElementById('close-modal').addEventListener('click', closeConfirmModal);
+      document.getElementById('confirm-modal').addEventListener('click', function (event) {
+        if (event.target === this) closeConfirmModal();
       });
 
-      customerViewBtn.addEventListener('click', () => {
-        ownerMode = false;
-        applyViewMode();
-        renderOrders();
-      });
-
-      ownerViewBtn.addEventListener('click', () => {
-        ownerMode = true;
-        applyViewMode();
-        renderOrders();
-      });
-
-      document.getElementById('year').textContent = new Date().getFullYear();
-      document.getElementById('checkout-name').value = customerSession.name || '';
-      document.getElementById('checkout-address').value = customerSession.address || '';
-      applyViewMode();
-      renderMenuGrid();
       renderCart();
-      renderOrders();
-      setInterval(() => {
-        renderOrders();
-      }, 1000);
+      bindMenuItems();
+      setInitialMenu();
     </script>
   </body>
 </html>
