@@ -4,141 +4,158 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion Nook | Menu</title>
-    <meta name="description" content="Simple food ordering menu for Fusion Nook with editable sections and item details." />
+    <meta name="description" content="Fusion Nook menu with a FoodPanda-inspired layout and checkout flow." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              cream: '#f8f0dc',
-              gold: '#f9c74f',
-              dark: '#120b0b',
-              rose: '#ff3d7a',
-              red: '#d92d2d',
-              green: '#7ac142'
+              panda: {
+                cream: '#fff7f1',
+                peach: '#fff0ea',
+                orange: '#ff6b2c',
+                orangeDark: '#e8571a',
+                ink: '#1f1f1f',
+                muted: '#6b7280',
+                line: '#ece7e1',
+                paper: '#f7f5f4'
+              }
             },
             boxShadow: {
-              punch: '0 10px 24px rgba(0,0,0,0.18)',
-              soft: '0 18px 40px rgba(31,41,55,0.08)'
+              soft: '0 10px 22px rgba(17, 24, 39, 0.08)',
+              card: '0 14px 28px rgba(31, 41, 55, 0.08)'
             }
           }
         }
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        background: linear-gradient(180deg, #f9f0df 0%, #f5f1ea 100%);
+        background: #f5f3ef;
         font-family: 'Inter', sans-serif;
       }
-      .fusion-title {
+
+      .brand-text {
         font-family: 'Black Ops One', cursive;
         letter-spacing: -0.08em;
       }
-      .menu-section {
-        background: #17100d;
-        border: 3px solid #f7c75d;
-        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.15);
+
+      .menu-card {
+        background: #fff;
+        border: 1px solid #f0ece8;
+        border-radius: 22px;
+        box-shadow: 0 6px 16px rgba(17, 24, 39, 0.03);
       }
-      .menu-header {
-        background: linear-gradient(135deg, #f8c75d 0%, #f9e7b8 100%);
-        border-bottom: 3px solid #f7c75d;
+
+      .menu-card:hover {
+        box-shadow: 0 12px 20px rgba(17, 24, 39, 0.08);
       }
-      .price-tag {
-        color: #ffd859;
-        font-weight: 900;
+
+      .nav-pill {
+        background: #ffffff;
+        border: 1px solid #efe9e3;
+        color: #4b5563;
+        transition: all 0.2s ease;
       }
-      .menu-item {
-        border-bottom: 1px dashed rgba(255,255,255,0.15);
+
+      .nav-pill.active {
+        background: #fff3eb;
+        border-color: #ffd7bf;
+        color: #d64d15;
       }
-      .menu-item:last-child {
-        border-bottom: none;
+
+      .food-badge {
+        background: #fff0ea;
+        color: #d95719;
       }
+
       .order-panel {
         position: sticky;
         top: 1rem;
       }
+
       .modal-open {
         overflow: hidden;
       }
-      .order-sheet {
-        background: rgba(22,15,14,0.92);
-      }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   </head>
   <body class="text-slate-800 antialiased">
-    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#12100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
+    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
 
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <header class="mb-6 rounded-[28px] bg-[#f5e4b4] p-4 shadow-soft ring-2 ring-[#1f1612]">
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div class="flex items-center gap-4">
-            <div class="fusion-title text-5xl leading-none text-[#111111] sm:text-6xl">fusion</div>
-            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#17100d] text-3xl font-black text-[#f7c75d]">N</div>
-            <div class="flex flex-col text-[#111111]">
-              <div class="text-xs font-extrabold uppercase tracking-[0.35em] text-[#111111]/75">Diverse restaurant cafe</div>
-              <div class="mt-1 text-[10px] font-semibold uppercase tracking-[0.38em] text-[#111111]/60">Est. 2022</div>
+    <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+      <header class="sticky top-0 z-40 rounded-[26px] border border-[#f0ece8] bg-white/90 px-4 py-3 shadow-soft backdrop-blur-xl">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff8a3d] to-[#ff5a1f] text-2xl font-black text-white shadow-soft">F</div>
+            <div>
+              <div class="brand-text text-3xl leading-none text-[#111111]">fusion</div>
+              <div class="text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7280]">Nook</div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
-            <span>Good food</span>
-            <span class="text-white">•</span>
-            <span>Great vibes</span>
-          </div>
+          <button type="button" class="rounded-full bg-[#111111] px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-soft">
+            Cart
+          </button>
         </div>
+
+        <nav id="category-nav" class="mt-4 flex gap-2 overflow-x-auto pb-1"></nav>
       </header>
 
-      <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
+      <main class="mt-6 grid gap-6 xl:grid-cols-[1.65fr_0.85fr]">
         <div id="menu-container" class="space-y-6"></div>
 
         <aside class="order-panel">
-          <div class="rounded-[30px] bg-[#f7efdf] p-5 shadow-soft ring-2 ring-[#17100d]">
+          <div class="rounded-[30px] bg-[#fffdfb] p-5 shadow-card ring-1 ring-[#f0ece8]">
             <div class="mb-4 flex items-center justify-between">
               <div>
-                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#17100d]/60">Your order</p>
-                <h3 class="mt-1 text-2xl font-black text-[#17100d]">Cart</h3>
+                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#8a8a8a]">Your order</p>
+                <h3 class="mt-1 text-2xl font-black text-[#111111]">Cart</h3>
               </div>
-              <div class="rounded-full bg-[#17100d] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#f7c75d]" id="cart-count">0</div>
+              <div class="rounded-full bg-[#111111] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#fff]" id="cart-count">0</div>
             </div>
 
             <div id="cart-items" class="space-y-3">
-              <div class="rounded-2xl border border-dashed border-[#17100d]/30 bg-[#fffaf2] p-4 text-sm text-[#17100d]/60">Your cart is empty.</div>
+              <div class="rounded-2xl border border-dashed border-[#e7e0db] bg-[#fffaf7] p-4 text-sm text-[#6b7280]">Your cart is empty.</div>
             </div>
 
-            <div class="mt-5 border-t border-[#17100d]/20 pt-4">
-              <div class="flex items-center justify-between text-sm font-medium text-[#17100d]/70">
+            <div class="mt-5 border-t border-[#f0ece8] pt-4">
+              <div class="flex items-center justify-between text-sm font-medium text-[#4b5563]">
                 <span>Subtotal</span>
                 <span id="subtotal">₱0</span>
               </div>
-              <div class="mt-2 flex items-center justify-between text-sm font-medium text-[#17100d]/70">
+              <div class="mt-2 flex items-center justify-between text-sm font-medium text-[#4b5563]">
                 <span>Delivery fee</span>
                 <span>₱60</span>
               </div>
-              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#17100d]">
+              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#111111]">
                 <span>Total</span>
                 <span id="total">₱0</span>
               </div>
-              <p class="mt-3 text-[11px] font-semibold text-[#17100d]/70">Base delivery fee is ₱60 and may vary depending on your location.</p>
+              <p class="mt-3 text-[11px] font-semibold text-[#6b7280]">Base delivery fee is ₱60 and may vary depending on your location.</p>
             </div>
 
             <form id="order-form" class="mt-6 space-y-3">
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Complete name</label>
-                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Enter your name" />
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">Complete name</label>
+                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#eae5e0] bg-white px-3 py-2.5 text-sm text-[#111111] outline-none focus:border-[#ff8a3d]" placeholder="Enter your name" />
               </div>
 
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Address</label>
-                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Enter delivery address"></textarea>
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">Address</label>
+                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#eae5e0] bg-white px-3 py-2.5 text-sm text-[#111111] outline-none focus:border-[#ff8a3d]" placeholder="Enter delivery address"></textarea>
               </div>
 
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">How do you want to pay?</label>
-                <select id="payment-method" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]">
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#6b7280]">How do you want to pay?</label>
+                <select id="payment-method" class="w-full rounded-2xl border border-[#eae5e0] bg-white px-3 py-2.5 text-sm text-[#111111] outline-none focus:border-[#ff8a3d]">
                   <option>Cash on Delivery</option>
                   <option>GCash</option>
                   <option>Maya</option>
@@ -146,7 +163,7 @@
                 </select>
               </div>
 
-              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-[#f7c75d]">Confirm order</button>
+              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#ff7a29] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-white shadow-soft">Confirm order</button>
             </form>
           </div>
         </aside>
@@ -154,17 +171,17 @@
     </div>
 
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#17100d]/70 p-4">
-      <div class="order-sheet w-full max-w-md rounded-[28px] p-5 text-white shadow-2xl">
+      <div class="w-full max-w-md rounded-[28px] bg-[#1b1b1b] p-5 text-white shadow-2xl">
         <div class="mb-4 flex items-center justify-between">
           <div>
-            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#f7c75d]">Order ready</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#ffb57d]">Order ready</p>
             <h3 class="mt-1 text-2xl font-black">Confirm</h3>
           </div>
           <button id="close-modal" class="rounded-full bg-white/10 p-2 text-lg">×</button>
         </div>
 
         <div class="rounded-2xl bg-white/5 p-4 text-sm text-white/90">
-          Your order total is <span id="modal-total" class="font-black text-[#f7c75d]">₱0</span>.
+          Your order total is <span id="modal-total" class="font-black text-[#ffb57d]">₱0</span>.
         </div>
 
         <div class="mt-5 grid gap-3">
@@ -188,37 +205,37 @@
         {
           title: 'Wings',
           items: [
-            { name: '6 PCS', price: 189, image: 'https://images.unsplash.com/photo-1562967916-eb82221dfb92?auto=format&fit=crop&w=800&q=80' },
-            { name: '8 PCS', price: 240, image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80' },
-            { name: '12 PCS', price: 329, image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
-            { name: '16 PCS', price: 419, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80' },
-            { name: '30 PCS', price: 690, image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' }
+            { name: '6 PCS', price: 189 },
+            { name: '8 PCS', price: 240 },
+            { name: '12 PCS', price: 329 },
+            { name: '16 PCS', price: 419 },
+            { name: '30 PCS', price: 690 }
           ]
         },
         {
           title: 'Fries',
           items: [
-            { name: 'Plain', price: 70, image: 'https://images.unsplash.com/photo-1576103344488-8fd5d9dd966d?auto=format&fit=crop&w=800&q=80' },
-            { name: 'Flavored', price: 85, image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=800&q=80' },
-            { name: 'Cheesy Beef Fries', price: 130, image: 'https://images.unsplash.com/photo-1518013431117-eb1465fa5752?auto=format&fit=crop&w=800&q=80' },
-            { name: 'Wings with Fries', price: 260, image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80' }
+            { name: 'Plain', price: 70 },
+            { name: 'Flavored', price: 85 },
+            { name: 'Cheesy Beef Fries', price: 130 },
+            { name: 'Wings with Fries', price: 260 }
           ]
         },
         {
           title: 'Salads',
           items: [
-            { name: 'Caesar Salad', price: 145, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
-            { name: 'Mango Kani Salad', price: 150, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
-            { name: 'Chef\'s Salad', price: 185, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
-            { name: 'California Maki', price: 180, image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80' }
+            { name: 'Caesar Salad', price: 145 },
+            { name: 'Mango Kani Salad', price: 150 },
+            { name: 'Chef\'s Salad', price: 185 },
+            { name: 'California Maki', price: 180 }
           ]
         }
       ];
 
       const STORAGE_KEY = 'fusionk_menu_data';
+      const BASE_DELIVERY_FEE = 60;
       let menuData = loadMenu();
       let cart = JSON.parse(localStorage.getItem('fusion_k_cart')) || [];
-      const BASE_DELIVERY_FEE = 60;
 
       function loadMenu() {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -236,35 +253,53 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(menuData));
       }
 
+      function saveCart() {
+        localStorage.setItem('fusion_k_cart', JSON.stringify(cart));
+      }
+
+      function slugify(value) {
+        return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      }
+
+      function renderNavigation() {
+        const nav = document.getElementById('category-nav');
+        nav.innerHTML = menuData.map((section, index) => `
+          <a href="#${slugify(section.title)}" class="nav-pill ${index === 0 ? 'active' : ''} inline-flex shrink-0 items-center rounded-full px-4 py-2 text-sm font-bold">
+            ${section.title}
+          </a>
+        `).join('');
+
+        document.querySelectorAll('.nav-pill').forEach(link => {
+          link.addEventListener('click', () => {
+            document.querySelectorAll('.nav-pill').forEach(item => item.classList.remove('active'));
+            link.classList.add('active');
+          });
+        });
+      }
+
       function renderMenu() {
         const container = document.getElementById('menu-container');
         container.innerHTML = menuData.map(section => {
           const items = section.items.map(item => `
-            <div class="food-card">
-              <img class="food-img" src="${item.image || 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80'}" alt="${item.name}" />
-              <div class="p-3">
-                <div class="flex items-center justify-between gap-2">
-                  <h3 class="text-base font-black text-[#17100d]">${item.name}</h3>
-                  <button type="button" class="add-item-btn rounded-full bg-[#17100d] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#f7c75d]" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
-                </div>
-                <div class="mt-2 flex items-center justify-between text-sm">
-                  <span class="text-[#17100d]/60">${item.price > 0 ? 'Fresh item' : 'Flavor option'}</span>
-                  <span class="price-tag rounded-full bg-[#17100d] px-2.5 py-1 text-[#f7c75d]">₱${Number(item.price || 0).toLocaleString()}</span>
-                </div>
+            <div class="menu-card flex items-center justify-between gap-4 p-4">
+              <div>
+                <div class="mb-1 inline-flex items-center rounded-full bg-[#fff1e8] px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#d35a1f]">Best seller</div>
+                <h3 class="text-xl font-black text-[#111111]">${item.name}</h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-lg font-black text-[#111111]">₱${Number(item.price || 0).toLocaleString()}</span>
+                <button type="button" class="add-item-btn rounded-full bg-[#111111] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
               </div>
             </div>
           `).join('');
 
           return `
-            <section class="menu-section overflow-hidden rounded-[28px]">
-              <div class="menu-header px-5 py-4">
-                <h2 class="text-3xl font-black text-[#17100d]">${section.title}</h2>
+            <section id="${slugify(section.title)}" class="rounded-[30px] bg-[#fffefc] p-4 shadow-soft ring-1 ring-[#f0ece8]">
+              <div class="mb-4 flex items-center justify-between gap-3">
+                <h2 class="text-2xl font-black text-[#111111]">${section.title}</h2>
+                <span class="food-badge rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Popular</span>
               </div>
-              <div class="p-4">
-                <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  ${items}
-                </div>
-              </div>
+              <div class="space-y-3">${items}</div>
             </section>
           `;
         }).join('');
@@ -274,10 +309,6 @@
             addToCart(button.dataset.name, Number(button.dataset.price || 0));
           });
         });
-      }
-
-      function saveCart() {
-        localStorage.setItem('fusion_k_cart', JSON.stringify(cart));
       }
 
       function addToCart(name, price) {
@@ -313,7 +344,7 @@
         const cartCountEl = document.getElementById('cart-count');
 
         if (!cart.length) {
-          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#17100d]/30 bg-[#fffaf2] p-4 text-sm text-[#17100d]/60">Your cart is empty.</div>';
+          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#e7e0db] bg-[#fffaf7] p-4 text-sm text-[#6b7280]">Your cart is empty.</div>';
           subtotalEl.textContent = '₱0';
           totalEl.textContent = '₱0';
           cartCountEl.textContent = '0';
@@ -324,16 +355,16 @@
         cartItemsEl.innerHTML = cart.map(item => {
           subtotal += item.price * item.quantity;
           return `
-            <div class="rounded-2xl border border-[#17100d]/10 bg-[#fffaf2] p-3">
+            <div class="rounded-2xl border border-[#f0ece8] bg-[#fffaf7] p-3">
               <div class="flex items-center justify-between gap-3">
                 <div>
-                  <div class="font-black text-[#17100d]">${item.name}</div>
-                  <div class="text-xs text-[#17100d]/55">₱${item.price} each</div>
+                  <div class="font-black text-[#111111]">${item.name}</div>
+                  <div class="text-xs text-[#6b7280]">₱${item.price} each</div>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button class="minus-item rounded-full border border-[#17100d]/20 bg-white px-2 text-xs font-black text-[#17100d]" data-name="${item.name}">−</button>
-                  <span class="text-sm font-black text-[#17100d]">${item.quantity}</span>
-                  <button class="plus-item rounded-full border border-[#17100d]/20 bg-white px-2 text-xs font-black text-[#17100d]" data-name="${item.name}">+</button>
+                  <button class="minus-item rounded-full border border-[#eae5e0] bg-white px-2 text-xs font-black text-[#111111]" data-name="${item.name}">−</button>
+                  <span class="text-sm font-black text-[#111111]">${item.quantity}</span>
+                  <button class="plus-item rounded-full border border-[#eae5e0] bg-white px-2 text-xs font-black text-[#111111]" data-name="${item.name}">+</button>
                 </div>
               </div>
             </div>
@@ -413,6 +444,7 @@
         if (event.target === this) closeConfirmModal();
       });
 
+      renderNavigation();
       renderMenu();
       renderCart();
     </script>
