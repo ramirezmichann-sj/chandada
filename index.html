@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChandadaServer - Food, Rides & Car Hire</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            accent: '#3b82f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        .map-bg {
+            background-color: #1e293b;
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans overflow-x-hidden antialiased bg-slate-950 text-slate-100">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- App Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchMainTab('food')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-lg shadow-brand-500/30">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">ChandadaServer</span>
+                        <span class="text-[10px] bg-brand-500/20 text-brand-400 font-bold px-2 py-0.5 rounded-full ml-1 border border-brand-500/30">SUPER APP</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Central Service Navigation -->
+                <nav class="hidden md:flex space-x-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                    <button onclick="switchMainTab('food')" id="nav-btn-food" class="nav-tab flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all text-brand-500 bg-slate-800 shadow-inner shadow-slate-900/70">
+                        <i class="fa-solid fa-utensils mr-2"></i> Food Delivery
+                    </button>
+                    <button onclick="switchMainTab('rides')" id="nav-btn-rides" class="nav-tab flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-car mr-2"></i> Car Hire & Rides
+                    </button>
+                    <button onclick="switchMainTab('activity')" id="nav-btn-activity" class="nav-tab flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-clock-rotate-left mr-2"></i> Activity & Tracking
+                    </button>
+                </nav>
+
+                <!-- Wallet Controls -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openWalletModal()" class="flex items-center bg-slate-900 hover:bg-slate-800 text-slate-200 px-3.5 py-1.5 rounded-xl border border-slate-700 transition-all text-sm shadow-lg shadow-slate-950/30">
+                        <div class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mr-2">
+                            <i class="fa-solid fa-wallet text-xs"></i>
+                        </div>
+                        <span class="font-semibold text-xs sm:text-sm" id="wallet-display-balance">$142.50</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- 1. FOOD SECTION -->
+        <section id="tab-food" class="space-y-6">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 border border-slate-800 p-6 md:p-8 shadow-xl">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block bg-brand-500/10 text-brand-400 text-xs font-semibold px-3 py-1 rounded-full border border-brand-500/20 mb-3">
+                        <i class="fa-solid fa-fire text-amber-400 mr-1"></i> Special Offer
+                    </span>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">ChandadaServer Delivery</h1>
+                    <p class="text-slate-300 text-sm sm:text-base mb-6">Order meals directly through ChandadaServer rapidly.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="restaurants-grid">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+                    <div class="h-40 bg-slate-800 rounded-xl mb-4 flex items-center justify-center text-slate-500">
+                        <i class="fa-solid fa-burger text-4xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-white">Chandada Express Diner</h3>
+                    <p class="text-xs text-slate-400 mb-3">Burgers • Fast Food • 15-25 min</p>
+                    <button onclick="showToast('Order added to ChandadaServer queue!')" class="w-full bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold py-2 rounded-xl text-sm transition">
+                        Order Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. RIDES & CAR HIRE SECTION -->
+        <section id="tab-rides" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-car-side text-brand-500 mr-2"></i> Book Ride via ChandadaServer
+                    </h2>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Pickup Location</label>
+                            <input type="text" id="ride-pickup" value="Downtown Hub" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Drop-off Destination</label>
+                            <input type="text" id="ride-dropoff" value="Central Terminal" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
+                        </div>
+                    </div>
+                    <button onclick="showToast('Ride requested on ChandadaServer network!')" class="w-full bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold py-3 rounded-xl text-sm">
+                        Confirm Ride Request
+                    </button>
+                </div>
+                <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl map-bg min-h-[300px] flex items-center justify-center p-6">
+                    <div class="text-center bg-slate-950/90 border border-slate-800 p-6 rounded-2xl max-w-sm">
+                        <i class="fa-solid fa-server text-4xl text-brand-500 mb-3"></i>
+                        <h3 class="text-lg font-bold text-white mb-1">ChandadaServer Live Map</h3>
+                        <p class="text-xs text-slate-400">Dispatching nearest available drivers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ACTIVITY SECTION -->
+        <section id="tab-activity" class="hidden space-y-6">
+            <h2 class="text-2xl font-bold text-white">ChandadaServer Orders & Activity</h2>
+            <div id="activity-container" class="space-y-4">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-sm text-white">Order #CS-9941</h4>
+                        <p class="text-xs text-slate-400">Processed by ChandadaServer • $34.20</p>
+                    </div>
+                    <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-md font-semibold">Active</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- WALLET MODAL -->
+    <div id="wallet-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold text-white">ChandadaServer Wallet</h3>
+                <button onclick="closeWalletModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-6 rounded-xl text-slate-950 shadow-lg">
+                <span class="text-xs font-semibold opacity-80 block mb-1">Current Balance</span>
+                <span class="text-3xl font-extrabold" id="modal-wallet-balance">$142.50</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        function switchMainTab(tab) {
+            const tabs = ['food', 'rides', 'activity'];
+            tabs.forEach((key) => {
+                const section = document.getElementById('tab-' + key);
+                if (section) section.classList.add('hidden');
+                const navButton = document.getElementById('nav-btn-' + key);
+                if (navButton) {
+                    navButton.classList.remove('text-brand-500', 'bg-slate-800', 'shadow-inner', 'shadow-slate-900/70');
+                    navButton.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+                }
+            });
+
+            const targetSection = document.getElementById('tab-' + tab);
+            const targetNav = document.getElementById('nav-btn-' + tab);
+            if (targetSection) targetSection.classList.remove('hidden');
+            if (targetNav) {
+                targetNav.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+                targetNav.classList.add('text-brand-500', 'bg-slate-800', 'shadow-inner', 'shadow-slate-900/70');
+            }
+        }
+
+        function openWalletModal() {
+            const modal = document.getElementById('wallet-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeWalletModal() {
+            const modal = document.getElementById('wallet-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 border border-brand-500/50 text-white px-4 py-3 rounded-xl shadow-2xl text-sm flex items-center gap-2 pointer-events-auto';
+            toast.innerHTML = '<i class="fa-solid fa-circle-check text-brand-500"></i> ' + message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => switchMainTab('food'));
+    </script>
+</body>
+</html>
