@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-slate-950 text-slate-100">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chandada | Food, Merchants & Subscription</title>
-    <meta name="description" content="Chandada helps customers discover food and merchants can grow with subscriptions." />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chandada | Marketplace, Delivery & Payments</title>
+    <meta name="description" content="Chandada is an advanced marketplace for customers, merchants, delivery tracking, subscriptions and payments." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -15,8 +15,9 @@
                             50: '#ecfeff',
                             100: '#cffafe',
                             300: '#67e8f9',
-                            500: '#22d3ee',
-                            600: '#06b6d4',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
                             700: '#0f766e'
                         },
                         accent: '#f59e0b',
@@ -29,15 +30,27 @@
             }
         }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(148, 163, 184, 0.15); backdrop-filter: blur(10px); }
+        .glass { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(148, 163, 184, 0.14); backdrop-filter: blur(12px); }
         .menu-card:hover { transform: translateY(-2px); }
+        .map-grid {
+            background-image:
+                linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .route-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
+            70% { box-shadow: 0 0 0 14px rgba(34, 211, 238, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+        }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
     </style>
@@ -51,13 +64,15 @@
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-cyan-500 to-emerald-500 text-xl font-extrabold text-slate-950 shadow-glow">C</div>
                 <div>
                     <div class="text-xl font-extrabold tracking-tight">Chandada</div>
-                    <div class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Marketplace</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Advanced Marketplace</div>
                 </div>
             </div>
 
             <nav class="hidden items-center gap-2 md:flex">
                 <a href="#home" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-white">Home</a>
                 <a href="#menu" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-white">Menu</a>
+                <a href="#map" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-white">Live Map</a>
+                <a href="#payments" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-white">Payments</a>
                 <a href="#merchants" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-white">Merchants</a>
                 <a href="#subscribe" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-white">Subscribe</a>
             </nav>
@@ -66,7 +81,7 @@
                 <button id="toggle-menu-editor" class="hidden rounded-xl border border-brand-500/40 bg-brand-500/10 px-3 py-2 text-sm font-semibold text-brand-300 hover:bg-brand-500/20 md:inline-flex">
                     <i class="fa-solid fa-pen-to-square mr-2"></i> Edit Menu
                 </button>
-                <a href="#subscribe" class="rounded-xl bg-brand-500 px-4 py-2 text-sm font-bold text-slate-950 shadow-lg shadow-brand-500/20 transition hover:bg-brand-400">Join Now</a>
+                <a href="#payments" class="rounded-xl bg-brand-500 px-4 py-2 text-sm font-bold text-slate-950 shadow-lg shadow-brand-500/20 transition hover:bg-brand-400">Pay Now</a>
             </div>
         </div>
     </header>
@@ -76,20 +91,20 @@
             <div class="grid gap-8 px-6 py-8 md:grid-cols-2 md:px-10 md:py-10">
                 <div class="space-y-6">
                     <span class="inline-flex items-center rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-brand-300">
-                        <i class="fa-solid fa-bolt mr-2"></i> Fresh & Fast
+                        <i class="fa-solid fa-bolt mr-2"></i> Faster & Smarter
                     </span>
                     <div class="space-y-4">
-                        <h1 class="text-4xl font-black tracking-tight text-white md:text-5xl">A smarter marketplace for customers and merchants.</h1>
-                        <p class="max-w-xl text-base text-slate-300 md:text-lg">Chandada lets customers discover meals and services while merchants publish menus, manage offers, and grow through subscriptions.</p>
+                        <h1 class="text-4xl font-black tracking-tight text-white md:text-5xl">The advanced marketplace for food, delivery and merchant growth.</h1>
+                        <p class="max-w-xl text-base text-slate-300 md:text-lg">Chandada brings together customers, restaurants, and merchants with live delivery tracking, order payments, subscriptions, and dynamic menu management.</p>
                     </div>
                     <div class="flex flex-wrap gap-3">
                         <a href="#menu" class="rounded-xl bg-brand-500 px-5 py-3 text-sm font-bold text-slate-950 hover:bg-brand-400">Explore Menu</a>
-                        <a href="#merchants" class="rounded-xl border border-slate-700 bg-slate-900/80 px-5 py-3 text-sm font-bold text-white hover:border-slate-500">Become a Merchant</a>
+                        <a href="#map" class="rounded-xl border border-slate-700 bg-slate-900/80 px-5 py-3 text-sm font-bold text-white hover:border-slate-500">Track Delivery</a>
                     </div>
                     <div class="flex flex-wrap gap-6 pt-2 text-sm text-slate-400">
-                        <div><span class="font-bold text-white">1.2k+</span> active customers</div>
-                        <div><span class="font-bold text-white">180+</span> merchant partners</div>
-                        <div><span class="font-bold text-white">24/7</span> ordering support</div>
+                        <div><span class="font-bold text-white">12k+</span> users</div>
+                        <div><span class="font-bold text-white">320+</span> merchants</div>
+                        <div><span class="font-bold text-white">4.8/5</span> ratings</div>
                     </div>
                 </div>
 
@@ -97,41 +112,41 @@
                     <div class="rounded-2xl border border-slate-700 bg-slate-900/80 p-4">
                         <div class="mb-3 flex items-center justify-between">
                             <div>
-                                <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Today’s top order</p>
+                                <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Live order</p>
                                 <h3 class="mt-1 text-xl font-bold text-white">Signature Burger Combo</h3>
                             </div>
-                            <span class="rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-bold text-emerald-400">Popular</span>
+                            <span class="rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-bold text-emerald-400">On route</span>
                         </div>
                         <div class="flex items-center justify-between rounded-xl border border-slate-700 bg-slate-800/80 p-3">
                             <div>
                                 <p class="text-lg font-extrabold text-white">$18.90</p>
-                                <p class="text-xs text-slate-400">Includes fries + drink</p>
+                                <p class="text-xs text-slate-400">Delivery in 12 minutes</p>
                             </div>
-                            <button class="rounded-xl bg-brand-500 px-4 py-2 text-sm font-bold text-slate-950">Order</button>
+                            <button class="rounded-xl bg-brand-500 px-4 py-2 text-sm font-bold text-slate-950">Track</button>
                         </div>
                     </div>
 
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="rounded-2xl border border-slate-700 bg-slate-900/80 p-4">
                             <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300"><i class="fa-solid fa-bowl-food"></i></div>
-                            <h4 class="font-bold text-white">Easy menu building</h4>
-                            <p class="mt-1 text-sm text-slate-400">Add food items in seconds.</p>
+                            <h4 class="font-bold text-white">Smart menus</h4>
+                            <p class="mt-1 text-sm text-slate-400">Update pricing and offers instantly.</p>
                         </div>
                         <div class="rounded-2xl border border-slate-700 bg-slate-900/80 p-4">
-                            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-300"><i class="fa-solid fa-store"></i></div>
-                            <h4 class="font-bold text-white">Merchant growth</h4>
-                            <p class="mt-1 text-sm text-slate-400">Launch subscriptions and offers.</p>
+                            <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-300"><i class="fa-solid fa-location-dot"></i></div>
+                            <h4 class="font-bold text-white">Live tracking</h4>
+                            <p class="mt-1 text-sm text-slate-400">Know when orders arrive in real time.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="menu" class="mt-10">
+        <section id="menu" class="mt-12">
             <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Featured menu</p>
-                    <h2 class="mt-2 text-3xl font-black text-white">Add and manage menu items</h2>
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Menu dashboard</p>
+                    <h2 class="mt-2 text-3xl font-black text-white">Add, edit and organize menu items</h2>
                 </div>
                 <div class="flex flex-wrap gap-2" id="filter-group">
                     <button class="filter-btn rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm font-semibold text-white" data-filter="All">All</button>
@@ -144,13 +159,13 @@
 
             <div id="menu-editor" class="mb-6 hidden rounded-3xl border border-slate-800 bg-slate-900/80 p-5 shadow-2xl">
                 <div class="mb-4 flex items-center justify-between">
-                    <h3 class="text-xl font-bold text-white">Add a new menu item</h3>
+                    <h3 class="text-xl font-bold text-white">Add new menu item</h3>
                     <button id="close-menu-editor" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 <form id="menu-form" class="grid gap-4 md:grid-cols-2">
                     <div>
-                        <label class="mb-2 block text-sm font-medium text-slate-300">Item Name</label>
-                        <input id="item-name" type="text" placeholder="e.g. Fire Chicken Bowl" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none ring-0 focus:border-brand-500" required>
+                        <label class="mb-2 block text-sm font-medium text-slate-300">Item name</label>
+                        <input id="item-name" type="text" placeholder="e.g. Fire Chicken Bowl" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required />
                     </div>
                     <div>
                         <label class="mb-2 block text-sm font-medium text-slate-300">Category</label>
@@ -164,19 +179,19 @@
                     </div>
                     <div>
                         <label class="mb-2 block text-sm font-medium text-slate-300">Price</label>
-                        <input id="item-price" type="number" step="0.01" min="1" value="12.99" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required>
+                        <input id="item-price" type="number" step="0.01" min="1" value="12.99" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required />
                     </div>
                     <div>
                         <label class="mb-2 block text-sm font-medium text-slate-300">Emoji</label>
-                        <input id="item-emoji" type="text" value="🍔" maxlength="2" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500">
+                        <input id="item-emoji" type="text" value="🍔" maxlength="2" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" />
                     </div>
                     <div class="md:col-span-2">
                         <label class="mb-2 block text-sm font-medium text-slate-300">Description</label>
                         <textarea id="item-description" rows="3" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" placeholder="Short description of the product" required></textarea>
                     </div>
                     <div class="md:col-span-2 flex justify-end gap-3">
-                        <button type="button" id="reset-menu" class="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 font-semibold text-slate-300 hover:text-white">Reset Demo</button>
-                        <button type="submit" class="rounded-xl bg-brand-500 px-5 py-2.5 font-bold text-slate-950 hover:bg-brand-400">Save menu item</button>
+                        <button type="button" id="reset-menu" class="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 font-semibold text-slate-300 hover:text-white">Reset demo</button>
+                        <button type="submit" class="rounded-xl bg-brand-500 px-5 py-2.5 font-bold text-slate-950 hover:bg-brand-400">Save item</button>
                     </div>
                 </form>
             </div>
@@ -184,11 +199,108 @@
             <div id="menu-grid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
         </section>
 
+        <section id="map" class="mt-14 rounded-3xl border border-slate-800 bg-slate-900/80 p-6">
+            <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">delivery network</p>
+                    <h2 class="mt-2 text-3xl font-black text-white">Live map and order navigation</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button class="route-btn rounded-xl border border-brand-500/40 bg-brand-500/10 px-3 py-2 text-sm font-semibold text-brand-300" data-route="Downtown">Downtown</button>
+                    <button class="route-btn rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-300" data-route="Hillview">Hillview</button>
+                    <button class="route-btn rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-300" data-route="Harbor">Harbor</button>
+                </div>
+            </div>
+
+            <div class="grid gap-6 lg:grid-cols-[1.5fr_0.8fr]">
+                <div class="map-grid relative overflow-hidden rounded-3xl border border-slate-700 bg-slate-950 p-4">
+                    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900"></div>
+                    <div class="relative h-[360px] overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80">
+                        <div class="absolute left-[12%] top-[18%] h-4 w-4 rounded-full bg-emerald-400 route-pulse"></div>
+                        <div class="absolute left-[22%] top-[28%] h-4 w-4 rounded-full bg-amber-400 route-pulse"></div>
+                        <div class="absolute left-[38%] top-[38%] h-4 w-4 rounded-full bg-cyan-400 route-pulse"></div>
+                        <div class="absolute left-[58%] top-[50%] h-4 w-4 rounded-full bg-brand-400 route-pulse"></div>
+                        <div class="absolute left-[76%] top-[30%] h-4 w-4 rounded-full bg-rose-400 route-pulse"></div>
+
+                        <svg class="absolute inset-0 h-full w-full" viewBox="0 0 500 300" preserveAspectRatio="none">
+                            <path d="M 60 60 L 200 100 L 240 150 L 330 130 L 430 80" fill="none" stroke="#22d3ee" stroke-width="4" stroke-dasharray="10 10" stroke-linecap="round" />
+                            <path d="M 60 60 L 120 190 L 260 200 L 430 80" fill="none" stroke="#a78bfa" stroke-width="3" stroke-dasharray="6 10" opacity="0.8" />
+                        </svg>
+
+                        <div class="absolute left-[48%] top-[48%] flex h-14 w-14 items-center justify-center rounded-full border-4 border-brand-500/40 bg-brand-500/10 text-xl text-brand-300">
+                            <i class="fa-solid fa-motorcycle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="rounded-2xl border border-slate-700 bg-slate-950 p-4">
+                        <p class="text-xs uppercase tracking-[0.18em] text-slate-400">Active route</p>
+                        <h3 id="route-name" class="mt-2 text-2xl font-black text-white">Downtown</h3>
+                        <p class="mt-2 text-sm text-slate-400">Estimated arrival: <span id="route-time" class="font-semibold text-brand-300">12 mins</span></p>
+                    </div>
+
+                    <div class="rounded-2xl border border-slate-700 bg-slate-950 p-4">
+                        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">Delivery status</p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-center justify-between"><span>Driver assigned</span><span class="text-emerald-400">✓</span></li>
+                            <li class="flex items-center justify-between"><span>Merchant accepted</span><span class="text-emerald-400">✓</span></li>
+                            <li class="flex items-center justify-between"><span>Order packed</span><span class="text-amber-400">In progress</span></li>
+                            <li class="flex items-center justify-between"><span>Arrival ETA</span><span class="font-semibold text-white">12-15 min</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="payments" class="mt-14">
+            <div class="mb-6 text-center">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Payment options</p>
+                <h2 class="mt-2 text-3xl font-black text-white">Pay securely in multiple ways</h2>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+                <button class="payment-option rounded-3xl border border-slate-700 bg-slate-900/80 p-5 text-left transition hover:border-brand-500 hover:bg-slate-900" data-payment="Card">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-500/10 text-brand-300"><i class="fa-solid fa-credit-card"></i></div>
+                    <h3 class="text-lg font-bold text-white">Card Payment</h3>
+                    <p class="mt-2 text-sm text-slate-400">Visa, Mastercard and Amex</p>
+                </button>
+
+                <button class="payment-option rounded-3xl border border-slate-700 bg-slate-900/80 p-5 text-left transition hover:border-brand-500 hover:bg-slate-900" data-payment="Mobile Wallet">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300"><i class="fa-solid fa-wallet"></i></div>
+                    <h3 class="text-lg font-bold text-white">Mobile Wallet</h3>
+                    <p class="mt-2 text-sm text-slate-400">MoMo, Airtel, Apple Pay and more</p>
+                </button>
+
+                <button class="payment-option rounded-3xl border border-slate-700 bg-slate-900/80 p-5 text-left transition hover:border-brand-500 hover:bg-slate-900" data-payment="Cash">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-300"><i class="fa-solid fa-money-bill-wave"></i></div>
+                    <h3 class="text-lg font-bold text-white">Cash on Delivery</h3>
+                    <p class="mt-2 text-sm text-slate-400">Pay when your order arrives</p>
+                </button>
+
+                <button class="payment-option rounded-3xl border border-slate-700 bg-slate-900/80 p-5 text-left transition hover:border-brand-500 hover:bg-slate-900" data-payment="Bank Transfer">
+                    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-300"><i class="fa-solid fa-building-columns"></i></div>
+                    <h3 class="text-lg font-bold text-white">Bank Transfer</h3>
+                    <p class="mt-2 text-sm text-slate-400">Business and corporate orders</p>
+                </button>
+            </div>
+
+            <div class="mt-6 rounded-3xl border border-brand-500/30 bg-brand-500/10 p-5">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.18em] text-brand-200">selected payment</p>
+                        <h3 id="selected-payment" class="mt-1 text-2xl font-black text-white">Card Payment</h3>
+                    </div>
+                    <button id="confirm-payment" class="rounded-xl bg-brand-500 px-5 py-3 text-sm font-bold text-slate-950 hover:bg-brand-400">Confirm Payment Method</button>
+                </div>
+            </div>
+        </section>
+
         <section id="merchants" class="mt-14 rounded-3xl border border-slate-800 bg-slate-900/80 p-6">
             <div class="mb-6 flex items-center justify-between gap-4 flex-col md:flex-row">
                 <div>
                     <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Merchant tools</p>
-                    <h2 class="mt-2 text-3xl font-black text-white">Run your business on Chandada</h2>
+                    <h2 class="mt-2 text-3xl font-black text-white">Everything merchants need to grow</h2>
                 </div>
                 <button class="rounded-xl bg-slate-800 px-4 py-2.5 font-semibold text-white border border-slate-700 hover:border-slate-500">Register Merchant</button>
             </div>
@@ -197,25 +309,25 @@
                 <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
                     <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/10 text-brand-300"><i class="fa-solid fa-bag-shopping"></i></div>
                     <h3 class="text-lg font-bold text-white">Menu management</h3>
-                    <p class="mt-2 text-sm text-slate-400">Add products, set prices and update daily specials from a single place.</p>
+                    <p class="mt-2 text-sm text-slate-400">Add products, update pricing and manage offers without delay.</p>
                 </div>
                 <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
-                    <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-300"><i class="fa-solid fa-users"></i></div>
-                    <h3 class="text-lg font-bold text-white">Customer growth</h3>
-                    <p class="mt-2 text-sm text-slate-400">Reach new customers and engage them with offers and scheduled promotions.</p>
+                    <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-300"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 class="text-lg font-bold text-white">Growth analytics</h3>
+                    <p class="mt-2 text-sm text-slate-400">Monitor orders, trends and customer activity in one place.</p>
                 </div>
                 <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
                     <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300"><i class="fa-solid fa-crown"></i></div>
-                    <h3 class="text-lg font-bold text-white">Subscription plans</h3>
-                    <p class="mt-2 text-sm text-slate-400">Create premium merchant subscriptions and recurring customer memberships.</p>
+                    <h3 class="text-lg font-bold text-white">Premium subscriptions</h3>
+                    <p class="mt-2 text-sm text-slate-400">Give customers monthly plans and increase repeat orders.</p>
                 </div>
             </div>
         </section>
 
         <section id="subscribe" class="mt-14">
             <div class="mb-6 text-center">
-                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Subscription</p>
-                <h2 class="mt-2 text-3xl font-black text-white">Choose the plan that fits your needs</h2>
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">Subscriptions</p>
+                <h2 class="mt-2 text-3xl font-black text-white">Choose a plan for your audience</h2>
             </div>
 
             <div class="grid gap-6 lg:grid-cols-2">
@@ -231,11 +343,11 @@
                     <ul class="space-y-3 text-sm text-slate-300">
                         <li><i class="fa-solid fa-check text-brand-300 mr-2"></i>Exclusive food deals</li>
                         <li><i class="fa-solid fa-check text-brand-300 mr-2"></i>Priority delivery support</li>
-                        <li><i class="fa-solid fa-check text-brand-300 mr-2"></i>Members-only events</li>
+                        <li><i class="fa-solid fa-check text-brand-300 mr-2"></i>Members-only rewards events</li>
                     </ul>
                     <form id="customer-subscribe-form" class="mt-6 space-y-3">
-                        <input id="customer-name" type="text" placeholder="Your full name" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required>
-                        <input id="customer-email" type="email" placeholder="Email address" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required>
+                        <input id="customer-name" type="text" placeholder="Your full name" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required />
+                        <input id="customer-email" type="email" placeholder="Email address" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-brand-500" required />
                         <button type="submit" class="w-full rounded-xl bg-brand-500 px-4 py-3 font-bold text-slate-950 hover:bg-brand-400">Subscribe as customer</button>
                     </form>
                 </div>
@@ -251,12 +363,12 @@
                     <div class="mb-5 text-4xl font-black text-white">$29<span class="text-lg text-slate-400">/month</span></div>
                     <ul class="space-y-3 text-sm text-slate-300">
                         <li><i class="fa-solid fa-check text-cyan-300 mr-2"></i>Unlimited menu updates</li>
-                        <li><i class="fa-solid fa-check text-cyan-300 mr-2"></i>Business branding tools</li>
-                        <li><i class="fa-solid fa-check text-cyan-300 mr-2"></i>Analytics and growth insights</li>
+                        <li><i class="fa-solid fa-check text-cyan-300 mr-2"></i>Business branding and analytics</li>
+                        <li><i class="fa-solid fa-check text-cyan-300 mr-2"></i>Subscription and loyalty support</li>
                     </ul>
                     <form id="merchant-subscribe-form" class="mt-6 space-y-3">
-                        <input id="merchant-name" type="text" placeholder="Business name" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-cyan-500" required>
-                        <input id="merchant-email" type="email" placeholder="Business email" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-cyan-500" required>
+                        <input id="merchant-name" type="text" placeholder="Business name" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-cyan-500" required />
+                        <input id="merchant-email" type="email" placeholder="Business email" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-cyan-500" required />
                         <button type="submit" class="w-full rounded-xl bg-cyan-500 px-4 py-3 font-bold text-slate-950 hover:bg-cyan-400">Subscribe as merchant</button>
                     </form>
                 </div>
@@ -270,7 +382,8 @@
             <div class="flex gap-4">
                 <a href="#home" class="hover:text-white">Home</a>
                 <a href="#menu" class="hover:text-white">Menu</a>
-                <a href="#subscribe" class="hover:text-white">Subscribe</a>
+                <a href="#map" class="hover:text-white">Map</a>
+                <a href="#payments" class="hover:text-white">Payments</a>
             </div>
         </div>
     </footer>
@@ -278,10 +391,10 @@
     <script>
         const defaultMenu = [
             { id: 1, name: 'Classic Burger', category: 'Burger', price: 14.99, emoji: '🍔', description: 'Juicy beef patty, cheddar, lettuce and house sauce.' },
-            { id: 2, name: 'Pepperoni Pizza', category: 'Pizza', price: 18.50, emoji: '🍕', description: 'Loaded with mozzarella and spicy pepperoni slices.' },
+            { id: 2, name: 'Pepperoni Pizza', category: 'Pizza', price: 18.5, emoji: '🍕', description: 'Loaded with mozzarella and spicy pepperoni slices.' },
             { id: 3, name: 'Citrus Spritz', category: 'Drinks', price: 5.25, emoji: '🥤', description: 'Fresh citrus soda with a cool, sparkling finish.' },
-            { id: 4, name: 'Choco Lava Cake', category: 'Dessert', price: 7.90, emoji: '🍰', description: 'Warm chocolate cake with a soft molten center.' },
-            { id: 5, name: 'Garden Salad', category: 'Salad', price: 11.40, emoji: '🥗', description: 'Crisp greens with avocado, tomatoes and herbs.' },
+            { id: 4, name: 'Choco Lava Cake', category: 'Dessert', price: 7.9, emoji: '🍰', description: 'Warm chocolate cake with a soft molten center.' },
+            { id: 5, name: 'Garden Salad', category: 'Salad', price: 11.4, emoji: '🥗', description: 'Crisp greens with avocado, tomatoes and herbs.' },
             { id: 6, name: 'Smash Chicken Wrap', category: 'Burger', price: 12.75, emoji: '🌯', description: 'Crispy chicken, slaw and chili mayo in a tortilla.' }
         ];
 
@@ -293,13 +406,13 @@
         }
 
         function showToast(message) {
-            const toastContainer = document.getElementById('toast-container');
-            if (!toastContainer) return;
+            const container = document.getElementById('toast-container');
+            if (!container) return;
 
             const toast = document.createElement('div');
             toast.className = 'pointer-events-auto rounded-xl border border-brand-500/40 bg-slate-900 px-4 py-3 text-sm font-medium text-white shadow-lg';
             toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-300"></i><span>' + message + '</span></div>';
-            toastContainer.appendChild(toast);
+            container.appendChild(toast);
             setTimeout(() => toast.remove(), 2600);
         }
 
@@ -364,20 +477,14 @@
             showToast('Demo menu restored.');
         }
 
-        function openMenuEditor() {
-            document.getElementById('menu-editor').classList.remove('hidden');
-        }
-
-        function closeMenuEditor() {
-            document.getElementById('menu-editor').classList.add('hidden');
-        }
-
         document.getElementById('toggle-menu-editor').addEventListener('click', () => {
             const editor = document.getElementById('menu-editor');
             editor.classList.toggle('hidden');
         });
 
-        document.getElementById('close-menu-editor').addEventListener('click', closeMenuEditor);
+        document.getElementById('close-menu-editor').addEventListener('click', () => {
+            document.getElementById('menu-editor').classList.add('hidden');
+        });
 
         document.getElementById('menu-form').addEventListener('submit', (event) => {
             event.preventDefault();
@@ -406,7 +513,7 @@
             event.target.reset();
             document.getElementById('item-price').value = '12.99';
             document.getElementById('item-emoji').value = '🍔';
-            closeMenuEditor();
+            document.getElementById('menu-editor').classList.add('hidden');
             showToast('Menu item added successfully.');
         });
 
@@ -440,6 +547,46 @@
             localStorage.setItem('chandadaSubscriptions', JSON.stringify(subscriptions));
             event.target.reset();
             showToast('Merchant subscription saved.');
+        });
+
+        const routeDetails = {
+            Downtown: { time: '12 mins', info: 'Short route via city center' },
+            Hillview: { time: '18 mins', info: 'Upward route near residential blocks' },
+            Harbor: { time: '22 mins', info: 'Coastal delivery route with bridge access' }
+        };
+
+        document.querySelectorAll('.route-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.route-btn').forEach(btn => {
+                    btn.classList.remove('border-brand-500/40', 'bg-brand-500/10', 'text-brand-300');
+                    btn.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-300');
+                });
+                button.classList.remove('border-slate-700', 'bg-slate-800', 'text-slate-300');
+                button.classList.add('border-brand-500/40', 'bg-brand-500/10', 'text-brand-300');
+
+                const route = button.dataset.route;
+                const details = routeDetails[route] || routeDetails.Downtown;
+                document.getElementById('route-name').textContent = route;
+                document.getElementById('route-time').textContent = details.time;
+                showToast('Route updated to ' + route + '.');
+            });
+        });
+
+        document.querySelectorAll('.payment-option').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.payment-option').forEach(item => {
+                    item.classList.remove('border-brand-500', 'bg-slate-900');
+                    item.classList.add('border-slate-700', 'bg-slate-900/80');
+                });
+                button.classList.remove('border-slate-700', 'bg-slate-900/80');
+                button.classList.add('border-brand-500', 'bg-slate-900');
+                document.getElementById('selected-payment').textContent = button.dataset.payment;
+            });
+        });
+
+        document.getElementById('confirm-payment').addEventListener('click', () => {
+            const selected = document.getElementById('selected-payment').textContent.trim();
+            showToast('Payment method selected: ' + selected + '.');
         });
 
         document.getElementById('year').textContent = new Date().getFullYear();
