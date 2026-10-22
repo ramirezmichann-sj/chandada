@@ -41,10 +41,49 @@
     .fusion-btn { background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%); color: white; box-shadow: 0 16px 28px rgba(255, 43, 133, 0.22); }
     .soft-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(148,163,184,0.18); box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05); }
     .hidden-section { display: none !important; }
+    .chat-float { position: fixed; right: 20px; bottom: 20px; z-index: 60; }
+    .chat-modal { position: fixed; inset: 0; z-index: 70; display: none; background: rgba(15, 23, 42, 0.52); backdrop-filter: blur(3px); }
+    .chat-modal.show { display: flex; align-items: center; justify-content: center; }
   </style>
 </head>
 <body class="min-h-full text-slate-800 antialiased">
   <div id="toast-container" class="fixed right-5 top-5 z-50 flex flex-col gap-2"></div>
+
+  <div id="chat-float" class="chat-float">
+    <button id="chat-open-btn" class="fusion-btn flex h-14 w-14 items-center justify-center rounded-full text-xl shadow-2xl">
+      <i class="fa-brands fa-facebook-messenger"></i>
+    </button>
+  </div>
+
+  <div id="chat-modal" class="chat-modal" aria-hidden="true">
+    <div class="w-full max-w-md rounded-[28px] bg-white p-5 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Fusion Nook</p>
+          <h3 class="mt-1 text-2xl font-black text-slate-900">Order accepted</h3>
+        </div>
+        <button id="chat-close-btn" class="rounded-full bg-slate-100 p-2 text-slate-600 hover:bg-slate-200">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 rounded-[20px] bg-[#fff1f7] p-4 text-sm text-slate-700">
+        Your order has been accepted. Please chat with Fusion Nook on your preferred channel to confirm details.
+      </div>
+
+      <div class="mt-5 grid gap-3">
+        <a id="viber-link" href="https://invite.viber.com/?g2=AQARxT7B3u0u0zM1Jx5mCOv%2BqFB1DgY8%2B9YvVmH3WQ%3D" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl border border-slate-200 bg-[#f4f5f7] px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-100">
+          <span class="flex items-center gap-3"><i class="fa-brands fa-viber text-[#7c3aed]"></i> Viber</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
+        </a>
+
+        <a id="messenger-link" href="https://m.me/FusionNook" target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl border border-slate-200 bg-[#f4f5f7] px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-100">
+          <span class="flex items-center gap-3"><i class="fa-brands fa-facebook-messenger text-[#0a7cff]"></i> Messenger</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-500"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div class="app-shell">
     <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
@@ -230,6 +269,12 @@
 
     const orderStorageKey = 'fusion_nook_orders';
     const cartStorageKey = 'fusion_nook_cart';
+    const chatModal = document.getElementById('chat-modal');
+    const chatOpenBtn = document.getElementById('chat-open-btn');
+    const chatCloseBtn = document.getElementById('chat-close-btn');
+    const messengerLink = document.getElementById('messenger-link');
+    const viberLink = document.getElementById('viber-link');
+
     let cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
     let savedOrders = JSON.parse(localStorage.getItem(orderStorageKey)) || [
       {
@@ -268,6 +313,16 @@
       localStorage.setItem(cartStorageKey, JSON.stringify(cart));
     }
 
+    function openChatPopup() {
+      chatModal.classList.add('show');
+      chatModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeChatPopup() {
+      chatModal.classList.remove('show');
+      chatModal.setAttribute('aria-hidden', 'true');
+    }
+
     function showToast(message) {
       const container = document.getElementById('toast-container');
       if (!container) return;
@@ -276,6 +331,15 @@
       toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#ff2b85]"></i><span>' + message + '</span></div>';
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 2600);
+    }
+
+    function notifyAcceptedOrder(orderId) {
+      const order = savedOrders.find(item => item.id === Number(orderId));
+      if (!order) return;
+      if (order.status === 'accepted') {
+        openChatPopup();
+        showToast('Order accepted! Chat with Fusion Nook now.');
+      }
     }
 
     function renderMenuGrid() {
@@ -414,6 +478,7 @@
           order.status = btn.dataset.status;
           saveOrders();
           renderOwnerOrders();
+          notifyAcceptedOrder(order.id);
           showToast(`Order marked as ${btn.dataset.status}.`);
         });
       });
@@ -457,10 +522,24 @@
       showToast('Order placed successfully!');
     });
 
+    chatOpenBtn.addEventListener('click', openChatPopup);
+    chatCloseBtn.addEventListener('click', closeChatPopup);
+    chatModal.addEventListener('click', (event) => {
+      if (event.target === chatModal) closeChatPopup();
+    });
+
+    messengerLink.href = 'https://m.me/FusionNook';
+    viberLink.href = 'https://invite.viber.com/?g2=AQARxT7B3u0u0zM1Jx5mCOv%2BqFB1DgY8%2B9YvVmH3WQ%3D';
+
     document.getElementById('year').textContent = new Date().getFullYear();
     renderMenuGrid();
     renderCart();
     renderOwnerOrders();
+
+    const acceptedOrderExists = savedOrders.some(order => order.status === 'accepted');
+    if (acceptedOrderExists) {
+      openChatPopup();
+    }
   </script>
 </body>
 </html>
