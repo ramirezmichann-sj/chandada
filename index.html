@@ -1,1100 +1,466 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-[#f6f5f7] text-slate-800">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>chandada | Food Delivery App</title>
-    <meta name="description" content="Multi-role food delivery marketplace for customers, business owners, and riders." />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        panda: {
-                            pink: '#ff2b85',
-                            rose: '#ff5fa2',
-                            coral: '#ff8f6b',
-                            red: '#e31c5f',
-                            cream: '#fff7f9',
-                            gray: '#f5f5f7',
-                            ink: '#17171a'
-                        }
-                    },
-                    boxShadow: {
-                        soft: '0 18px 40px rgba(31, 41, 55, 0.08)',
-                        card: '0 12px 28px rgba(15, 23, 42, 0.06)',
-                        brand: '0 18px 30px rgba(255, 43, 133, 0.22)'
-                    }
-                }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fusion Nook | Food Delivery</title>
+  <meta name="description" content="Fusion Nook — a single-brand food delivery and ordering website." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fusion: {
+              pink: '#ff2b85',
+              rose: '#ff5fa2',
+              coral: '#ff8f6b',
+              red: '#e31c5f',
+              cream: '#fff7f9',
+              gray: '#f5f5f7',
+              ink: '#17171a'
             }
+          },
+          boxShadow: {
+            soft: '0 18px 40px rgba(31, 41, 55, 0.08)',
+            card: '0 12px 28px rgba(15, 23, 42, 0.06)',
+            brand: '0 18px 30px rgba(255, 43, 133, 0.22)'
+          }
         }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #fffafc 0%, #f7f6f9 100%);
-        }
-        .app-shell {
-            background: linear-gradient(180deg, #fffdfd 0%, #f7f7fa 100%);
-        }
-        .brand-card {
-            background: rgba(255,255,255,0.8);
-            border: 1px solid rgba(148,163,184,0.16);
-            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
-            backdrop-filter: blur(8px);
-        }
-        .panda-btn {
-            background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
-            color: white;
-            box-shadow: 0 16px 28px rgba(255, 43, 133, 0.22);
-        }
-        .panda-btn:hover { filter: brightness(1.02); }
-        .soft-card {
-            background: rgba(255,255,255,0.88);
-            border: 1px solid rgba(148,163,184,0.18);
-            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
-        }
-        .role-btn.active {
-            background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%);
-            color: white;
-            box-shadow: 0 16px 28px rgba(255, 43, 133, 0.18);
-        }
-        .category-box {
-            background: white;
-            border: 1px solid rgba(148,163,184,0.18);
-            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
-        }
-        .menu-item-card:hover, .restaurant-card:hover, .order-card:hover { transform: translateY(-2px); }
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .hidden-section { display: none !important; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #d9d3d8; border-radius: 9999px; }
-    </style>
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #fffafc 0%, #f7f6f9 100%); }
+    .brand-card { background: rgba(255,255,255,0.8); border: 1px solid rgba(148,163,184,0.16); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06); backdrop-filter: blur(8px); }
+    .fusion-btn { background: linear-gradient(135deg, #ff2b85 0%, #ff5fa2 100%); color: white; box-shadow: 0 16px 28px rgba(255, 43, 133, 0.22); }
+    .soft-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(148,163,184,0.18); box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05); }
+    .hidden-section { display: none !important; }
+  </style>
 </head>
 <body class="min-h-full text-slate-800 antialiased">
-    <div id="toast-container" class="fixed right-5 top-5 z-50 flex flex-col gap-2"></div>
+  <div id="toast-container" class="fixed right-5 top-5 z-50 flex flex-col gap-2"></div>
 
-    <div class="app-shell">
-        <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-            <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-                <div class="flex items-center gap-3">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff2b85] via-[#ff7cb0] to-[#ffb36a] text-lg font-black text-white shadow-brand">C</div>
-                    <div>
-                        <div class="text-xl font-black tracking-tight text-slate-900">chandada</div>
-                        <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">food delivery</div>
-                    </div>
-                </div>
+  <div class="app-shell">
+    <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-3">
+          <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff2b85] via-[#ff7cb0] to-[#ffb36a] text-lg font-black text-white shadow-brand">F</div>
+          <div>
+            <div class="text-xl font-black tracking-tight text-slate-900">Fusion Nook</div>
+            <div class="text-[10px] uppercase tracking-[0.22em] text-slate-500">single brand</div>
+          </div>
+        </div>
 
-                <div class="hidden items-center gap-2 rounded-full bg-[#fff3f8] p-1 md:flex">
-                    <button data-role="customer" class="role-btn active rounded-full px-4 py-2 text-sm font-semibold">Customer</button>
-                    <button data-role="owner" class="role-btn rounded-full px-4 py-2 text-sm font-semibold text-slate-700">Owner</button>
-                    <button data-role="rider" class="role-btn rounded-full px-4 py-2 text-sm font-semibold text-slate-700">Rider</button>
-                </div>
+        <nav class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+          <a href="#home" class="hover:text-[#bf2d6d]">Home</a>
+          <a href="#menu" class="hover:text-[#bf2d6d]">Menu</a>
+          <a href="#orders" class="hover:text-[#bf2d6d]">Orders</a>
+          <a href="#contact" class="hover:text-[#bf2d6d]">Contact</a>
+        </nav>
 
-                <div class="flex items-center gap-3">
-                    <button class="hidden rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 md:inline-flex">
-                        <i class="fa-solid fa-location-dot mr-2 text-panda-pink"></i> Makati
-                    </button>
-                    <button class="rounded-full bg-slate-900 px-3 py-2 text-sm font-semibold text-white md:hidden">Menu</button>
-                </div>
+        <div class="flex items-center gap-3">
+          <button class="hidden rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 md:inline-flex">
+            <i class="fa-solid fa-location-dot mr-2 text-[#ff2b85]"></i> Makati
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <section class="brand-card rounded-[30px] p-4 sm:p-6 lg:p-8">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex items-center gap-3 rounded-full bg-[#fff7fa] px-4 py-2.5 text-sm text-slate-600 shadow-sm">
+            <i class="fa-solid fa-location-dot text-[#ff2b85]"></i>
+            <span>Deliver to <span class="font-bold text-slate-800">Makati</span></span>
+          </div>
+          <div class="flex items-center gap-2 rounded-full bg-[#fff3f7] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#bf2d6d]">
+            <i class="fa-solid fa-ticket"></i> Fusion Nook Deal
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <div class="space-y-5">
+            <div class="inline-flex items-center rounded-full bg-[#fff1f7] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#bf2d6d]">
+              <i class="fa-solid fa-bolt mr-2 text-[#ff2b85]"></i> Fresh • Fast • Fusion Nook
             </div>
-        </header>
-
-        <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <section id="customer-view" class="role-view">
-                <div class="brand-card rounded-[30px] p-4 sm:p-6 lg:p-8">
-                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <div class="flex items-center gap-3 rounded-full bg-[#fff7fa] px-4 py-2.5 text-sm text-slate-600 shadow-sm">
-                            <i class="fa-solid fa-location-dot text-panda-pink"></i>
-                            <span>Deliver to <span class="font-bold text-slate-800">Makati</span></span>
-                        </div>
-                        <div class="flex items-center gap-2 rounded-full bg-[#fff3f7] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#bf2d6d]">
-                            <i class="fa-solid fa-ticket"></i> Panda deal
-                        </div>
-                    </div>
-
-                    <div class="mt-6 grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-                        <div class="space-y-5">
-                            <div class="inline-flex items-center rounded-full bg-[#fff1f7] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#bf2d6d]">
-                                <i class="fa-solid fa-bolt mr-2 text-panda-pink"></i> Fast delivery • local favorites
-                            </div>
-                            <div class="space-y-4">
-                                <h1 class="text-4xl font-black tracking-[-0.06em] text-slate-900 md:text-5xl lg:text-[4rem]">Good food, delivered fast.</h1>
-                                <p class="max-w-xl text-base text-slate-600 md:text-lg">Order from your favorite restaurants, bakeries, coffee shops, and food stalls with online payment options like GCash and Maya.</p>
-                            </div>
-                            <div class="flex flex-col gap-3 sm:flex-row">
-                                <div class="flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-                                    <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-                                    <input id="customer-search" type="text" placeholder="Search for foods or stores" class="w-full border-0 bg-transparent text-sm text-slate-500 outline-none placeholder:text-slate-400" />
-                                </div>
-                                <button class="panda-btn rounded-2xl px-5 py-3 text-sm font-bold text-white">Search</button>
-                            </div>
-                            <div class="flex flex-wrap gap-3 text-sm">
-                                <span class="rounded-full bg-[#fff1f7] px-3 py-1.5 font-semibold text-[#bf2d6d]">Pizza</span>
-                                <span class="rounded-full bg-[#eef2ff] px-3 py-1.5 font-semibold text-[#4957c9]">Burgers</span>
-                                <span class="rounded-full bg-[#ebf9ff] px-3 py-1.5 font-semibold text-[#377dc7]">Japanese</span>
-                                <span class="rounded-full bg-[#ecfdf5] px-3 py-1.5 font-semibold text-[#25815d]">Healthy</span>
-                            </div>
-                        </div>
-
-                        <div class="rounded-[28px] bg-gradient-to-br from-[#fff4f8] via-white to-[#f5f1ff] p-4 shadow-soft">
-                            <div class="rounded-[24px] bg-white p-4 shadow-card">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Featured</p>
-                                        <h2 class="mt-1 text-2xl font-black text-slate-900">Bistro Box</h2>
-                                    </div>
-                                    <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
-                                </div>
-                                <div class="mt-4 rounded-[22px] bg-gradient-to-r from-[#fff1f7] via-[#fff7fc] to-[#f3f0ff] p-4">
-                                    <div class="flex items-center justify-between gap-4">
-                                        <div>
-                                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Combo deal</p>
-                                            <p class="mt-3 text-3xl font-black text-slate-900">₱259</p>
-                                        </div>
-                                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">🍔</div>
-                                    </div>
-                                </div>
-                                <div class="mt-5 space-y-3">
-                                    <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
-                                        <div>
-                                            <p class="text-sm font-semibold text-slate-900">Classic Burger Meal</p>
-                                            <p class="text-xs text-slate-500">fries + drink</p>
-                                        </div>
-                                        <span class="text-sm font-black text-slate-900">₱199</span>
-                                    </div>
-                                    <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
-                                        <div>
-                                            <p class="text-sm font-semibold text-slate-900">Signature Pasta</p>
-                                            <p class="text-xs text-slate-500">creamy tomato sauce</p>
-                                        </div>
-                                        <span class="text-sm font-black text-slate-900">₱249</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <section class="mt-12">
-                    <div class="mb-5 flex items-center justify-between gap-4">
-                        <div>
-                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Popular</p>
-                            <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Categories</h2>
-                        </div>
-                        <a href="#" class="text-sm font-bold text-[#bf2d6d]">See all</a>
-                    </div>
-                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                        <div class="category-box rounded-[24px] p-4">
-                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff1c7] text-2xl">🍔</div>
-                            <p class="font-bold text-slate-900">Burgers</p>
-                            <p class="mt-1 text-sm text-slate-500">120 stores</p>
-                        </div>
-                        <div class="category-box rounded-[24px] p-4">
-                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ffe0ee] text-2xl">🍕</div>
-                            <p class="font-bold text-slate-900">Pizza</p>
-                            <p class="mt-1 text-sm text-slate-500">90 stores</p>
-                        </div>
-                        <div class="category-box rounded-[24px] p-4">
-                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e6f9ef] text-2xl">🥗</div>
-                            <p class="font-bold text-slate-900">Healthy</p>
-                            <p class="mt-1 text-sm text-slate-500">64 stores</p>
-                        </div>
-                        <div class="category-box rounded-[24px] p-4">
-                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ebf6ff] text-2xl">🥤</div>
-                            <p class="font-bold text-slate-900">Drinks</p>
-                            <p class="mt-1 text-sm text-slate-500">75 stores</p>
-                        </div>
-                        <div class="category-box rounded-[24px] p-4">
-                            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fdf0f2] text-2xl">🍰</div>
-                            <p class="font-bold text-slate-900">Desserts</p>
-                            <p class="mt-1 text-sm text-slate-500">58 stores</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="mt-14">
-                    <div class="mb-5 flex items-center justify-between gap-4">
-                        <div>
-                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Stores</p>
-                            <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Restaurants near you</h2>
-                        </div>
-                        <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-sm font-semibold text-[#bf2d6d]">12 open now</div>
-                    </div>
-
-                    <div id="customer-restaurants" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
-                </section>
-
-                <section class="mt-14 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                    <div id="restaurant-menu-panel" class="soft-card rounded-[30px] p-5"></div>
-                    <div class="soft-card rounded-[30px] p-5">
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Cart</p>
-                        <h3 class="mt-2 text-2xl font-black text-slate-900">Your order</h3>
-                        <div id="cart-items" class="mt-4 space-y-3"></div>
-                        <div class="mt-5 border-t border-slate-200 pt-4">
-                            <div class="flex items-center justify-between text-sm text-slate-600">
-                                <span>Subtotal</span>
-                                <span id="cart-subtotal">₱0</span>
-                            </div>
-                            <div class="mt-2 flex items-center justify-between text-sm text-slate-600">
-                                <span>Delivery fee</span>
-                                <span>₱35</span>
-                            </div>
-                            <div class="mt-2 flex items-center justify-between text-lg font-black text-slate-900">
-                                <span>Total</span>
-                                <span id="cart-total">₱0</span>
-                            </div>
-                        </div>
-
-                        <form id="checkout-form" class="mt-6 space-y-4">
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Customer name</label>
-                                <input id="checkout-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="Your name" />
-                            </div>
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Delivery address</label>
-                                <textarea id="checkout-address" rows="3" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="House no., street, barangay"></textarea>
-                            </div>
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Payment method</label>
-                                <div class="grid gap-2 sm:grid-cols-2">
-                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
-                                        <input type="radio" name="payment" value="GCash" checked />
-                                        <span>GCash</span>
-                                    </label>
-                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
-                                        <input type="radio" name="payment" value="Maya" />
-                                        <span>Maya</span>
-                                    </label>
-                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
-                                        <input type="radio" name="payment" value="Card" />
-                                        <span>Card</span>
-                                    </label>
-                                    <label class="payment-option flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-700">
-                                        <input type="radio" name="payment" value="Cash on Delivery" />
-                                        <span>Cash on Delivery</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="panda-btn w-full rounded-2xl px-4 py-3 text-sm font-bold">Place order</button>
-                        </form>
-                    </div>
-                </section>
-            </section>
-
-            <section id="owner-view" class="role-view hidden-section">
-                <div class="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
-                    <div class="soft-card rounded-[30px] p-6">
-                        <p class="text-sm font-bold uppercase tracking-[0.22em] text-[#bf2d6d]">Business dashboard</p>
-                        <h2 class="mt-2 text-3xl font-black text-slate-900">Register your storefront</h2>
-
-                        <form id="business-form" class="mt-6 space-y-4">
-                            <div class="grid gap-4 md:grid-cols-2">
-                                <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Business name</label>
-                                    <input id="business-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="e.g. Sunset Grill" />
-                                </div>
-                                <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Owner name</label>
-                                    <input id="owner-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Your name" />
-                                </div>
-                            </div>
-                            <div class="grid gap-4 md:grid-cols-2">
-                                <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">City / Area</label>
-                                    <input id="business-city" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Makati" />
-                                </div>
-                                <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Business type</label>
-                                    <select id="business-type" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]">
-                                        <option>Restaurant</option>
-                                        <option>Food Cart</option>
-                                        <option>Bakery</option>
-                                        <option>Coffee Shop</option>
-                                        <option>General Store</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="rounded-[22px] border border-dashed border-slate-200 bg-slate-50 p-4">
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Restaurant photo</label>
-                                <input id="business-photo" type="file" accept="image/*" class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#ffe9f1] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#bf2d6d]" />
-                                <div id="business-photo-preview" class="mt-3 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                                    <img id="business-photo-img" class="h-28 w-full object-cover" alt="Business preview" />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="mb-2 block text-sm font-medium text-slate-700">Business description</label>
-                                <textarea id="business-description" rows="4" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="Tell customers what makes your business special."></textarea>
-                            </div>
-
-                            <div class="flex gap-3">
-                                <button type="submit" class="panda-btn rounded-2xl px-5 py-3 font-bold text-white">Save business</button>
-                                <button type="button" id="reset-form" class="rounded-2xl border border-slate-200 bg-slate-100 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-200">Reset</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="soft-card rounded-[30px] p-6">
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Orders</p>
-                        <h2 class="mt-2 text-3xl font-black text-slate-900">Incoming requests</h2>
-                        <div id="owner-orders" class="mt-5 space-y-3"></div>
-                    </div>
-                </div>
-
-                <section class="mt-14 rounded-[30px] soft-card p-6">
-                    <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                        <div>
-                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Menu editor</p>
-                            <h2 class="mt-2 text-3xl font-black text-slate-900">Customize your menu</h2>
-                        </div>
-                        <div id="active-business-name" class="rounded-full bg-[#fff1f7] px-3 py-2 text-xs font-bold text-[#bf2d6d]">Select a business</div>
-                    </div>
-
-                    <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                        <form id="menu-form" class="rounded-[28px] border border-slate-200 bg-slate-50 p-5">
-                            <input type="hidden" id="menu-edit-id" value="" />
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Item name</label>
-                                    <input id="menu-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="e.g. Chicken Burger" />
-                                </div>
-                                <div class="grid gap-4 md:grid-cols-2">
-                                    <div>
-                                        <label class="mb-2 block text-sm font-medium text-slate-700">Category</label>
-                                        <select id="menu-category" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]">
-                                            <option>Main</option>
-                                            <option>Drink</option>
-                                            <option>Snack</option>
-                                            <option>Rice Meal</option>
-                                            <option>Dessert</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="mb-2 block text-sm font-medium text-slate-700">Price (₱)</label>
-                                        <input id="menu-price" type="number" min="1" step="1" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" value="150" />
-                                    </div>
-                                </div>
-                                <div class="rounded-[22px] border border-dashed border-slate-200 bg-white p-4">
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Product photo</label>
-                                    <input id="menu-photo" type="file" accept="image/*" class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-[#ffe9f1] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#bf2d6d]" />
-                                    <div id="menu-photo-preview" class="mt-3 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                                        <img id="menu-photo-img" class="h-24 w-full object-cover" alt="Menu preview" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="mb-2 block text-sm font-medium text-slate-700">Description</label>
-                                    <textarea id="menu-description" rows="3" class="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-[#ff7cb0]" placeholder="What makes this dish special?"></textarea>
-                                </div>
-                                <div class="flex gap-3">
-                                    <button type="submit" class="panda-btn rounded-2xl px-5 py-3 font-bold text-white">Save item</button>
-                                    <button type="button" id="cancel-menu-edit" class="rounded-2xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-slate-100">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div class="rounded-[28px] border border-slate-200 bg-slate-50 p-5">
-                            <p class="mb-4 text-sm font-bold uppercase tracking-[0.22em] text-slate-500">Current menu</p>
-                            <div id="menu-list" class="space-y-3"></div>
-                        </div>
-                    </div>
-                </section>
-            </section>
-
-            <section id="rider-view" class="role-view hidden-section">
-                <div class="soft-card rounded-[30px] p-6">
-                    <div class="mb-6 flex items-center justify-between gap-4">
-                        <div>
-                            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Rider panel</p>
-                            <h2 class="mt-2 text-3xl font-black text-slate-900">Delivery tasks</h2>
-                        </div>
-                        <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-xs font-bold text-[#bf2d6d]">Rider 01</div>
-                    </div>
-                    <div id="rider-orders" class="grid gap-4 md:grid-cols-2"></div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="border-t border-slate-200 bg-white/80">
-            <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:px-8">
-                <p>© <span id="year"></span> chandada</p>
-                <div class="flex gap-4">
-                    <a href="#" class="hover:text-[#bf2d6d]">Home</a>
-                    <a href="#" class="hover:text-[#bf2d6d]">Terms</a>
-                    <a href="#" class="hover:text-[#bf2d6d]">Support</a>
-                </div>
+            <div class="space-y-4">
+              <h1 class="text-4xl font-black tracking-[-0.06em] text-slate-900 md:text-5xl lg:text-[4rem]">Own the taste. Own the brand.</h1>
+              <p class="max-w-xl text-base text-slate-600 md:text-lg">Fusion Nook brings together crowd-favorite meals, cozy bites, and fast delivery under one trusted brand.</p>
             </div>
-        </footer>
-    </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <div class="flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+                <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+                <input id="search-input" type="text" placeholder="Search dishes or meals" class="w-full border-0 bg-transparent text-sm text-slate-500 outline-none placeholder:text-slate-400" />
+              </div>
+              <button class="fusion-btn rounded-2xl px-5 py-3 text-sm font-bold text-white">Order now</button>
+            </div>
+            <div class="flex flex-wrap gap-3 text-sm">
+              <span class="rounded-full bg-[#fff1f7] px-3 py-1.5 font-semibold text-[#bf2d6d]">Pizza</span>
+              <span class="rounded-full bg-[#eef2ff] px-3 py-1.5 font-semibold text-[#4957c9]">Burgers</span>
+              <span class="rounded-full bg-[#ebf9ff] px-3 py-1.5 font-semibold text-[#377dc7]">Japanese</span>
+              <span class="rounded-full bg-[#ecfdf5] px-3 py-1.5 font-semibold text-[#25815d]">Healthy</span>
+            </div>
+          </div>
 
-    <script>
-        const profileStorageKey = 'chandada_business_profiles';
-        const orderStorageKey = 'chandada_orders';
-        const cartStorageKey = 'chandada_cart';
-
-        const defaultProfiles = [
-            {
-                id: 1,
-                name: 'La Mesa Grill',
-                owner: 'Maria Santos',
-                city: 'Makati',
-                type: 'Restaurant',
-                description: 'Comfort food and grilled meals for busy city families.',
-                photo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
-                menu: [
-                    { id: 101, name: 'Chicken Inasal', category: 'Main', price: 180, description: 'Grilled chicken with vinegar marinade.', photo: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80' },
-                    { id: 102, name: 'Classic Halo-Halo', category: 'Dessert', price: 120, description: 'Cold dessert with beans, jelly, and ice cream.', photo: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80' },
-                    { id: 103, name: 'Fresh Lemonade', category: 'Drink', price: 70, description: 'Cool and refreshing citrus drink.', photo: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=900&q=80' }
-                ]
-            },
-            {
-                id: 2,
-                name: 'Sunset Bakeshop',
-                owner: 'Lito Ramos',
-                city: 'Cebu',
-                type: 'Bakery',
-                description: 'Fresh pastries, breads, and special party desserts.',
-                photo: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80',
-                menu: [
-                    { id: 201, name: 'Cheese Ensaymada', category: 'Snack', price: 60, description: 'Soft brioche with butter and cheese.', photo: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80' },
-                    { id: 202, name: 'Ube Cake Slice', category: 'Dessert', price: 140, description: 'Purple yam cake with cream finish.', photo: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80' },
-                    { id: 203, name: 'Cappuccino', category: 'Drink', price: 110, description: 'Rich espresso and steamed milk.', photo: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80' }
-                ]
-            }
-        ];
-
-        const defaultOrders = [
-            {
-                id: 1,
-                businessId: 1,
-                businessName: 'La Mesa Grill',
-                customerName: 'Ana Reyes',
-                customerAddress: '123 P. Cruz St., Makati',
-                paymentMethod: 'GCash',
-                total: 430,
-                status: 'pending',
-                items: [
-                    { id: 101, name: 'Chicken Inasal', quantity: 1, price: 180 },
-                    { id: 103, name: 'Fresh Lemonade', quantity: 2, price: 70 }
-                ],
-                rider: 'Rider 01',
-                createdAt: Date.now() - 1000 * 60 * 18
-            },
-            {
-                id: 2,
-                businessId: 2,
-                businessName: 'Sunset Bakeshop',
-                customerName: 'Mark Dela Cruz',
-                customerAddress: '88 M. Ponce St., Makati',
-                paymentMethod: 'Maya',
-                total: 310,
-                status: 'accepted',
-                items: [
-                    { id: 201, name: 'Cheese Ensaymada', quantity: 2, price: 60 },
-                    { id: 202, name: 'Ube Cake Slice', quantity: 1, price: 140 }
-                ],
-                rider: 'Rider 01',
-                createdAt: Date.now() - 1000 * 60 * 8
-            }
-        ];
-
-        let profiles = JSON.parse(localStorage.getItem(profileStorageKey)) || defaultProfiles;
-        const savedOrders = JSON.parse(localStorage.getItem(orderStorageKey)) || defaultOrders;
-        const cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
-        let selectedBusinessId = profiles[0]?.id || null;
-        let currentMode = 'customer';
-
-        function saveProfiles() { localStorage.setItem(profileStorageKey, JSON.stringify(profiles)); }
-        function saveOrders() { localStorage.setItem(orderStorageKey, JSON.stringify(savedOrders)); }
-        function saveCart() { localStorage.setItem(cartStorageKey, JSON.stringify(cart)); }
-
-        function readFileAsDataURL(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function setImagePreview(input, previewWrapper, previewImg) {
-            const file = input.files && input.files[0];
-            if (!file) {
-                previewWrapper.classList.add('hidden');
-                previewImg.src = '';
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                previewImg.src = event.target.result;
-                previewWrapper.classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function showToast(message) {
-            const container = document.getElementById('toast-container');
-            if (!container) return;
-            const toast = document.createElement('div');
-            toast.className = 'pointer-events-auto rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-lg';
-            toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-panda-pink"></i><span>' + message + '</span></div>';
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 2600);
-        }
-
-        function setMode(mode) {
-            currentMode = mode;
-            document.querySelectorAll('.role-btn').forEach(btn => {
-                const isActive = btn.dataset.role === mode;
-                btn.classList.toggle('active', isActive);
-                btn.classList.toggle('text-slate-700', !isActive);
-                btn.classList.toggle('text-white', isActive);
-            });
-            document.querySelectorAll('.role-view').forEach(view => {
-                view.classList.toggle('hidden-section', view.id !== `${mode}-view`);
-            });
-        }
-
-        function getCartSubtotal() {
-            return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        }
-
-        function renderCart() {
-            const cartItemsEl = document.getElementById('cart-items');
-            const subtotalEl = document.getElementById('cart-subtotal');
-            const totalEl = document.getElementById('cart-total');
-
-            if (!cart.length) {
-                cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">Your cart is empty. Add items from a restaurant.</div>';
-                subtotalEl.textContent = '₱0';
-                totalEl.textContent = '₱0';
-                return;
-            }
-
-            cartItemsEl.innerHTML = cart.map(item => `
-                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                    <div class="flex items-center justify-between gap-3">
-                        <div>
-                            <div class="font-bold text-slate-900">${item.name}</div>
-                            <div class="text-xs text-slate-500">₱${item.price} each</div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button class="decrease-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">-</button>
-                            <span class="text-sm font-bold text-slate-900">${item.quantity}</span>
-                            <button class="increase-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">+</button>
-                        </div>
-                    </div>
+          <div class="rounded-[28px] bg-gradient-to-br from-[#fff4f8] via-white to-[#f5f1ff] p-4 shadow-soft">
+            <div class="rounded-[24px] bg-white p-4 shadow-card">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Featured</p>
+                  <h2 class="mt-1 text-2xl font-black text-slate-900">Fusion Combo</h2>
                 </div>
-            `).join('');
-
-            const subtotal = getCartSubtotal();
-            subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
-            totalEl.textContent = `₱${(subtotal + 35).toLocaleString()}`;
-
-            document.querySelectorAll('.increase-item').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const itemId = Number(btn.dataset.itemId);
-                    const existing = cart.find(entry => entry.id === itemId);
-                    if (existing) existing.quantity += 1;
-                    saveCart();
-                    renderCart();
-                });
-            });
-
-            document.querySelectorAll('.decrease-item').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const itemId = Number(btn.dataset.itemId);
-                    const existingIndex = cart.findIndex(entry => entry.id === itemId);
-                    if (existingIndex === -1) return;
-                    if (cart[existingIndex].quantity > 1) {
-                        cart[existingIndex].quantity -= 1;
-                    } else {
-                        cart.splice(existingIndex, 1);
-                    }
-                    saveCart();
-                    renderCart();
-                });
-            });
-        }
-
-        function addToCart(menuItem, restaurantId) {
-            const existing = cart.find(item => item.id === menuItem.id && item.restaurantId === restaurantId);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({
-                    id: menuItem.id,
-                    restaurantId,
-                    name: menuItem.name,
-                    price: Number(menuItem.price),
-                    quantity: 1
-                });
-            }
-            saveCart();
-            renderCart();
-            showToast(`${menuItem.name} added to cart.`);
-        }
-
-        function renderCustomerRestaurants() {
-            const container = document.getElementById('customer-restaurants');
-            const search = document.getElementById('customer-search')?.value?.toLowerCase() || '';
-            const filtered = profiles.filter(profile =>
-                profile.name.toLowerCase().includes(search) ||
-                profile.type.toLowerCase().includes(search) ||
-                profile.city.toLowerCase().includes(search)
-            );
-
-            if (!filtered.length) {
-                container.innerHTML = '<div class="col-span-full rounded-[28px] border border-dashed border-slate-200 bg-white p-8 text-center text-slate-500">No matching restaurants found.</div>';
-                return;
-            }
-
-            container.innerHTML = filtered.map(profile => `
-                <article class="restaurant-card soft-card rounded-[28px] p-4 transition duration-200">
-                    <div class="overflow-hidden rounded-[20px] border border-slate-200 bg-white">
-                        <img src="${profile.photo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'}" alt="${profile.name}" class="h-34 w-full object-cover" />
-                    </div>
-                    <div class="mt-4 flex items-center justify-between gap-3">
-                        <div>
-                            <h3 class="text-xl font-black text-slate-900">${profile.name}</h3>
-                            <p class="text-sm text-slate-500">${profile.type} • ${profile.city}</p>
-                        </div>
-                        <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
-                    </div>
-                    <p class="mt-3 text-sm text-slate-600 line-clamp-2">${profile.description}</p>
-                    <div class="mt-4 flex items-center justify-between gap-3">
-                        <button class="open-restaurant rounded-2xl bg-[#fff1f7] px-3 py-2 text-sm font-bold text-[#bf2d6d]" data-restaurant-id="${profile.id}">View menu</button>
-                        <span class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">25-35 min</span>
-                    </div>
-                </article>
-            `).join('');
-
-            document.querySelectorAll('.open-restaurant').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    selectedBusinessId = Number(btn.dataset.restaurantId);
-                    renderRestaurantMenu();
-                    showToast('Loaded restaurant menu.');
-                });
-            });
-        }
-
-        function renderRestaurantMenu() {
-            const panel = document.getElementById('restaurant-menu-panel');
-            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
-            if (!business) {
-                panel.innerHTML = '<div class="rounded-[20px] border border-dashed border-slate-200 bg-slate-50 p-6 text-center text-slate-500">Select a restaurant to view its menu.</div>';
-                return;
-            }
-
-            panel.innerHTML = `
-                <div class="flex items-start justify-between gap-4">
-                    <div>
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Selected store</p>
-                        <h3 class="mt-2 text-3xl font-black text-slate-900">${business.name}</h3>
-                        <p class="mt-1 text-sm text-slate-500">${business.type} • ${business.city}</p>
-                    </div>
-                    <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.8 ★</div>
+                <div class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700">4.9 ★</div>
+              </div>
+              <div class="mt-4 rounded-[22px] bg-gradient-to-r from-[#fff1f7] via-[#fff7fc] to-[#f3f0ff] p-4">
+                <div class="flex items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Combo deal</p>
+                    <p class="mt-3 text-3xl font-black text-slate-900">₱299</p>
+                  </div>
+                  <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm">🍔</div>
                 </div>
-                <div class="mt-4 overflow-hidden rounded-[22px] border border-slate-200 bg-white">
-                    <img src="${business.photo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'}" alt="${business.name}" class="h-48 w-full object-cover" />
+              </div>
+              <div class="mt-5 space-y-3">
+                <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">Classic Burger Meal</p>
+                    <p class="text-xs text-slate-500">fries + drink</p>
+                  </div>
+                  <span class="text-sm font-black text-slate-900">₱199</span>
                 </div>
-                <div class="mt-5 grid gap-3">
-                    ${(business.menu || []).map(item => `
-                        <div class="menu-item-card rounded-[22px] border border-slate-200 bg-white p-3 transition duration-200">
-                            <div class="flex items-start gap-3">
-                                <div class="h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-                                    <img src="${item.photo || 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80'}" alt="${item.name}" class="h-full w-full object-cover" />
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-start justify-between gap-3">
-                                        <div>
-                                            <div class="flex items-center gap-2">
-                                                <h4 class="text-lg font-black text-slate-900">${item.name}</h4>
-                                                <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${item.category}</span>
-                                            </div>
-                                            <p class="mt-1 text-sm text-slate-500">${item.description}</p>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="text-base font-black text-slate-900">₱${Number(item.price).toLocaleString()}</div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 flex justify-end">
-                                        <button class="add-item rounded-2xl bg-[#ff2b85] px-3 py-2 text-sm font-bold text-white" data-item-id="${item.id}" data-item-name="${item.name}" data-item-price="${item.price}">Add to cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
+                <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50 px-3 py-2.5">
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">Signature Pasta</p>
+                    <p class="text-xs text-slate-500">creamy tomato sauce</p>
+                  </div>
+                  <span class="text-sm font-black text-slate-900">₱249</span>
                 </div>
-            `;
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            document.querySelectorAll('.add-item').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const itemId = Number(btn.dataset.itemId);
-                    const item = business.menu.find(entry => entry.id === itemId);
-                    if (!item) return;
-                    addToCart(item, business.id);
-                });
-            });
-        }
+      <section id="menu" class="mt-12">
+        <div class="mb-5 flex items-center justify-between gap-4">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Popular</p>
+            <h2 class="mt-1 text-3xl font-black tracking-[-0.05em] text-slate-900">Fusion Nook Menu</h2>
+          </div>
+          <a href="#orders" class="text-sm font-bold text-[#bf2d6d]">View orders</a>
+        </div>
 
-        document.getElementById('customer-search').addEventListener('input', renderCustomerRestaurants);
+        <div id="menu-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
+      </section>
 
-        document.getElementById('checkout-form').addEventListener('submit', (event) => {
-            event.preventDefault();
-            if (!cart.length) {
-                showToast('Your cart is empty.');
-                return;
-            }
+      <section class="mt-14 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div id="restaurant-menu-panel" class="soft-card rounded-[30px] p-5"></div>
+        <div class="soft-card rounded-[30px] p-5">
+          <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Cart</p>
+          <h3 class="mt-2 text-2xl font-black text-slate-900">Your order</h3>
+          <div id="cart-items" class="mt-4 space-y-3"></div>
+          <div class="mt-5 border-t border-slate-200 pt-4">
+            <div class="flex items-center justify-between text-sm text-slate-600"><span>Subtotal</span><span id="cart-subtotal">₱0</span></div>
+            <div class="mt-2 flex items-center justify-between text-sm text-slate-600"><span>Delivery fee</span><span>₱35</span></div>
+            <div class="mt-2 flex items-center justify-between text-lg font-black text-slate-900"><span>Total</span><span id="cart-total">₱0</span></div>
+          </div>
 
-            const name = document.getElementById('checkout-name').value.trim();
-            const address = document.getElementById('checkout-address').value.trim();
-            const payment = document.querySelector('input[name="payment"]:checked')?.value || 'GCash';
+          <form id="checkout-form" class="mt-6 space-y-4">
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-700">Customer name</label>
+              <input id="checkout-name" type="text" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="Your name" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-700">Delivery address</label>
+              <textarea id="checkout-address" rows="3" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]" placeholder="Your address"></textarea>
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-700">Payment method</label>
+              <select id="checkout-payment" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2.5 outline-none focus:border-[#ff7cb0]">
+                <option>GCash</option>
+                <option>Maya</option>
+                <option>Card</option>
+                <option>Cash on Delivery</option>
+              </select>
+            </div>
+            <button type="submit" class="fusion-btn w-full rounded-2xl px-4 py-3 text-sm font-bold">Place order</button>
+          </form>
+        </div>
+      </section>
 
-            if (!name || !address) {
-                showToast('Please enter your name and delivery address.');
-                return;
-            }
+      <section id="orders" class="mt-14 rounded-[30px] soft-card p-6">
+        <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#bf2d6d]">Fusion Nook</p>
+            <h2 class="mt-2 text-3xl font-black text-slate-900">Incoming orders</h2>
+          </div>
+          <div class="rounded-full bg-[#fff1f7] px-3 py-2 text-xs font-bold text-[#bf2d6d]">Owned by Fusion Nook</div>
+        </div>
+        <div id="owner-orders" class="grid gap-4"></div>
+      </section>
+    </main>
 
-            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
-            const total = getCartSubtotal() + 35;
-            const order = {
-                id: Date.now(),
-                businessId: business.id,
-                businessName: business.name,
-                customerName: name,
-                customerAddress: address,
-                paymentMethod: payment,
-                total,
-                status: 'pending',
-                rider: 'Rider 01',
-                items: cart.map(item => ({
-                    id: item.id,
-                    name: item.name,
-                    quantity: item.quantity,
-                    price: item.price
-                })),
-                createdAt: Date.now()
-            };
+    <footer id="contact" class="border-t border-slate-200 bg-white/80">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:px-8">
+        <p>© <span id="year"></span> Fusion Nook</p>
+        <div class="flex gap-4">
+          <a href="#home" class="hover:text-[#bf2d6d]">Home</a>
+          <a href="#menu" class="hover:text-[#bf2d6d]">Menu</a>
+          <a href="#orders" class="hover:text-[#bf2d6d]">Orders</a>
+        </div>
+      </div>
+    </footer>
+  </div>
 
-            savedOrders.unshift(order);
-            saveOrders();
-            cart.length = 0;
-            saveCart();
-            renderCart();
-            renderOwnerOrders();
-            renderRiderOrders();
-            event.target.reset();
-            document.querySelector('input[name="payment"][value="GCash"]').checked = true;
-            showToast('Order placed successfully!');
+  <script>
+    const menuItems = [
+      { id: 1, name: 'Fusion Burger', category: 'Main', price: 180, description: 'Juicy beef burger with cheddar and crispy fries.', photo: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80' },
+      { id: 2, name: 'Chicken Alfredo', category: 'Main', price: 220, description: 'Creamy pasta with grilled chicken and parmesan.', photo: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80' },
+      { id: 3, name: 'Crispy Bites', category: 'Snack', price: 120, description: 'Golden crunchy bites with Fusion Nook dip.', photo: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80' },
+      { id: 4, name: 'Iced Coffee', category: 'Drink', price: 95, description: 'Smooth chilled coffee with creamy finish.', photo: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=900&q=80' },
+      { id: 5, name: 'Mango Cheesecake', category: 'Dessert', price: 140, description: 'Creamy cheesecake with mango sweetness.', photo: 'https://images.unsplash.com/photo-1533134242443-d6c10f37e3a8?auto=format&fit=crop&w=900&q=80' },
+      { id: 6, name: 'Fusion Bowl', category: 'Healthy', price: 170, description: 'Fresh salad bowl with grilled protein and rice.', photo: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80' }
+    ];
+
+    const orderStorageKey = 'fusion_nook_orders';
+    const cartStorageKey = 'fusion_nook_cart';
+    let cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
+    let savedOrders = JSON.parse(localStorage.getItem(orderStorageKey)) || [
+      {
+        id: 1,
+        customerName: 'Maria Santos',
+        customerAddress: '123 P. Cruz St., Makati',
+        paymentMethod: 'GCash',
+        total: 430,
+        status: 'pending',
+        items: [
+          { name: 'Fusion Burger', quantity: 1, price: 180 },
+          { name: 'Iced Coffee', quantity: 2, price: 95 }
+        ],
+        createdAt: Date.now() - 1000 * 60 * 18
+      },
+      {
+        id: 2,
+        customerName: 'Carl Dela Cruz',
+        customerAddress: '88 M. Ponce St., Makati',
+        paymentMethod: 'Maya',
+        total: 310,
+        status: 'accepted',
+        items: [
+          { name: 'Chicken Alfredo', quantity: 1, price: 220 },
+          { name: 'Mango Cheesecake', quantity: 1, price: 140 }
+        ],
+        createdAt: Date.now() - 1000 * 60 * 8
+      }
+    ];
+
+    function saveOrders() {
+      localStorage.setItem(orderStorageKey, JSON.stringify(savedOrders));
+    }
+
+    function saveCart() {
+      localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-lg';
+      toast.innerHTML = '<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-[#ff2b85]"></i><span>' + message + '</span></div>';
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 2600);
+    }
+
+    function renderMenuGrid() {
+      const grid = document.getElementById('menu-grid');
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const filtered = menuItems.filter(item =>
+        item.name.toLowerCase().includes(search) ||
+        item.category.toLowerCase().includes(search) ||
+        item.description.toLowerCase().includes(search)
+      );
+
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="col-span-full rounded-[24px] border border-dashed border-slate-200 bg-white p-8 text-center text-slate-500">No matching items found.</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+          <img src="${item.photo}" alt="${item.name}" class="h-32 w-full rounded-[20px] object-cover" />
+          <div class="mt-4 flex items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-black text-slate-900">${item.name}</h3>
+              <p class="text-sm text-slate-500">${item.category}</p>
+            </div>
+            <span class="text-base font-black text-slate-900">₱${item.price}</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600">${item.description}</p>
+          <button class="add-item mt-4 w-full rounded-2xl bg-[#fff1f7] px-3 py-2 text-sm font-bold text-[#bf2d6d]" data-item-id="${item.id}">Add to cart</button>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.add-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = menuItems.find(entry => entry.id === Number(btn.dataset.itemId));
+          if (!item) return;
+          const existing = cart.find(entry => entry.id === item.id);
+          if (existing) existing.quantity += 1;
+          else cart.push({ id: item.id, name: item.name, price: Number(item.price), quantity: 1 });
+          saveCart();
+          renderCart();
+          showToast(`${item.name} added to cart.`);
         });
+      });
+    }
 
-        function renderOwnerOrders() {
-            const container = document.getElementById('owner-orders');
-            const owned = savedOrders.filter(order => profiles.some(profile => profile.id === order.businessId));
+    function renderCart() {
+      const cartItemsEl = document.getElementById('cart-items');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const totalEl = document.getElementById('cart-total');
 
-            if (!owned.length) {
-                container.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">No orders yet.</div>';
-                return;
-            }
+      if (!cart.length) {
+        cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">Your cart is empty.</div>';
+        subtotalEl.textContent = '₱0';
+        totalEl.textContent = '₱0';
+        return;
+      }
 
-            container.innerHTML = owned.map(order => `
-                <div class="order-card rounded-[22px] border border-slate-200 bg-white p-4 transition duration-200">
-                    <div class="flex items-start justify-between gap-3">
-                        <div>
-                            <div class="text-sm font-bold uppercase tracking-[0.12em] text-slate-400">${order.businessName}</div>
-                            <h3 class="mt-1 text-lg font-black text-slate-900">${order.customerName}</h3>
-                        </div>
-                        <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${order.status}</span>
-                    </div>
-                    <p class="mt-2 text-sm text-slate-500">${order.customerAddress}</p>
-                    <div class="mt-3 text-sm text-slate-700">
-                        ${order.items.map(item => `<div class="flex justify-between py-1"><span>${item.name} x${item.quantity}</span><span>₱${(item.price * item.quantity).toLocaleString()}</span></div>`).join('')}
-                    </div>
-                    <div class="mt-3 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
-                        <span class="font-bold text-slate-900">Total</span>
-                        <span class="font-black text-slate-900">₱${order.total.toLocaleString()}</span>
-                    </div>
-                    <div class="mt-3 flex gap-2">
-                        <button class="owner-status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-xs font-bold text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
-                        <button class="owner-status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="on-the-way">On the way</button>
-                    </div>
-                </div>
-            `).join('');
+      cartItemsEl.innerHTML = cart.map(item => `
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <div class="font-bold text-slate-900">${item.name}</div>
+              <div class="text-xs text-slate-500">₱${item.price} each</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="decrease-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">-</button>
+              <span class="text-sm font-bold text-slate-900">${item.quantity}</span>
+              <button class="increase-item rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-bold" data-item-id="${item.id}">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
 
-            document.querySelectorAll('.owner-status-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const orderId = Number(btn.dataset.orderId);
-                    const order = savedOrders.find(item => item.id === orderId);
-                    if (!order) return;
-                    order.status = btn.dataset.status;
-                    saveOrders();
-                    renderOwnerOrders();
-                    renderRiderOrders();
-                    showToast(`Order marked as ${btn.dataset.status}.`);
-                });
-            });
-        }
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
+      totalEl.textContent = `₱${(subtotal + 35).toLocaleString()}`;
 
-        function renderRiderOrders() {
-            const container = document.getElementById('rider-orders');
-            const active = savedOrders.filter(order => ['pending','accepted','on-the-way'].includes(order.status));
-
-            if (!active.length) {
-                container.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">No delivery tasks right now.</div>';
-                return;
-            }
-
-            container.innerHTML = active.map(order => `
-                <div class="order-card rounded-[24px] border border-slate-200 bg-white p-4 transition duration-200">
-                    <div class="flex items-center justify-between gap-3">
-                        <div>
-                            <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">${order.businessName}</div>
-                            <h3 class="mt-1 text-xl font-black text-slate-900">${order.customerName}</h3>
-                        </div>
-                        <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${order.status}</span>
-                    </div>
-                    <p class="mt-3 text-sm text-slate-500">${order.customerAddress}</p>
-                    <div class="mt-3 text-sm text-slate-700">
-                        ${order.items.map(item => `<div class="flex justify-between py-1"><span>${item.name} x${item.quantity}</span><span>₱${(item.price * item.quantity).toLocaleString()}</span></div>`).join('')}
-                    </div>
-                    <div class="mt-3 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
-                        <span class="font-bold text-slate-900">Payment</span>
-                        <span class="font-black text-slate-900">${order.paymentMethod}</span>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="rider-status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-xs font-bold text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
-                        <button class="rider-status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="on-the-way">On the way</button>
-                        <button class="rider-status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="completed">Delivered</button>
-                    </div>
-                </div>
-            `).join('');
-
-            document.querySelectorAll('.rider-status-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const orderId = Number(btn.dataset.orderId);
-                    const order = savedOrders.find(item => item.id === orderId);
-                    if (!order) return;
-                    order.status = btn.dataset.status;
-                    saveOrders();
-                    renderOwnerOrders();
-                    renderRiderOrders();
-                    showToast(`Delivery status updated to ${btn.dataset.status}.`);
-                });
-            });
-        }
-
-        function renderMenuList() {
-            const selectedBusiness = profiles.find(item => item.id === selectedBusinessId);
-            const list = document.getElementById('menu-list');
-            if (!selectedBusiness) {
-                list.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-white p-6 text-center text-slate-500">No business selected.</div>';
-                return;
-            }
-
-            if (!selectedBusiness.menu || !selectedBusiness.menu.length) {
-                list.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-white p-6 text-center text-slate-500">This business has no menu items yet.</div>';
-                return;
-            }
-
-            list.innerHTML = selectedBusiness.menu.map(item => `
-                <div class="menu-item-card rounded-[24px] border border-slate-200 bg-white p-4 transition duration-200">
-                    <div class="flex items-start gap-3">
-                        <div class="h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-                            ${item.photo ? `<img src="${item.photo}" alt="${item.name}" class="h-full w-full object-cover" />` : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#ff2b85] to-[#ff9f6e] text-xl font-black text-white">${item.name.charAt(0)}</div>`}
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-2">
-                                    <h3 class="text-lg font-black text-slate-900">${item.name}</h3>
-                                    <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${item.category}</span>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-base font-black text-slate-900">₱${Number(item.price).toLocaleString()}</div>
-                                </div>
-                            </div>
-                            <p class="mt-2 text-sm text-slate-500">${item.description}</p>
-                            <div class="mt-2 flex gap-2 justify-end">
-                                <button class="edit-menu-item text-slate-400 hover:text-slate-700" data-menu-id="${item.id}" title="Edit item"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete-menu-item text-slate-400 hover:text-red-500" data-menu-id="${item.id}" title="Delete item"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            document.querySelectorAll('.edit-menu-item').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const menuId = Number(btn.dataset.menuId);
-                    const item = selectedBusiness.menu.find(entry => entry.id === menuId);
-                    if (!item) return;
-                    document.getElementById('menu-edit-id').value = item.id;
-                    document.getElementById('menu-name').value = item.name;
-                    document.getElementById('menu-category').value = item.category;
-                    document.getElementById('menu-price').value = item.price;
-                    document.getElementById('menu-description').value = item.description;
-                    const preview = document.getElementById('menu-photo-preview');
-                    const img = document.getElementById('menu-photo-img');
-                    if (item.photo) {
-                        img.src = item.photo;
-                        preview.classList.remove('hidden');
-                    } else {
-                        preview.classList.add('hidden');
-                        img.src = '';
-                    }
-                    document.getElementById('menu-name').focus();
-                });
-            });
-
-            document.querySelectorAll('.delete-menu-item').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const menuId = Number(btn.dataset.menuId);
-                    const business = profiles.find(item => item.id === selectedBusinessId);
-                    if (!business) return;
-                    business.menu = business.menu.filter(item => item.id !== menuId);
-                    saveProfiles();
-                    renderMenuList();
-                    showToast('Menu item deleted.');
-                });
-            });
-        }
-
-        function resetMenuForm() {
-            document.getElementById('menu-form').reset();
-            document.getElementById('menu-edit-id').value = '';
-            document.getElementById('menu-price').value = '150';
-            document.getElementById('menu-photo').value = '';
-            document.getElementById('menu-photo-preview').classList.add('hidden');
-            document.getElementById('menu-photo-img').src = '';
-        }
-
-        document.querySelectorAll('.role-btn').forEach(btn => {
-            btn.addEventListener('click', () => setMode(btn.dataset.role));
+      document.querySelectorAll('.increase-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const itemId = Number(btn.dataset.itemId);
+          const existing = cart.find(entry => entry.id === itemId);
+          if (existing) existing.quantity += 1;
+          saveCart();
+          renderCart();
         });
+      });
 
-        document.getElementById('business-photo').addEventListener('change', (event) => {
-            setImagePreview(event.target, document.getElementById('business-photo-preview'), document.getElementById('business-photo-img'));
+      document.querySelectorAll('.decrease-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const itemId = Number(btn.dataset.itemId);
+          const index = cart.findIndex(entry => entry.id === itemId);
+          if (index === -1) return;
+          if (cart[index].quantity > 1) cart[index].quantity -= 1;
+          else cart.splice(index, 1);
+          saveCart();
+          renderCart();
         });
+      });
+    }
 
-        document.getElementById('menu-photo').addEventListener('change', (event) => {
-            setImagePreview(event.target, document.getElementById('menu-photo-preview'), document.getElementById('menu-photo-img'));
+    function renderOwnerOrders() {
+      const container = document.getElementById('owner-orders');
+      if (!savedOrders.length) {
+        container.innerHTML = '<div class="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-center text-sm text-slate-500">No orders yet.</div>';
+        return;
+      }
+
+      container.innerHTML = savedOrders.map(order => `
+        <div class="rounded-[22px] border border-slate-200 bg-white p-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold uppercase tracking-[0.12em] text-slate-400">Fusion Nook</div>
+              <h3 class="mt-1 text-lg font-black text-slate-900">${order.customerName}</h3>
+            </div>
+            <span class="rounded-full bg-[#fff1f7] px-2 py-1 text-[10px] font-bold uppercase text-[#bf2d6d]">${order.status}</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-500">${order.customerAddress}</p>
+          <div class="mt-3 text-sm text-slate-700">
+            ${order.items.map(item => `<div class="flex justify-between py-1"><span>${item.name} x${item.quantity}</span><span>₱${(item.price * item.quantity).toLocaleString()}</span></div>`).join('')}
+          </div>
+          <div class="mt-3 flex items-center justify-between border-t border-slate-200 pt-3 text-sm">
+            <span class="font-bold text-slate-900">Total</span>
+            <span class="font-black text-slate-900">₱${Number(order.total).toLocaleString()}</span>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <button class="status-btn rounded-xl bg-[#ff2b85] px-3 py-2 text-xs font-bold text-white" data-order-id="${order.id}" data-status="accepted">Accept</button>
+            <button class="status-btn rounded-xl border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700" data-order-id="${order.id}" data-status="on-the-way">On the way</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.status-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const order = savedOrders.find(item => item.id === Number(btn.dataset.orderId));
+          if (!order) return;
+          order.status = btn.dataset.status;
+          saveOrders();
+          renderOwnerOrders();
+          showToast(`Order marked as ${btn.dataset.status}.`);
         });
+      });
+    }
 
-        document.getElementById('new-business-btn')?.addEventListener('click', () => {
-            setMode('owner');
-            document.getElementById('business-name').focus();
-        });
+    document.getElementById('search-input').addEventListener('input', renderMenuGrid);
 
-        document.getElementById('business-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const photoFile = document.getElementById('business-photo').files[0];
-            const photoData = photoFile ? await readFileAsDataURL(photoFile) : '';
+    document.getElementById('checkout-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!cart.length) {
+        showToast('Your cart is empty.');
+        return;
+      }
 
-            const data = {
-                id: Date.now(),
-                name: document.getElementById('business-name').value.trim(),
-                owner: document.getElementById('owner-name').value.trim(),
-                city: document.getElementById('business-city').value.trim(),
-                type: document.getElementById('business-type').value,
-                description: document.getElementById('business-description').value.trim(),
-                photo: photoData,
-                menu: []
-            };
+      const name = document.getElementById('checkout-name').value.trim();
+      const address = document.getElementById('checkout-address').value.trim();
+      const payment = document.getElementById('checkout-payment').value;
 
-            if (!data.name || !data.owner || !data.city || !data.description) {
-                showToast('Please complete all business fields.');
-                return;
-            }
+      if (!name || !address) {
+        showToast('Please enter your name and address.');
+        return;
+      }
 
-            profiles.unshift(data);
-            selectedBusinessId = data.id;
-            saveProfiles();
-            renderCustomerRestaurants();
-            renderRestaurantMenu();
-            renderMenuList();
-            updateBusinessName();
-            event.target.reset();
-            document.getElementById('business-photo-preview').classList.add('hidden');
-            document.getElementById('business-photo-img').src = '';
-            showToast('Business profile saved.');
-        });
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 35;
+      savedOrders.unshift({
+        id: Date.now(),
+        customerName: name,
+        customerAddress: address,
+        paymentMethod: payment,
+        total,
+        status: 'pending',
+        items: cart.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
+        createdAt: Date.now()
+      });
+      saveOrders();
+      cart = [];
+      saveCart();
+      renderCart();
+      renderOwnerOrders();
+      event.target.reset();
+      showToast('Order placed successfully!');
+    });
 
-        document.getElementById('reset-form').addEventListener('click', () => {
-            document.getElementById('business-form').reset();
-            document.getElementById('business-photo-preview').classList.add('hidden');
-            document.getElementById('business-photo-img').src = '';
-        });
-
-        function updateBusinessName() {
-            const business = profiles.find(item => item.id === selectedBusinessId) || profiles[0];
-            const active = document.getElementById('active-business-name');
-            if (active && business) active.textContent = 'Selected: ' + business.name;
-        }
-
-        document.getElementById('menu-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const business = profiles.find(item => item.id === selectedBusinessId);
-            if (!business) {
-                showToast('Please select a business first.');
-                return;
-            }
-
-            const photoFile = document.getElementById('menu-photo').files[0];
-            const photoData = photoFile ? await readFileAsDataURL(photoFile) : '';
-            const itemId = document.getElementById('menu-edit-id').value;
-            const newItem = {
-                id: itemId ? Number(itemId) : Date.now(),
-                name: document.getElementById('menu-name').value.trim(),
-                category: document.getElementById('menu-category').value,
-                price: Number(document.getElementById('menu-price').value),
-                description: document.getElementById('menu-description').value.trim(),
-                photo: photoData || (business.menu.find(item => item.id === Number(itemId))?.photo || '')
-            };
-
-            if (!newItem.name || !newItem.description || !newItem.price) {
-                showToast('Please fill in the complete menu data.');
-                return;
-            }
-
-            const existingIndex = business.menu.findIndex(item => item.id === newItem.id);
-            if (existingIndex >= 0) {
-                business.menu[existingIndex] = newItem;
-            } else {
-                business.menu.unshift(newItem);
-            }
-
-            saveProfiles();
-            renderCustomerRestaurants();
-            renderRestaurantMenu();
-            renderMenuList();
-            resetMenuForm();
-            showToast('Menu item saved.');
-        });
-
-        document.getElementById('cancel-menu-edit').addEventListener('click', resetMenuForm);
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        updateBusinessName();
-        renderCustomerRestaurants();
-        renderRestaurantMenu();
-        renderCart();
-        renderOwnerOrders();
-        renderRiderOrders();
-        renderMenuList();
-        setMode('customer');
-    </script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderMenuGrid();
+    renderCart();
+    renderOwnerOrders();
+  </script>
 </body>
 </html>
