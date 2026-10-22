@@ -382,15 +382,22 @@
       const chatCloseBtn = document.getElementById('chat-close-btn');
       const navbarChatBtn = document.getElementById('chat-navbar-btn');
 
+      function makeAccessKey() {
+        if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+        return 'cust-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+      }
+
       let cart = JSON.parse(localStorage.getItem(cartStorageKey)) || [];
       let ownerMode = localStorage.getItem(viewModeKey) === 'owner';
-      let customerSession = JSON.parse(localStorage.getItem(customerSessionKey)) || { name: '', address: '' };
+      let customerSession = JSON.parse(localStorage.getItem(customerSessionKey)) || { name: '', address: '', accessKey: makeAccessKey() };
+      if (!customerSession.accessKey) customerSession.accessKey = makeAccessKey();
       let orders = JSON.parse(localStorage.getItem(orderStorageKey)) || [
         {
           id: 1,
           customerName: 'Maria Santos',
           customerAddress: '123 P. Cruz St., Makati',
           customerKey: 'maria santos|123 p. cruz st., makati',
+          customerAccessKey: 'demo-owner-01',
           paymentMethod: 'GCash',
           total: 430,
           status: 'accepted',
@@ -407,6 +414,7 @@
           customerName: 'Carl Dela Cruz',
           customerAddress: '88 M. Ponce St., Makati',
           customerKey: 'carl dela cruz|88 m. ponce st., makati',
+          customerAccessKey: 'demo-owner-02',
           paymentMethod: 'Maya',
           total: 310,
           status: 'finished',
@@ -423,6 +431,7 @@
           customerName: 'Ria Gomez',
           customerAddress: '40 Lapu-Lapu Ave., Makati',
           customerKey: 'ria gomez|40 lapu-lapu ave., makati',
+          customerAccessKey: 'demo-owner-03',
           paymentMethod: 'Cash on Delivery',
           total: 250,
           status: 'in-delivery',
@@ -527,29 +536,15 @@
         localStorage.setItem(viewModeKey, ownerMode ? 'owner' : 'customer');
       }
 
-      function getCurrentCustomerKeyFromForm() {
-        const name = normalizeText(document.getElementById('checkout-name').value);
-        const address = normalizeText(document.getElementById('checkout-address').value);
-
-        if (name || address) {
-          customerSession = { name, address };
-          saveCustomerSession();
-        }
-
-        return getCustomerKey(customerSession.name || name, customerSession.address || address);
-      }
-
       function getVisibleOrders() {
         if (ownerMode) return orders;
 
-        const currentName = normalizeText(document.getElementById('checkout-name').value) || customerSession.name;
-        const currentAddress = normalizeText(document.getElementById('checkout-address').value) || customerSession.address;
-        const currentKey = getCustomerKey(currentName, currentAddress);
+        const currentAccessKey = customerSession.accessKey;
+        if (!currentAccessKey) return [];
 
         return orders.filter((order) => {
-          if (!currentName && !currentAddress) return false;
-          const orderKey = order.customerKey || getCustomerKey(order.customerName || '', order.customerAddress || '');
-          return orderKey === currentKey;
+          const orderKey = order.customerAccessKey || order.customerKey || '';
+          return orderKey === currentAccessKey || (!order.customerAccessKey && order.customerKey === getCustomerKey(customerSession.name || '', customerSession.address || ''));
         });
       }
 
@@ -739,6 +734,7 @@
           customerName,
           customerAddress: address,
           customerKey: getCustomerKey(customerName, address),
+          customerAccessKey: 'demo-owner-' + nextId,
           paymentMethod: 'GCash',
           total: 290 + nextId * 15,
           status: 'pending',
@@ -771,7 +767,7 @@
           return;
         }
 
-        customerSession = { name, address };
+        customerSession = { name, address, accessKey: customerSession.accessKey || makeAccessKey() };
         saveCustomerSession();
 
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 35;
@@ -780,6 +776,7 @@
           customerName: name,
           customerAddress: address,
           customerKey: getCustomerKey(name, address),
+          customerAccessKey: customerSession.accessKey,
           paymentMethod: payment,
           total,
           status: 'pending',
@@ -821,6 +818,8 @@
       });
 
       document.getElementById('year').textContent = new Date().getFullYear();
+      document.getElementById('checkout-name').value = customerSession.name || '';
+      document.getElementById('checkout-address').value = customerSession.address || '';
       applyViewMode();
       renderMenuGrid();
       renderCart();
