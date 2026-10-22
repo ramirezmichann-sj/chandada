@@ -67,36 +67,6 @@
       .order-sheet {
         background: rgba(22,15,14,0.92);
       }
-      .editor-panel {
-        display: none;
-      }
-      .editor-panel.visible {
-        display: block;
-      }
-      .editor-input {
-        border: 1px solid rgba(17,17,17,0.12);
-        background: #fff;
-        border-radius: 12px;
-        padding: 0.72rem 0.8rem;
-        width: 100%;
-      }
-      .section-item {
-        background: #fff;
-        border: 1px solid rgba(17,17,17,0.08);
-        border-radius: 16px;
-      }
-      .food-card {
-        background: #fff;
-        border: 1px solid rgba(17,17,17,0.08);
-        border-radius: 16px;
-        overflow: hidden;
-      }
-      .food-img {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        background: #f3f4f6;
-      }
     </style>
   </head>
   <body class="text-slate-800 antialiased">
@@ -115,25 +85,12 @@
           </div>
 
           <div class="flex items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
-            <button id="toggle-editor" type="button" class="rounded-full bg-[#f7c75d] px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#17100d]">Edit Menu</button>
             <span>Good food</span>
             <span class="text-white">•</span>
             <span>Great vibes</span>
           </div>
         </div>
       </header>
-
-      <div id="editor" class="editor-panel visible mb-8 rounded-[30px] border border-[#17100d]/10 bg-white/80 p-4 shadow-soft">
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="text-2xl font-black text-[#17100d]">Menu Editor</h2>
-          <button id="save-menu" type="button" class="rounded-full bg-[#17100d] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#f7c75d]">Save Menu</button>
-        </div>
-
-        <div id="menu-editor-sections" class="space-y-4"></div>
-        <div class="mt-4 flex justify-end">
-          <button id="add-section" type="button" class="rounded-full bg-[#f7c75d] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#17100d]">Add Section</button>
-        </div>
-      </div>
 
       <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
         <div id="menu-container" class="space-y-6"></div>
@@ -319,86 +276,6 @@
         });
       }
 
-      function renderEditor() {
-        const editorSections = document.getElementById('menu-editor-sections');
-        editorSections.innerHTML = menuData.map((section, sectionIndex) => `
-          <div class="section-item p-4">
-            <div class="mb-3 flex items-center justify-between gap-3">
-              <input class="editor-input section-title" data-section-index="${sectionIndex}" value="${section.title}" placeholder="Section title" />
-              <button type="button" class="remove-section rounded-full bg-[#17100d] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#f7c75d]" data-section-index="${sectionIndex}">Remove</button>
-            </div>
-            <div class="space-y-3">
-              ${(section.items || []).map((item, itemIndex) => `
-                <div class="rounded-2xl border border-[#17100d]/10 bg-[#fffafc] p-3">
-                  <div class="grid gap-3 md:grid-cols-4">
-                    <input class="editor-input item-name" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" value="${item.name}" placeholder="Item name" />
-                    <input class="editor-input item-price" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" value="${item.price}" placeholder="Price" type="number" min="0" />
-                    <input class="editor-input item-image" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" value="${item.image || ''}" placeholder="Image URL" />
-                    <button type="button" class="remove-item rounded-full bg-[#ff3d7a] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Delete</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-            <div class="mt-3 flex justify-end">
-              <button type="button" class="add-item rounded-full bg-[#f5e4b4] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-[#17100d]" data-section-index="${sectionIndex}">Add Item</button>
-            </div>
-          </div>
-        `).join('');
-
-        document.querySelectorAll('.add-item').forEach(button => {
-          button.addEventListener('click', () => {
-            const sectionIndex = Number(button.dataset.sectionIndex);
-            menuData[sectionIndex].items.push({ name: 'New Item', price: 0, image: '' });
-            renderEditor();
-          });
-        });
-
-        document.querySelectorAll('.remove-item').forEach(button => {
-          button.addEventListener('click', () => {
-            const sectionIndex = Number(button.dataset.sectionIndex);
-            const itemIndex = Number(button.dataset.itemIndex);
-            menuData[sectionIndex].items.splice(itemIndex, 1);
-            renderEditor();
-          });
-        });
-
-        document.querySelectorAll('.remove-section').forEach(button => {
-          button.addEventListener('click', () => {
-            const sectionIndex = Number(button.dataset.sectionIndex);
-            menuData.splice(sectionIndex, 1);
-            renderEditor();
-          });
-        });
-
-        document.querySelectorAll('.section-title, .item-name, .item-price, .item-image').forEach(input => {
-          input.addEventListener('input', () => {
-            const sectionIndex = Number(input.dataset.sectionIndex);
-            const itemIndex = input.dataset.itemIndex !== undefined ? Number(input.dataset.itemIndex) : null;
-            if (input.classList.contains('section-title')) {
-              menuData[sectionIndex].title = input.value || 'New Section';
-            }
-            if (itemIndex !== null) {
-              if (input.classList.contains('item-name')) menuData[sectionIndex].items[itemIndex].name = input.value || 'New Item';
-              if (input.classList.contains('item-price')) menuData[sectionIndex].items[itemIndex].price = Number(input.value || 0);
-              if (input.classList.contains('item-image')) menuData[sectionIndex].items[itemIndex].image = input.value || '';
-            }
-            renderMenu();
-          });
-        });
-      }
-
-      function saveEditedMenu() {
-        saveMenu();
-        renderMenu();
-        showToast('Menu saved.');
-      }
-
-      function addSection() {
-        menuData.push({ title: 'New Section', items: [{ name: 'New Item', price: 0, image: '' }] });
-        renderEditor();
-        renderMenu();
-      }
-
       function saveCart() {
         localStorage.setItem('fusion_k_cart', JSON.stringify(cart));
       }
@@ -536,16 +413,7 @@
         if (event.target === this) closeConfirmModal();
       });
 
-      document.getElementById('toggle-editor').addEventListener('click', () => {
-        const editor = document.getElementById('editor');
-        editor.classList.toggle('visible');
-      });
-
-      document.getElementById('add-section').addEventListener('click', addSection);
-      document.getElementById('save-menu').addEventListener('click', saveEditedMenu);
-
       renderMenu();
-      renderEditor();
       renderCart();
     </script>
   </body>
