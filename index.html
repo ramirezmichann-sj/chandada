@@ -4,23 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion K | Menu</title>
-    <meta name="description" content="Simple food ordering menu for Fusion K with messenger and viber order confirmation." />
+    <meta name="description" content="Fusion K food menu with ordering and editable menu sections." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              cream: '#f8f0dc',
-              gold: '#f9c74f',
-              dark: '#120b0b',
-              rose: '#ff3d7a',
-              red: '#d92d2d',
-              green: '#7ac142'
+              pinky: '#ffedf8',
+              candy: '#ffb4d9',
+              mint: '#d9ffe8',
+              peach: '#ffd9bc',
+              berry: '#ff5ea8',
+              deep: '#17100d',
+              gold: '#f7c75d',
+              cream: '#fffaf2'
             },
             boxShadow: {
-              punch: '0 10px 24px rgba(0,0,0,0.18)',
-              soft: '0 18px 40px rgba(31,41,55,0.08)'
+              soft: '0 18px 40px rgba(31,41,55,0.08)',
+              pop: '0 14px 30px rgba(255, 95, 166, 0.14)'
             }
           }
         }
@@ -28,96 +30,142 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
+      :root {
+        --bg: #fff7fb;
+        --pink: #ffb4d9;
+        --pink-strong: #ff5ea8;
+        --mint: #d9ffe8;
+        --peach: #ffd9bc;
+        --gold: #f7c75d;
+        --deep: #17100d;
+        --cream: #fffaf2;
+      }
+
       body {
-        background: linear-gradient(180deg, #f9f0df 0%, #f5f1ea 100%);
+        background: linear-gradient(180deg, #fff7fb 0%, #fffaf2 100%);
         font-family: 'Inter', sans-serif;
       }
-      .fusion-title {
-        font-family: 'Black Ops One', cursive;
-        letter-spacing: -0.08em;
+
+      .brand-font {
+        font-family: 'Baloo 2', cursive;
+        letter-spacing: -0.04em;
       }
-      .menu-section {
-        background: #17100d;
-        border: 3px solid #f7c75d;
-        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.15);
+
+      .cotton-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,248,252,0.98));
+        border: 2px solid rgba(255, 94, 168, 0.15);
+        box-shadow: 0 20px 35px rgba(255, 94, 168, 0.12);
       }
-      .menu-header {
-        background: linear-gradient(135deg, #f8c75d 0%, #f9e7b8 100%);
-        border-bottom: 3px solid #f7c75d;
+
+      .menu-section-card {
+        background: linear-gradient(180deg, #ffffff, #fff8fb);
+        border: 2px solid rgba(255, 94, 168, 0.12);
+        border-radius: 28px;
+        box-shadow: 0 16px 28px rgba(23, 16, 13, 0.08);
       }
-      .price-tag {
-        color: #ffd859;
+
+      .section-head {
+        background: linear-gradient(135deg, #ffd8ef, #ffe8b5 52%, #d9ffe8 100%);
+        border-bottom: 2px solid rgba(255, 94, 168, 0.15);
+      }
+
+      .menu-pill {
+        background: linear-gradient(135deg, #ff5ea8 0%, #ff8bc3 100%);
+        color: white;
+      }
+
+      .ghost-pill {
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 94, 168, 0.2);
+        color: var(--deep);
+      }
+
+      .food-card {
+        background: linear-gradient(180deg, #fff, #fff8fb);
+        border: 1px solid rgba(255, 94, 168, 0.18);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .food-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 28px rgba(255, 94, 168, 0.12);
+      }
+
+      .food-img {
+        height: 110px;
+        width: 100%;
+        object-fit: cover;
+        background: linear-gradient(135deg, #fce8f6, #f9f3d5);
+      }
+
+      .price-badge {
+        background: linear-gradient(135deg, #f8d466, #f7b602);
+        color: #17100d;
         font-weight: 900;
       }
-      .menu-item {
-        border-bottom: 1px dashed rgba(255,255,255,0.15);
-      }
-      .menu-item:last-child {
-        border-bottom: none;
-      }
-      .order-panel {
-        position: sticky;
-        top: 1rem;
-      }
+
       .modal-open {
         overflow: hidden;
       }
+
       .order-sheet {
-        background: rgba(22, 15, 14, 0.92);
+        background: rgba(22, 15, 14, 0.96);
       }
-      .flavor-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.5rem 1.25rem;
+
+      .editor-panel {
+        display: none;
       }
-      .flavor-item {
-        color: #f3efe9;
-        font-weight: 800;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+
+      .editor-panel.visible {
+        display: block;
       }
-      .flavor-item::before {
-        content: '';
-        width: 10px;
-        height: 10px;
-        border-radius: 9999px;
-        background: linear-gradient(135deg, #ffbf47, #d92d2d);
-        display: inline-block;
-        border: 1px solid rgba(255,255,255,0.7);
+
+      .editor-input {
+        border: 1px solid rgba(255,94,168,0.2);
+        background: #fff;
+        border-radius: 12px;
+        padding: 0.7rem 0.8rem;
+        width: 100%;
+      }
+
+      .section-item {
+        background: #fff;
+        border: 1px solid rgba(255, 94, 168, 0.12);
+        border-radius: 16px;
       }
     </style>
   </head>
   <body class="text-slate-800 antialiased">
-    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#12100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
+    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
 
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <header class="mb-6 rounded-[28px] bg-[#f5e4b4] p-4 shadow-soft ring-2 ring-[#1f1612]">
+      <header class="cotton-card mb-6 rounded-[32px] p-4">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex items-center gap-4">
-            <div class="fusion-title text-5xl leading-none text-[#111111] sm:text-6xl">fusion</div>
+            <div class="brand-font text-5xl leading-none text-[#111111] sm:text-6xl">fusion</div>
             <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#17100d] text-3xl font-black text-[#f7c75d]">K</div>
             <div class="flex flex-col text-[#111111]">
-              <div class="text-xs font-extrabold uppercase tracking-[0.35em] text-[#111111]/75">Diverse restaurant cafe</div>
+              <div class="text-xs font-extrabold uppercase tracking-[0.3em] text-[#111111]/75">Diverse restaurant cafe</div>
               <div class="mt-1 text-[10px] font-semibold uppercase tracking-[0.38em] text-[#111111]/60">Est. 2022</div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
-            <span>Good food</span>
-            <span class="text-white">•</span>
-            <span>Great vibes</span>
+          <div class="flex items-center gap-3" aria-label="page actions">
+            <button id="toggle-editor" type="button" class="menu-pill rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em]">Edit Menu</button>
+            <div class="ghost-pill rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em]">Good Food • Great Vibes</div>
           </div>
         </div>
       </header>
 
       <section class="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-        <div class="rounded-[26px] bg-[#f5e4b4] p-5 shadow-soft ring-2 ring-[#1f1612]">
+        <div class="cotton-card rounded-[30px] p-5">
           <div class="flex flex-wrap items-center gap-3">
-            <span class="rounded-full bg-[#17100d] px-3 py-1 text-[10px] font-black uppercase tracking-[0.25em] text-[#f7c75d]">Best seller</span>
-            <span class="rounded-full border border-[#17100d]/40 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#17100d]">Hot & crispy</span>
+            <span class="menu-pill rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.25em]">Best seller</span>
+            <span class="ghost-pill rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em]">Hot & crispy</span>
           </div>
 
           <h1 class="mt-4 text-4xl font-black leading-none text-[#17100d] sm:text-5xl lg:text-6xl">
@@ -127,385 +175,29 @@
           </h1>
 
           <p class="mt-4 max-w-lg text-sm text-[#17100d]/70 sm:text-base">
-            Simple ordering for your favorite meals. Pick your food, choose how you want to pay, then confirm your details.
+            Bite into your favorites. Add your food, choose your payment method, and confirm your order in seconds.
           </p>
         </div>
 
-        <div class="overflow-hidden rounded-[26px] bg-[#17100d] p-2 shadow-punch ring-2 ring-[#f7c75d]">
-          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Food" class="h-full min-h-[220px] w-full rounded-[20px] object-cover" />
+        <div class="overflow-hidden rounded-[30px] bg-[#17100d] p-2 shadow-pop ring-2 ring-[#ffb4d9]">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Food" class="h-full min-h-[220px] w-full rounded-[22px] object-cover" />
         </div>
       </section>
 
-      <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
-        <div class="space-y-6">
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Wings</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">6 PCS</div></div>
-                <div class="price-tag">₱189</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">8 PCS</div></div>
-                <div class="price-tag">₱240</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">12 PCS</div></div>
-                <div class="price-tag">₱329</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">16 PCS</div></div>
-                <div class="price-tag">₱419</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">30 PCS</div></div>
-                <div class="price-tag">₱690</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Wings Flavors</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="flavor-grid">
-                <div class="flavor-item">Garlic Mayo</div>
-                <div class="flavor-item">Teriyaki</div>
-                <div class="flavor-item">Salted Egg</div>
-                <div class="flavor-item">Parmigiana</div>
-                <div class="flavor-item">Mango Habanero</div>
-                <div class="flavor-item">Pesto</div>
-                <div class="flavor-item">Garlic Parmesan</div>
-                <div class="flavor-item">Buffalo</div>
-                <div class="flavor-item">Japanese Nori</div>
-                <div class="flavor-item">Sriracha</div>
-                <div class="flavor-item">Classic</div>
-                <div class="flavor-item">Cheesy</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Fries</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Plain</div></div>
-                <div class="price-tag">₱70</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Flavored</div></div>
-                <div class="price-tag">₱85</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Cheesy Beef Fries</div></div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Wings with Fries</div></div>
-                <div class="price-tag">₱260</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Salads</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Caesar Salad</div></div>
-                <div class="price-tag">₱145</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Mango Kani Salad</div></div>
-                <div class="price-tag">₱150</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Chef's Salad</div></div>
-                <div class="price-tag">₱185</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Waldorf Salad</div></div>
-                <div class="price-tag">₱160</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">California Maki</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Kimbap</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Crabsticks Roll</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Kani Roll</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Nachos</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Nachos</div></div>
-                <div class="price-tag">₱80</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Classic</div></div>
-                <div class="price-tag">₱80</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Cheesy Beef Nachos</div></div>
-                <div class="price-tag">₱100</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Overload Nachos</div></div>
-                <div class="price-tag">₱160</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Pasta</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Carbonara</div></div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Spaghetti</div></div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Pesto</div></div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Baked Macaroni</div></div>
-                <div class="price-tag">₱160</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Lasagna</div></div>
-                <div class="price-tag">₱160</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Rice Meals</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Shanghai Rice</div></div>
-                <div class="price-tag">₱70</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Chicken Fillet</div></div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Pork Tonkatsu</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Tempura Rice</div></div>
-                <div class="price-tag">₱230</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Chicken Biryani</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Solo</div></div>
-                <div class="price-tag">₱229</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Duo</div></div>
-                <div class="price-tag">₱429</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Barkada</div></div>
-                <div class="price-tag">₱1,499</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Spuds</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Medium</div></div>
-                <div class="price-tag">₱160</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Large</div></div>
-                <div class="price-tag">₱199</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">XL</div></div>
-                <div class="price-tag">₱229</div>
-              </div>
-              <div class="mt-3 p-3">
-                <div class="flavor-grid">
-                  <div class="flavor-item">Classic</div>
-                  <div class="flavor-item">Cheesy Bacon</div>
-                  <div class="flavor-item">Garlic Bacon</div>
-                  <div class="flavor-item">Ham and Cheese</div>
-                  <div class="flavor-item">Pork and Beans</div>
-                  <div class="flavor-item">Cheesy Hotdog</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Add Ons</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Rice</div></div>
-                <div class="price-tag">₱30</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Egg</div></div>
-                <div class="price-tag">₱15</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Coffee Latte</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Spanish Latte</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Caramel Macchiato</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">French Vanilla</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Thai Tea Latte</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Dirty Matcha</div></div>
-                <div class="price-tag">₱190</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Biscoff Coffee</div></div>
-                <div class="price-tag">₱190</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">White Mocha</div></div>
-                <div class="price-tag">₱190</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Frappe</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Java Chips</div></div>
-                <div class="price-tag">₱220</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Caramel</div></div>
-                <div class="price-tag">₱220</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Matcha</div></div>
-                <div class="price-tag">₱220</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Biscoff</div></div>
-                <div class="price-tag">₱220</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Cakes</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Cheesecakes Classic</div></div>
-                <div class="price-tag">₱160</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Cheesecakes Premium</div></div>
-                <div class="price-tag">₱200</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Egg Tart</div></div>
-                <div class="price-tag">₱55/pc</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Croissant Classic</div></div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Croissant Premium</div></div>
-                <div class="price-tag">₱220</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Fruit Soda</h2>
-            </div>
-            <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Lychee</div></div>
-                <div class="price-tag">₱110</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Passion Fruit</div></div>
-                <div class="price-tag">₱110</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Green Apple</div></div>
-                <div class="price-tag">₱110</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div><div class="font-black text-lg">Kiwi</div></div>
-                <div class="price-tag">₱110</div>
-              </div>
-            </div>
-          </section>
+      <div id="editor" class="editor-panel visible mb-8 rounded-[30px] border border-pink-200 bg-white/80 p-4 shadow-soft">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-2xl font-black text-[#17100d]">Menu Editor</h2>
+          <button id="save-menu" type="button" class="menu-pill rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em]">Save Menu</button>
         </div>
+
+        <div id="menu-editor-sections" class="space-y-4"></div>
+        <div class="mt-4 flex justify-end">
+          <button id="add-section" type="button" class="ghost-pill rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em]">Add Section</button>
+        </div>
+      </div>
+
+      <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
+        <div id="menu-container" class="space-y-6"></div>
 
         <aside class="order-panel">
           <div class="rounded-[30px] bg-[#f7efdf] p-5 shadow-soft ring-2 ring-[#17100d]">
@@ -596,34 +288,281 @@
     </div>
 
     <script>
-      const cartKey = 'fusion_k_cart';
-      const menuItems = [
-        { name: '6 PCS Wings', price: 189 },
-        { name: '8 PCS Wings', price: 240 },
-        { name: '12 PCS Wings', price: 329 },
-        { name: '16 PCS Wings', price: 419 },
-        { name: '30 PCS Wings', price: 690 },
-        { name: 'Plain Fries', price: 70 },
-        { name: 'Flavored Fries', price: 85 },
-        { name: 'Cheesy Beef Fries', price: 130 },
-        { name: 'Wings with Fries', price: 260 },
-        { name: 'Chicken Biryani Solo', price: 229 },
-        { name: 'Chicken Biryani Duo', price: 429 },
-        { name: 'Chicken Biryani Barkada', price: 1499 },
-        { name: 'Shanghai Rice', price: 70 },
-        { name: 'Chicken Fillet', price: 130 },
-        { name: 'Pork Tonkatsu', price: 180 },
-        { name: 'Tempura Rice', price: 230 },
-        { name: 'Cakes', price: 160 },
-        { name: 'Frappe', price: 220 },
-        { name: 'Latte', price: 180 },
-        { name: 'Add-on', price: 15 }
+      const defaultMenu = [
+        {
+          title: 'Wings',
+          items: [
+            { name: '6 PCS', price: 189, image: 'https://images.unsplash.com/photo-1562967916-eb82221dfb92?auto=format&fit=crop&w=800&q=80' },
+            { name: '8 PCS', price: 240, image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80' },
+            { name: '12 PCS', price: 329, image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
+            { name: '16 PCS', price: 419, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80' },
+            { name: '30 PCS', price: 690, image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Wings Flavors',
+          items: [
+            { name: 'Garlic Mayo', price: 0, image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Teriyaki', price: 0, image: 'https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Salted Egg', price: 0, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Parmigiana', price: 0, image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Mango Habanero', price: 0, image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Pesto', price: 0, image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Garlic Parmesan', price: 0, image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Buffalo', price: 0, image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Fries',
+          items: [
+            { name: 'Plain', price: 70, image: 'https://images.unsplash.com/photo-1576103344488-8fd5d9dd966d?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Flavored', price: 85, image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Cheesy Beef Fries', price: 130, image: 'https://images.unsplash.com/photo-1518013431117-eb1465fa5752?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Wings with Fries', price: 260, image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Salads',
+          items: [
+            { name: 'Caesar Salad', price: 145, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Mango Kani Salad', price: 150, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
+            { name: "Chef's Salad", price: 185, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Waldorf Salad', price: 160, image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80' },
+            { name: 'California Maki', price: 180, image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Kimbap', price: 180, image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Nachos',
+          items: [
+            { name: 'Nachos', price: 80, image: 'https://images.unsplash.com/photo-1513456850225-c2507f0e9d7f?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Classic', price: 80, image: 'https://images.unsplash.com/photo-1513456850225-c2507f0e9d7f?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Cheesy Beef Nachos', price: 100, image: 'https://images.unsplash.com/photo-1513456850225-c2507f0e9d7f?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Overload Nachos', price: 160, image: 'https://images.unsplash.com/photo-1513456850225-c2507f0e9d7f?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Pasta',
+          items: [
+            { name: 'Carbonara', price: 130, image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Spaghetti', price: 130, image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Pesto', price: 130, image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Baked Macaroni', price: 160, image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Lasagna', price: 160, image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Rice Meals',
+          items: [
+            { name: 'Shanghai Rice', price: 70, image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Chicken Fillet', price: 130, image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Pork Tonkatsu', price: 180, image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Tempura Rice', price: 230, image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Chicken Biryani',
+          items: [
+            { name: 'Solo', price: 229, image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Duo', price: 429, image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Barkada', price: 1499, image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Spuds',
+          items: [
+            { name: 'Medium', price: 160, image: 'https://images.unsplash.com/photo-1576103344488-8fd5d9dd966d?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Large', price: 199, image: 'https://images.unsplash.com/photo-1576103344488-8fd5d9dd966d?auto=format&fit=crop&w=800&q=80' },
+            { name: 'XL', price: 229, image: 'https://images.unsplash.com/photo-1576103344488-8fd5d9dd966d?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Add Ons',
+          items: [
+            { name: 'Rice', price: 30, image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Egg', price: 15, image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Coffee Latte',
+          items: [
+            { name: 'Spanish Latte', price: 180, image: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Caramel Macchiato', price: 180, image: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=800&q=80' },
+            { name: 'French Vanilla', price: 180, image: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Thai Tea Latte', price: 180, image: 'https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Frappe',
+          items: [
+            { name: 'Java Chips', price: 220, image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Caramel', price: 220, image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Matcha', price: 220, image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Biscoff', price: 220, image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Cakes',
+          items: [
+            { name: 'Cheesecakes Classic', price: 160, image: 'https://images.unsplash.com/photo-1533134242443-d6ddb2878c34?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Cheesecakes Premium', price: 200, image: 'https://images.unsplash.com/photo-1533134242443-d6ddb2878c34?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Egg Tart', price: 55, image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Croissant Classic', price: 180, image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80' }
+          ]
+        },
+        {
+          title: 'Fruit Soda',
+          items: [
+            { name: 'Lychee', price: 110, image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Passion Fruit', price: 110, image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Green Apple', price: 110, image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80' },
+            { name: 'Kiwi', price: 110, image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80' }
+          ]
+        }
       ];
 
-      let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      const STORAGE_KEY = 'fusionk_menu_data';
+      let menuData = loadMenu();
+      let cart = JSON.parse(localStorage.getItem('fusion_k_cart')) || [];
+
+      function loadMenu() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          try {
+            return JSON.parse(saved);
+          } catch (error) {
+            return [...defaultMenu];
+          }
+        }
+        return [...defaultMenu];
+      }
+
+      function saveMenu() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(menuData));
+      }
+
+      function renderMenu() {
+        const container = document.getElementById('menu-container');
+        container.innerHTML = menuData.map(section => {
+          const items = section.items.map(item => `
+            <div class="food-card">
+              <img class="food-img" src="${item.image || 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80'}" alt="${item.name}" />
+              <div class="p-3">
+                <div class="flex items-center justify-between gap-2">
+                  <h3 class="text-base font-black text-[#17100d]">${item.name}</h3>
+                  <button type="button" class="add-item-btn rounded-full bg-[#17100d] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#f7c75d]" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
+                </div>
+                <div class="mt-2 flex items-center justify-between text-sm">
+                  <span class="text-[#17100d]/60">${item.price > 0 ? 'Fresh item' : 'Flavor option'}</span>
+                  <span class="price-badge rounded-full px-2.5 py-1">₱${Number(item.price || 0).toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          `).join('');
+
+          return `
+            <section class="menu-section-card overflow-hidden">
+              <div class="section-head px-5 py-4">
+                <h2 class="brand-font text-4xl text-[#17100d]">${section.title}</h2>
+              </div>
+              <div class="p-4">
+                <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  ${items}
+                </div>
+              </div>
+            </section>
+          `;
+        }).join('');
+
+        document.querySelectorAll('.add-item-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            addToCart(button.dataset.name, Number(button.dataset.price || 0));
+          });
+        });
+      }
+
+      function renderEditor() {
+        const editorSections = document.getElementById('menu-editor-sections');
+        editorSections.innerHTML = menuData.map((section, sectionIndex) => `
+          <div class="section-item p-4">
+            <div class="mb-3 flex items-center justify-between gap-3">
+              <input class="editor-input section-title" data-section-index="${sectionIndex}" value="${section.title}" placeholder="Section title" />
+              <button type="button" class="remove-section rounded-full bg-[#17100d] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#f7c75d]" data-section-index="${sectionIndex}">Remove</button>
+            </div>
+            <div class="space-y-3">
+              ${(section.items || []).map((item, itemIndex) => `
+                <div class="rounded-2xl border border-pink-100 bg-[#fffafc] p-3">
+                  <div class="grid gap-3 md:grid-cols-4">
+                    <input class="editor-input item-name" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" value="${item.name}" placeholder="Item name" />
+                    <input class="editor-input item-price" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" value="${item.price}" placeholder="Price" type="number" min="0" />
+                    <input class="editor-input item-image" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" value="${item.image || ''}" placeholder="Image URL" />
+                    <button type="button" class="remove-item rounded-full bg-[#ff5ea8] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="mt-3 flex justify-end">
+              <button type="button" class="add-item rounded-full bg-[#ffd8ef] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-[#17100d]" data-section-index="${sectionIndex}">Add Item</button>
+            </div>
+          </div>
+        `).join('');
+
+        document.querySelectorAll('.add-item').forEach(button => {
+          button.addEventListener('click', () => {
+            const sectionIndex = Number(button.dataset.sectionIndex);
+            menuData[sectionIndex].items.push({ name: 'New Item', price: 0, image: '' });
+            renderEditor();
+          });
+        });
+
+        document.querySelectorAll('.remove-item').forEach(button => {
+          button.addEventListener('click', () => {
+            const sectionIndex = Number(button.dataset.sectionIndex);
+            const itemIndex = Number(button.dataset.itemIndex);
+            menuData[sectionIndex].items.splice(itemIndex, 1);
+            renderEditor();
+          });
+        });
+
+        document.querySelectorAll('.remove-section').forEach(button => {
+          button.addEventListener('click', () => {
+            const sectionIndex = Number(button.dataset.sectionIndex);
+            menuData.splice(sectionIndex, 1);
+            renderEditor();
+          });
+        });
+
+        document.querySelectorAll('.section-title, .item-name, .item-price, .item-image').forEach(input => {
+          input.addEventListener('input', () => {
+            const sectionIndex = Number(input.dataset.sectionIndex);
+            const itemIndex = input.dataset.itemIndex !== undefined ? Number(input.dataset.itemIndex) : null;
+            if (input.classList.contains('section-title')) {
+              menuData[sectionIndex].title = input.value || 'New Section';
+            }
+            if (itemIndex !== null) {
+              if (input.classList.contains('item-name')) menuData[sectionIndex].items[itemIndex].name = input.value || 'New Item';
+              if (input.classList.contains('item-price')) menuData[sectionIndex].items[itemIndex].price = Number(input.value || 0);
+              if (input.classList.contains('item-image')) menuData[sectionIndex].items[itemIndex].image = input.value || '';
+            }
+            renderMenu();
+          });
+        });
+      }
+
+      function saveEditedMenu() {
+        saveMenu();
+        renderMenu();
+        showToast('Menu saved.');
+      }
+
+      function addSection() {
+        menuData.push({ title: 'New Section', items: [{ name: 'New Item', price: 0, image: '' }] });
+        renderEditor();
+        renderMenu();
+      }
 
       function saveCart() {
-        localStorage.setItem(cartKey, JSON.stringify(cart));
+        localStorage.setItem('fusion_k_cart', JSON.stringify(cart));
       }
 
       function addToCart(name, price) {
@@ -716,13 +655,7 @@
 
         const itemsText = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 35;
-        return {
-          name,
-          address,
-          payment,
-          itemsText,
-          total
-        };
+        return { name, address, payment, itemsText, total };
       }
 
       function openConfirmModal() {
@@ -765,19 +698,16 @@
         if (event.target === this) closeConfirmModal();
       });
 
-      renderCart();
-      const presetCart = [
-        { name: '6 PCS Wings', price: 189, quantity: 1 },
-        { name: 'Plain Fries', price: 70, quantity: 1 },
-        { name: 'Chicken Biryani Solo', price: 229, quantity: 1 },
-        { name: 'Shanghai Rice', price: 70, quantity: 1 },
-        { name: 'Latte', price: 180, quantity: 1 }
-      ];
+      document.getElementById('toggle-editor').addEventListener('click', () => {
+        const editor = document.getElementById('editor');
+        editor.classList.toggle('visible');
+      });
 
-      if (!cart.length) {
-        cart = presetCart;
-        saveCart();
-      }
+      document.getElementById('add-section').addEventListener('click', addSection);
+      document.getElementById('save-menu').addEventListener('click', saveEditedMenu);
+
+      renderMenu();
+      renderEditor();
       renderCart();
     </script>
   </body>
