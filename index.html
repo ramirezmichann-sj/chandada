@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion K | Menu</title>
-    <meta name="description" content="Simple food ordering menu for Fusion K with messenger and viber order confirmation." />
+    <meta name="description" content="Fusion K menu with ordering" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -12,14 +12,15 @@
           extend: {
             colors: {
               cream: '#f8f0dc',
-              gold: '#f9c74f',
-              dark: '#120b0b',
+              gold: '#f7c75d',
+              dark: '#130d0d',
               rose: '#ff3d7a',
               red: '#d92d2d',
-              green: '#7ac142'
+              green: '#7ac142',
+              ink: '#17100d'
             },
             boxShadow: {
-              punch: '0 10px 24px rgba(0,0,0,0.18)',
+              punch: '0 12px 28px rgba(0,0,0,0.18)',
               soft: '0 18px 40px rgba(31,41,55,0.08)'
             }
           }
@@ -30,40 +31,133 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
+      :root {
+        --cream: #f8f0dc;
+        --gold: #f7c75d;
+        --dark: #17100d;
+        --card: #0f0c0c;
+      }
+
       body {
-        background: linear-gradient(180deg, #f9f0df 0%, #f5f1ea 100%);
+        background: linear-gradient(180deg, #f8f1e7 0%, #f3ede5 100%);
         font-family: 'Inter', sans-serif;
       }
+
       .fusion-title {
         font-family: 'Black Ops One', cursive;
         letter-spacing: -0.08em;
       }
-      .menu-section {
+
+      .menu-panel {
         background: #17100d;
         border: 3px solid #f7c75d;
-        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.15);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.12);
       }
-      .menu-header {
+
+      .menu-panel-header {
         background: linear-gradient(135deg, #f8c75d 0%, #f9e7b8 100%);
         border-bottom: 3px solid #f7c75d;
+        padding: 12px 18px;
       }
-      .price-tag {
-        color: #ffd859;
-        font-weight: 900;
+
+      .menu-panel-header h3 {
+        font-family: 'Black Ops One', cursive;
+        font-size: clamp(2rem, 2.2vw, 3rem);
+        color: #17100d;
+        line-height: 0.9;
+        letter-spacing: -0.07em;
       }
+
       .menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 8px;
         border-bottom: 1px dashed rgba(255,255,255,0.15);
       }
+
       .menu-item:last-child {
         border-bottom: none;
       }
+
+      .menu-item-name {
+        font-size: 1.05rem;
+        font-weight: 900;
+        color: #f5efe6;
+      }
+
+      .price-tag {
+        color: #ffd859;
+        font-weight: 900;
+        font-size: 1.1rem;
+      }
+
+      .small-price {
+        font-size: 0.95rem;
+      }
+
+      .menu-mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .mini-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(247,199,93,0.35);
+        border-radius: 14px;
+        padding: 10px 12px;
+      }
+
+      .mini-card .label {
+        color: #f2efe8;
+        font-size: 0.95rem;
+        font-weight: 800;
+      }
+
+      .mini-card .right {
+        color: #ffd859;
+        font-weight: 900;
+      }
+
+      .flavor-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 14px;
+        padding: 14px;
+      }
+
+      .flavor-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #f3efe9;
+        font-weight: 800;
+      }
+
+      .flavor-dot::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #ffbf47, #d92d2d);
+        border: 1px solid rgba(255,255,255,0.7);
+        display: inline-block;
+      }
+
       .order-panel {
         position: sticky;
         top: 1rem;
       }
+
       .modal-open {
         overflow: hidden;
       }
+
       .order-sheet {
         background: rgba(22, 15, 14, 0.92);
       }
@@ -117,165 +211,212 @@
 
       <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
         <div class="space-y-6">
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Wings</h2>
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>WINGS</h3>
             </div>
             <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">6 PCS</div>
-                </div>
-                <div class="price-tag">₱189</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">8 PCS</div>
-                </div>
-                <div class="price-tag">₱240</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">12 PCS</div>
-                </div>
-                <div class="price-tag">₱329</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">16 PCS</div>
-                </div>
-                <div class="price-tag">₱419</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">30 PCS</div>
-                </div>
-                <div class="price-tag">₱690</div>
+              <div class="menu-item"><div class="menu-item-name">6 PCS</div><div class="price-tag">₱189</div></div>
+              <div class="menu-item"><div class="menu-item-name">8 PCS</div><div class="price-tag">₱240</div></div>
+              <div class="menu-item"><div class="menu-item-name">12 PCS</div><div class="price-tag">₱329</div></div>
+              <div class="menu-item"><div class="menu-item-name">16 PCS</div><div class="price-tag">₱419</div></div>
+              <div class="menu-item"><div class="menu-item-name">30 PCS</div><div class="price-tag">₱690</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>WINGS FLAVORS</h3>
+            </div>
+            <div class="flavor-grid text-[#f2efe8]">
+              <div class="flavor-dot">GARLIC MAYO</div>
+              <div class="flavor-dot">TERIYAKI</div>
+              <div class="flavor-dot">SALTED EGG</div>
+              <div class="flavor-dot">PARMIGIANA</div>
+              <div class="flavor-dot">MANGO HABANERO</div>
+              <div class="flavor-dot">PESTO</div>
+              <div class="flavor-dot">GARLIC PARMESAN</div>
+              <div class="flavor-dot">BUFFALO</div>
+              <div class="flavor-dot">JAPANESE NORI</div>
+              <div class="flavor-dot">SRIRACHA</div>
+              <div class="flavor-dot">CLASSIC</div>
+              <div class="flavor-dot">CHEESY</div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>FRIES</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">PLAIN</div><div class="price-tag">₱70</div></div>
+              <div class="menu-item"><div class="menu-item-name">FLAVORED</div><div class="price-tag">₱85</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHEESY BEEF FRIES</div><div class="price-tag">₱130</div></div>
+              <div class="menu-item"><div class="menu-item-name">WINGS WITH FRIES</div><div class="price-tag">₱260</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>SALADS</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">CAESAR SALAD</div><div class="price-tag">₱145</div></div>
+              <div class="menu-item"><div class="menu-item-name">MANGO KANI SALAD</div><div class="price-tag">₱150</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHEF'S SALAD</div><div class="price-tag">₱185</div></div>
+              <div class="menu-item"><div class="menu-item-name">WALDORF SALAD</div><div class="price-tag">₱160</div></div>
+              <div class="menu-item"><div class="menu-item-name">CALIFORNIA MAKI</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">KIMBAP</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">CRABSTICKS ROLL</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">KANI ROLL</div><div class="price-tag">₱180</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>NACHOS</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">NACHOS</div><div class="price-tag">₱80</div></div>
+              <div class="menu-item"><div class="menu-item-name">CLASSIC</div><div class="price-tag">₱80</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHEESY BEEF NACHOS</div><div class="price-tag">₱100</div></div>
+              <div class="menu-item"><div class="menu-item-name">OVERLOAD NACHOS</div><div class="price-tag">₱160</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>PASTA</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">CARBONARA</div><div class="price-tag">₱130</div></div>
+              <div class="menu-item"><div class="menu-item-name">SPAGHETTI</div><div class="price-tag">₱130</div></div>
+              <div class="menu-item"><div class="menu-item-name">PESTO</div><div class="price-tag">₱130</div></div>
+              <div class="menu-item"><div class="menu-item-name">BAKED MACARONI</div><div class="price-tag">₱160</div></div>
+              <div class="menu-item"><div class="menu-item-name">LASAGNA</div><div class="price-tag">₱160</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>RICE MEALS</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">SHANGHAI RICE</div><div class="price-tag">₱70</div></div>
+              <div class="menu-item"><div class="menu-item-name">HUNAGARIAN</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHICKEN FILLET</div><div class="price-tag">₱130</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHICKEN FILLET ALA KING</div><div class="price-tag">₱150</div></div>
+              <div class="menu-item"><div class="menu-item-name">HOTDOG RICE</div><div class="price-tag">₱70</div></div>
+              <div class="menu-item"><div class="menu-item-name">2PCS WINGS</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">PORK TONKATSU</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">TEMPURA RICE</div><div class="price-tag">₱230</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>CHICKEN BIRYANI</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">SOLO</div><div class="price-tag">₱229</div></div>
+              <div class="menu-item"><div class="menu-item-name">DUO</div><div class="price-tag">₱429</div></div>
+              <div class="menu-item"><div class="menu-item-name">BARKADA</div><div class="price-tag">₱1,499</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>SPUDS</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">MEDIUM</div><div class="price-tag">₱160</div></div>
+              <div class="menu-item"><div class="menu-item-name">LARGE</div><div class="price-tag">₱199</div></div>
+              <div class="menu-item"><div class="menu-item-name">XL</div><div class="price-tag">₱229</div></div>
+              <div class="menu-item"><div class="menu-item-name">FLAVORS</div><div class="price-tag">–</div></div>
+              <div class="flavor-grid">
+                <div class="flavor-dot">CLASSIC (M,L,XL)</div>
+                <div class="flavor-dot">CHEESY BACON</div>
+                <div class="flavor-dot">GARLIC BACON</div>
+                <div class="flavor-dot">HAM AND CHEESE</div>
+                <div class="flavor-dot">PORK AND BEANS</div>
+                <div class="flavor-dot">CHEESY HOTDOG</div>
               </div>
             </div>
           </section>
 
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Fries</h2>
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>ADD ONS</h3>
             </div>
             <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Plain</div>
-                </div>
-                <div class="price-tag">₱70</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Flavored</div>
-                </div>
-                <div class="price-tag">₱85</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Cheesy Beef Fries</div>
-                </div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Wings with Fries</div>
-                </div>
-                <div class="price-tag">₱260</div>
-              </div>
+              <div class="menu-item"><div class="menu-item-name">RICE</div><div class="price-tag">₱30</div></div>
+              <div class="menu-item"><div class="menu-item-name">EGG</div><div class="price-tag">₱15</div></div>
             </div>
           </section>
 
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Chicken Biryani</h2>
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>COFFEE LATTE</h3>
             </div>
             <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Solo</div>
-                </div>
-                <div class="price-tag">₱229</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Duo</div>
-                </div>
-                <div class="price-tag">₱429</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Barkada</div>
-                </div>
-                <div class="price-tag">₱1,499</div>
-              </div>
+              <div class="menu-item"><div class="menu-item-name">SPANISH LATTE</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">CARAMEL MACCHIATO</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">ICED CARAMEL</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">FRENCH VANILLA</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">BUTTERSCOTCH</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">THAI TEA LATTE</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">MATCHA LATTE</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">BISCOFF COFFEE</div><div class="price-tag">₱190</div></div>
+              <div class="menu-item"><div class="menu-item-name">SMORES LATTE</div><div class="price-tag">₱190</div></div>
+              <div class="menu-item"><div class="menu-item-name">DIRTY MATCHA</div><div class="price-tag">₱190</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHOCO BANANA LATTE</div><div class="price-tag">₱220</div></div>
+              <div class="menu-item"><div class="menu-item-name">WHITE MOCHA</div><div class="price-tag">₱190</div></div>
+              <div class="menu-item"><div class="menu-item-name">COFFEE JELLY</div><div class="price-tag">₱220</div></div>
             </div>
           </section>
 
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">Rice Meals</h2>
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>FRAPPE</h3>
             </div>
             <div class="p-4 text-[#f2efe8]">
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Shanghai Rice</div>
-                </div>
-                <div class="price-tag">₱70</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Chicken Fillet</div>
-                </div>
-                <div class="price-tag">₱130</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Pork Tonkatsu</div>
-                </div>
-                <div class="price-tag">₱180</div>
-              </div>
-              <div class="menu-item flex items-center justify-between gap-3 py-3">
-                <div>
-                  <div class="font-black text-lg">Tempura Rice</div>
-                </div>
-                <div class="price-tag">₱230</div>
-              </div>
+              <div class="menu-item"><div class="menu-item-name">JAVA CHIPS</div><div class="price-tag">₱220</div></div>
+              <div class="menu-item"><div class="menu-item-name">CARAMEL</div><div class="price-tag">₱220</div></div>
+              <div class="menu-item"><div class="menu-item-name">MATCHA</div><div class="price-tag">₱220</div></div>
+              <div class="menu-item"><div class="menu-item-name">BISCOFF</div><div class="price-tag">₱220</div></div>
             </div>
           </section>
 
-          <section class="menu-section rounded-[26px] overflow-hidden">
-            <div class="menu-header px-5 py-4">
-              <h2 class="fusion-title text-4xl text-[#17100d]">More Favorites</h2>
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>CAKES</h3>
             </div>
             <div class="p-4 text-[#f2efe8]">
-              <div class="grid gap-3 sm:grid-cols-2">
-                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
-                  <div class="flex items-center justify-between">
-                    <div class="font-black">Cakes</div>
-                    <div class="price-tag">₱160</div>
-                  </div>
-                </div>
-                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
-                  <div class="flex items-center justify-between">
-                    <div class="font-black">Frappe</div>
-                    <div class="price-tag">₱220</div>
-                  </div>
-                </div>
-                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
-                  <div class="flex items-center justify-between">
-                    <div class="font-black">Latte</div>
-                    <div class="price-tag">₱180</div>
-                  </div>
-                </div>
-                <div class="rounded-2xl border border-[#f7c75d]/30 bg-[#000000]/10 p-3">
-                  <div class="flex items-center justify-between">
-                    <div class="font-black">Add-ons</div>
-                    <div class="price-tag">₱15</div>
-                  </div>
-                </div>
-              </div>
+              <div class="menu-item"><div class="menu-item-name">CHEESECAKES CLASSIC</div><div class="price-tag">₱160</div></div>
+              <div class="menu-item"><div class="menu-item-name">CHEESECAKES PREMIUM</div><div class="price-tag">₱200</div></div>
+              <div class="menu-item"><div class="menu-item-name">EGG TART</div><div class="price-tag">₱55/PC</div></div>
+              <div class="menu-item"><div class="menu-item-name">BASQUE BURNT CLASSIC</div><div class="price-tag">₱55/PC</div></div>
+              <div class="menu-item"><div class="menu-item-name">CROISSANT CLASSIC</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">CROISSANT PREMIUM</div><div class="price-tag">₱220</div></div>
+              <div class="menu-item"><div class="menu-item-name">COOKIES CLASSIC</div><div class="price-tag">₱35</div></div>
+              <div class="menu-item"><div class="menu-item-name">COOKIE PREMIUM</div><div class="price-tag">₱65</div></div>
+              <div class="menu-item"><div class="menu-item-name">CLASSIC CAKES TIN CAN</div><div class="price-tag">₱400</div></div>
+              <div class="menu-item"><div class="menu-item-name">PREMIUM CAKES TIN CAN</div><div class="price-tag">₱550</div></div>
+              <div class="menu-item"><div class="menu-item-name">CLASSIC CAKES TUBE</div><div class="price-tag">₱180</div></div>
+              <div class="menu-item"><div class="menu-item-name">CINNAMON ROLL CLASSIC</div><div class="price-tag">₱245</div></div>
+              <div class="menu-item"><div class="menu-item-name">CINNAMON ROLL PREMIUM</div><div class="price-tag">₱275</div></div>
+            </div>
+          </section>
+
+          <section class="menu-panel">
+            <div class="menu-panel-header">
+              <h3>FRUIT SODA</h3>
+            </div>
+            <div class="p-4 text-[#f2efe8]">
+              <div class="menu-item"><div class="menu-item-name">LYCHEE</div><div class="price-tag">₱110</div></div>
+              <div class="menu-item"><div class="menu-item-name">PASSION FRUIT</div><div class="price-tag">₱110</div></div>
+              <div class="menu-item"><div class="menu-item-name">GREEN APPLE</div><div class="price-tag">₱110</div></div>
+              <div class="menu-item"><div class="menu-item-name">KIWI</div><div class="price-tag">₱110</div></div>
             </div>
           </section>
         </div>
@@ -312,12 +453,12 @@
             <form id="order-form" class="mt-6 space-y-3">
               <div>
                 <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Complete name</label>
-                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your full name" required />
+                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your name" />
               </div>
 
               <div>
                 <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Address</label>
-                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your delivery address" required></textarea>
+                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your address"></textarea>
               </div>
 
               <div>
@@ -478,40 +619,6 @@
         });
       }
 
-      function createMenuButton(itemName, price) {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.textContent = 'Add';
-        btn.className = 'rounded-full bg-[#f7c75d] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-[#17100d]';
-        btn.addEventListener('click', () => addToCart(itemName, price));
-        return btn;
-      }
-
-      function bindMenuItems() {
-        const menuButtons = document.querySelectorAll('[data-menu]');
-        menuButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            const name = button.dataset.menuName;
-            const price = Number(button.dataset.menuPrice);
-            addToCart(name, price);
-          });
-        });
-      }
-
-      function setInitialMenu() {
-        const presets = [
-          { name: '6 PCS Wings', price: 189 },
-          { name: 'Plain Fries', price: 70 },
-          { name: 'Chicken Biryani Solo', price: 229 },
-          { name: 'Shanghai Rice', price: 70 },
-          { name: 'Latte', price: 180 }
-        ];
-
-        cart = presets.map(item => ({ ...item, quantity: 1 }));
-        saveCart();
-        renderCart();
-      }
-
       function collectOrderText() {
         const name = document.getElementById('customer-name').value.trim();
         const address = document.getElementById('customer-address').value.trim();
@@ -571,8 +678,19 @@
       });
 
       renderCart();
-      bindMenuItems();
-      setInitialMenu();
+      const presetCart = [
+        { name: '6 PCS Wings', price: 189, quantity: 1 },
+        { name: 'Plain Fries', price: 70, quantity: 1 },
+        { name: 'Chicken Biryani Solo', price: 229, quantity: 1 },
+        { name: 'Shanghai Rice', price: 70, quantity: 1 },
+        { name: 'Latte', price: 180, quantity: 1 }
+      ];
+
+      if (!cart.length) {
+        cart = presetCart;
+        saveCart();
+      }
+      renderCart();
     </script>
   </body>
 </html>
