@@ -4,170 +4,167 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion Nook | Menu</title>
-    <meta name="description" content="Fusion Nook menu in a FoodPanda-inspired style." />
+    <meta name="description" content="Fusion Nook menu in a visual FoodPanda-inspired layout." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              panda: {
-                orange: '#ff6b22',
-                orangeDark: '#ea5b1d',
-                peach: '#fff4eb',
-                pink: '#ffe9f1',
-                cream: '#fff9f5',
-                ink: '#1d1d1f',
-                muted: '#5b6473',
-                line: '#f2ece8',
-                soft: '#f7f4f2',
-                white: '#ffffff'
-              }
+              cream: '#f8f1dd',
+              gold: '#f7c75d',
+              dark: '#120d0d',
+              orange: '#ff7b2d',
+              rose: '#ff5ca8',
+              red: '#d92d2d',
+              green: '#7ac142',
+              panel: '#1a1312',
+              ink: '#17100d'
             },
             boxShadow: {
-              soft: '0 12px 28px rgba(17, 24, 39, 0.06)',
-              card: '0 16px 32px rgba(255, 107, 34, 0.12)'
+              brand: '0 14px 30px rgba(17, 24, 39, 0.08)',
+              punch: '0 10px 24px rgba(0,0,0,0.18)'
             }
           }
         }
       }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
-      html { scroll-behavior: smooth; }
       body {
-        background: linear-gradient(180deg, #fffaf7 0%, #fff5f0 100%);
+        background: linear-gradient(180deg, #f9efe2 0%, #f4efe9 100%);
         font-family: 'Inter', sans-serif;
       }
-      .brand-text {
+      .fusion-title {
         font-family: 'Black Ops One', cursive;
         letter-spacing: -0.08em;
       }
-      .promo-bar {
-        background: linear-gradient(135deg, #ff7a29 0%, #ffb866 100%);
+      .menu-panel {
+        background: #17100d;
+        border: 3px solid #f7c75d;
+        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.15);
       }
-      .section-card {
-        background: #fffdfd;
-        border: 1px solid #f3e8df;
-        border-radius: 28px;
-        box-shadow: 0 10px 20px rgba(17,24,39,0.03);
+      .menu-header {
+        background: linear-gradient(135deg, #f9d36c 0%, #f7ecbc 100%);
+        border-bottom: 3px solid #f7c75d;
       }
-      .menu-item-card {
-        background: #fff;
-        border: 1px solid #f4e9e1;
-        border-radius: 22px;
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      .menu-item {
+        border-bottom: 1px dashed rgba(255,255,255,0.12);
       }
-      .menu-item-card:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 12px 22px rgba(17, 24, 39, 0.08);
+      .menu-item:last-child {
+        border-bottom: none;
       }
-      .pill {
-        background: rgba(255,255,255,0.9);
-        border: 1px solid #f7e2d5;
-        color: #4b5563;
+      .menu-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: center;
       }
-      .pill.active {
-        background: #fff2ea;
-        border-color: #ffd5b7;
-        color: #d8571b;
+      .price-tag {
+        color: #ffd859;
+        font-weight: 900;
       }
-      .badge-soft {
-        background: #fff0e7;
-        color: #d65d1d;
+      .flavor-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.9);
       }
-      .badge-pink {
-        background: #ffeaf4;
-        color: #cf1a69;
+      .mini-pill {
+        display: inline-block;
+        border-radius: 9999px;
+        background: #ffedb4;
+        color: #18100d;
+        padding: 0.22rem 0.6rem;
+        font-size: 0.65rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
       .cart-panel {
         position: sticky;
         top: 1rem;
       }
       .modal-open { overflow: hidden; }
+      @media (max-width: 640px) {
+        .menu-row {
+          grid-template-columns: 1fr auto;
+        }
+      }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   </head>
   <body class="text-slate-800 antialiased">
-    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
+    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#12100d] px-4 py-3 text-sm font-semibold text-white shadow-punch"></div>
 
-    <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-      <div class="promo-bar mb-4 rounded-[28px] p-4 text-white shadow-soft">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div class="text-[10px] font-black uppercase tracking-[0.22em] text-white/80">Promo</div>
-            <div class="text-xl font-black">Free delivery for orders above ₱499</div>
-          </div>
-          <div class="rounded-full bg-white/15 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-white">Fresh & Fast</div>
-        </div>
-      </div>
-
-      <header class="sticky top-0 z-40 rounded-[26px] border border-[#f5e5d9] bg-white/90 px-4 py-3 shadow-soft backdrop-blur-xl">
-        <div class="flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff7a29] via-[#ff6b22] to-[#ff4fa1] text-2xl font-black text-white shadow-soft">F</div>
-            <div>
-              <div class="brand-text text-3xl leading-none text-[#1d1d1f]">fusion</div>
-              <div class="text-[10px] font-black uppercase tracking-[0.22em] text-[#5b6473]">Nook</div>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <header class="mb-6 rounded-[28px] bg-[#f5e4b4] p-4 shadow-brand ring-2 ring-[#1f1612]">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex items-center gap-4">
+            <div class="fusion-title text-5xl leading-none text-[#111111] sm:text-6xl">fusion</div>
+            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#17100d] text-3xl font-black text-[#f7c75d]">N</div>
+            <div class="flex flex-col text-[#111111]">
+              <div class="text-xs font-extrabold uppercase tracking-[0.35em] text-[#111111]/75">Diverse restaurant cafe</div>
+              <div class="mt-1 text-[10px] font-semibold uppercase tracking-[0.38em] text-[#111111]/60">Est. 2022</div>
             </div>
           </div>
 
-          <button type="button" class="rounded-full bg-[#1d1d1f] px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-soft">
-            Cart
-          </button>
+          <div class="flex items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
+            <span>Good food</span>
+            <span class="text-white">•</span>
+            <span>Great vibes</span>
+          </div>
         </div>
-
-        <nav id="category-nav" class="mt-4 flex gap-2 overflow-x-auto pb-1"></nav>
       </header>
 
-      <main class="mt-6 grid gap-6 xl:grid-cols-[1.65fr_0.85fr]">
+      <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
         <div id="menu-container" class="space-y-6"></div>
 
         <aside class="cart-panel">
-          <div class="rounded-[30px] bg-[#fffdfb] p-5 shadow-soft ring-1 ring-[#f4eae4]">
+          <div class="rounded-[30px] bg-[#f7efdf] p-5 shadow-brand ring-2 ring-[#17100d]">
             <div class="mb-4 flex items-center justify-between">
               <div>
-                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#858c97]">Your order</p>
-                <h3 class="mt-1 text-2xl font-black text-[#1d1d1f]">Cart</h3>
+                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#17100d]/60">Your order</p>
+                <h3 class="mt-1 text-2xl font-black text-[#17100d]">Cart</h3>
               </div>
-              <div class="rounded-full bg-[#1d1d1f] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#fff]" id="cart-count">0</div>
+              <div class="rounded-full bg-[#17100d] px-2.5 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#f7c75d]" id="cart-count">0</div>
             </div>
 
             <div id="cart-items" class="space-y-3">
-              <div class="rounded-2xl border border-dashed border-[#eddccb] bg-[#fffaf7] p-4 text-sm text-[#5b6473]">Your cart is empty.</div>
+              <div class="rounded-2xl border border-dashed border-[#17100d]/30 bg-[#fffaf2] p-4 text-sm text-[#17100d]/60">Your cart is empty.</div>
             </div>
 
-            <div class="mt-5 border-t border-[#f2eae4] pt-4">
-              <div class="flex items-center justify-between text-sm font-medium text-[#4b5563]">
+            <div class="mt-5 border-t border-[#17100d]/20 pt-4">
+              <div class="flex items-center justify-between text-sm font-medium text-[#17100d]/70">
                 <span>Subtotal</span>
                 <span id="subtotal">₱0</span>
               </div>
-              <div class="mt-2 flex items-center justify-between text-sm font-medium text-[#4b5563]">
+              <div class="mt-2 flex items-center justify-between text-sm font-medium text-[#17100d]/70">
                 <span>Delivery fee</span>
                 <span>₱60</span>
               </div>
-              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#1d1d1f]">
+              <div class="mt-3 flex items-center justify-between text-xl font-black text-[#17100d]">
                 <span>Total</span>
                 <span id="total">₱0</span>
               </div>
-              <p class="mt-3 text-[11px] font-semibold text-[#5b6473]">Base delivery fee is ₱60 and may vary depending on your location.</p>
+              <p class="mt-3 text-[11px] font-semibold text-[#17100d]/70">Base delivery fee is ₱60 and may vary depending on your location.</p>
             </div>
 
             <form id="order-form" class="mt-6 space-y-3">
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#5b6473]">Complete name</label>
-                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#f0e5dc] bg-white px-3 py-2.5 text-sm text-[#1d1d1f] outline-none focus:border-[#ff7a29]" placeholder="Enter your name" />
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Complete name</label>
+                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Enter your name" />
               </div>
 
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#5b6473]">Address</label>
-                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#f0e5dc] bg-white px-3 py-2.5 text-sm text-[#1d1d1f] outline-none focus:border-[#ff7a29]" placeholder="Enter delivery address"></textarea>
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Address</label>
+                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Enter delivery address"></textarea>
               </div>
 
               <div>
-                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#5b6473]">How do you want to pay?</label>
-                <select id="payment-method" class="w-full rounded-2xl border border-[#f0e5dc] bg-white px-3 py-2.5 text-sm text-[#1d1d1f] outline-none focus:border-[#ff7a29]">
+                <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">How do you want to pay?</label>
+                <select id="payment-method" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]">
                   <option>Cash on Delivery</option>
                   <option>GCash</option>
                   <option>Maya</option>
@@ -175,7 +172,7 @@
                 </select>
               </div>
 
-              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#ff7a29] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-white shadow-soft">Confirm order</button>
+              <button type="submit" class="mt-2 w-full rounded-2xl bg-[#17100d] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-[#f7c75d]">Confirm order</button>
             </form>
           </div>
         </aside>
@@ -183,17 +180,17 @@
     </div>
 
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#17100d]/70 p-4">
-      <div class="w-full max-w-md rounded-[28px] bg-[#1d1d1f] p-5 text-white shadow-2xl">
+      <div class="order-sheet w-full max-w-md rounded-[28px] p-5 text-white shadow-2xl" style="background: rgba(22,15,14,0.92);">
         <div class="mb-4 flex items-center justify-between">
           <div>
-            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#ffc98d]">Order ready</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#f7c75d]">Order ready</p>
             <h3 class="mt-1 text-2xl font-black">Confirm</h3>
           </div>
           <button id="close-modal" class="rounded-full bg-white/10 p-2 text-lg">×</button>
         </div>
 
         <div class="rounded-2xl bg-white/5 p-4 text-sm text-white/90">
-          Your order total is <span id="modal-total" class="font-black text-[#ffc98d]">₱0</span>.
+          Your order total is <span id="modal-total" class="font-black text-[#f7c75d]">₱0</span>.
         </div>
 
         <div class="mt-5 grid gap-3">
@@ -216,6 +213,7 @@
       const defaultMenu = [
         {
           title: 'Wings',
+          variant: 'large',
           items: [
             { name: '6 PCS', price: 189 },
             { name: '8 PCS', price: 240 },
@@ -225,21 +223,155 @@
           ]
         },
         {
+          title: 'Wings Flavors',
+          variant: 'flavors',
+          items: [
+            { name: 'Garlic Mayo', price: null },
+            { name: 'Teriyaki', price: null },
+            { name: 'Salted Egg', price: null },
+            { name: 'Parmigiana', price: null },
+            { name: 'Mango Habanero', price: null },
+            { name: 'Pesto', price: null },
+            { name: 'Garlic Parmesan', price: null },
+            { name: 'Buffalo', price: null },
+            { name: 'Japanese Nori', price: null },
+            { name: 'Sriracha', price: null },
+            { name: 'Classic', price: null },
+            { name: 'Cheesy', price: null }
+          ]
+        },
+        {
           title: 'Fries',
+          variant: 'fries',
           items: [
             { name: 'Plain', price: 70 },
             { name: 'Flavored', price: 85 },
             { name: 'Cheesy Beef Fries', price: 130 },
-            { name: 'Wings with Fries', price: 260 }
+            { name: 'Wings with Fries', price: 260 },
+            { name: 'Chicken Pops with Fries', price: 230 }
           ]
         },
         {
           title: 'Salads',
+          variant: 'simple',
           items: [
             { name: 'Caesar Salad', price: 145 },
             { name: 'Mango Kani Salad', price: 150 },
             { name: 'Chef\'s Salad', price: 185 },
-            { name: 'California Maki', price: 180 }
+            { name: 'Waldorf Salad', price: 160 },
+            { name: 'California Maki', price: 180 },
+            { name: 'Kimbap', price: 180 },
+            { name: 'Crabsticks Roll', price: 180 },
+            { name: 'Kani Roll', price: 180 }
+          ]
+        },
+        {
+          title: 'Nachos',
+          variant: 'simple',
+          items: [
+            { name: 'Classic', price: 80 },
+            { name: 'Cheesy Beef Nachos', price: 100 },
+            { name: 'Overload Nachos', price: 160 }
+          ]
+        },
+        {
+          title: 'Pasta',
+          variant: 'simple',
+          items: [
+            { name: 'Carbonara', price: 130 },
+            { name: 'Spaghetti', price: 130 },
+            { name: 'Pesto', price: 130 },
+            { name: 'Baked Macaroni', price: 160 },
+            { name: 'Lasagna', price: 160 }
+          ]
+        },
+        {
+          title: 'Rice Meals',
+          variant: 'simple',
+          items: [
+            { name: 'Shanghai Rice', price: 70 },
+            { name: 'Hunagarian Rice', price: 180 },
+            { name: 'Chicken Fillet', price: 130 },
+            { name: 'Chicken Fillet Alaking', price: 150 },
+            { name: 'Hotdog Rice', price: 70 },
+            { name: '2pcs Wings', price: 180 },
+            { name: 'Pampisilog', price: 160 },
+            { name: 'Chicksilog', price: 180 },
+            { name: 'Sisigsilog', price: 180 },
+            { name: 'Bacon Silog', price: 160 },
+            { name: 'Chicken Toknatsu', price: 180 },
+            { name: 'Pork Toknatsu', price: 180 },
+            { name: 'Liemposilog', price: 180 },
+            { name: 'Tempura Rice', price: 230 }
+          ]
+        },
+        {
+          title: 'Chicken Biryani',
+          variant: 'compact',
+          items: [
+            { name: 'Solo', price: 229 },
+            { name: 'Duo', price: 429 },
+            { name: 'Barkada', price: 1499 }
+          ]
+        },
+        {
+          title: 'Spuds',
+          variant: 'simple',
+          items: [
+            { name: 'Medium', price: 160 },
+            { name: 'Large', price: 199 },
+            { name: 'XL', price: 229 }
+          ]
+        },
+        {
+          title: 'Coffee Latte',
+          variant: 'simple',
+          items: [
+            { name: 'Spanish Latte', price: 180 },
+            { name: 'Caramel Macchiato', price: 180 },
+            { name: 'Cafe Vanilla', price: 180 },
+            { name: 'French Vanilla', price: 180 },
+            { name: 'Butterscotch', price: 180 },
+            { name: 'Thai Tea Latte', price: 180 },
+            { name: 'Dark Mocha Latte', price: 180 }
+          ]
+        },
+        {
+          title: 'Frappe',
+          variant: 'simple',
+          items: [
+            { name: 'Java Chips', price: 220 },
+            { name: 'Caramel', price: 220 },
+            { name: 'Matcha', price: 220 },
+            { name: 'Biscoff', price: 220 }
+          ]
+        },
+        {
+          title: 'Fruit Soda',
+          variant: 'simple',
+          items: [
+            { name: 'Lychee', price: 110 },
+            { name: 'Passion Fruit', price: 110 },
+            { name: 'Green Apple', price: 110 },
+            { name: 'Kiwi', price: 110 }
+          ]
+        },
+        {
+          title: 'Cakes',
+          variant: 'simple',
+          items: [
+            { name: 'Cheesecakes Classic', price: 160 },
+            { name: 'Cheesecakes Premium', price: 200 },
+            { name: 'Egg Tart', price: 55 },
+            { name: 'Basque Burnt Classic', price: 55 },
+            { name: 'Croissant Classic', price: 180 },
+            { name: 'Croissant Premium', price: 220 },
+            { name: 'Cookies Classic', price: 35 },
+            { name: 'Cookie Premium', price: 65 },
+            { name: 'Classic Cakes Tin Can', price: 400 },
+            { name: 'Premium Cakes Tin Can', price: 550 },
+            { name: 'Classic Cakes Tub', price: 180 },
+            { name: 'Cinnamon Roll Classic', price: 245 }
           ]
         }
       ];
@@ -265,56 +397,114 @@
         localStorage.setItem('fusion_k_cart', JSON.stringify(cart));
       }
 
-      function slugify(value) {
-        return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      }
-
-      function renderNavigation() {
-        const nav = document.getElementById('category-nav');
-        nav.innerHTML = menuData.map((section, index) => `
-          <a href="#${slugify(section.title)}" class="pill ${index === 0 ? 'active' : ''} inline-flex shrink-0 items-center rounded-full px-4 py-2 text-sm font-bold">
-            ${section.title}
-          </a>
-        `).join('');
-
-        document.querySelectorAll('.pill').forEach(link => {
-          link.addEventListener('click', () => {
-            document.querySelectorAll('.pill').forEach(item => item.classList.remove('active'));
-            link.classList.add('active');
-          });
-        });
-      }
-
       function renderMenu() {
         const container = document.getElementById('menu-container');
+
         container.innerHTML = menuData.map(section => {
-          const items = section.items.map(item => `
-            <div class="menu-item-card flex items-center justify-between gap-4 p-4">
-              <div>
-                <div class="badge-soft mb-2 inline-flex items-center rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Popular</div>
-                <h3 class="text-xl font-black text-[#1d1d1f]">${item.name}</h3>
-              </div>
-              <div class="flex items-center gap-3">
-                <span class="text-lg font-black text-[#1d1d1f]">₱${Number(item.price || 0).toLocaleString()}</span>
-                <button type="button" class="add-item-btn rounded-full bg-[#1d1d1f] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
-              </div>
-            </div>
-          `).join('');
+          const isLarge = section.variant === 'large';
+          const isFlavors = section.variant === 'flavors';
+          const isFries = section.variant === 'fries';
+
+          if (isFlavors) {
+            return `
+              <section class="menu-panel overflow-hidden rounded-[28px]">
+                <div class="menu-header px-5 py-4">
+                  <div class="flex items-center justify-between gap-3">
+                    <h2 class="fusion-title text-4xl leading-none text-[#17100d]">${section.title}</h2>
+                    <span class="mini-pill">Popular</span>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    ${section.items.map(item => `
+                      <div class="flavor-item menu-item py-2 px-1">
+                        <span>${item.name}</span>
+                        ${item.price !== null ? `<span class="price-tag">₱${item.price}</span>` : ''}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </section>
+            `;
+          }
+
+          if (isLarge) {
+            return `
+              <section class="menu-panel overflow-hidden rounded-[28px]">
+                <div class="menu-header px-5 py-4">
+                  <div class="flex items-center justify-between gap-3">
+                    <h2 class="fusion-title text-5xl leading-none text-[#17100d]">${section.title}</h2>
+                    <span class="mini-pill">Best</span>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <div class="space-y-3">
+                    ${section.items.map(item => `
+                      <div class="menu-item py-2">
+                        <div class="menu-row">
+                          <span class="text-lg font-black text-white">${item.name}</span>
+                          <span class="price-tag text-lg">₱${item.price}</span>
+                        </div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </section>
+            `;
+          }
+
+          if (isFries) {
+            return `
+              <section class="menu-panel overflow-hidden rounded-[28px]">
+                <div class="menu-header px-5 py-4">
+                  <div class="flex items-center justify-between gap-3">
+                    <h2 class="fusion-title text-5xl leading-none text-[#17100d]">${section.title}</h2>
+                    <span class="mini-pill">Hot</span>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <div class="space-y-3">
+                    ${section.items.map(item => `
+                      <div class="menu-item py-2">
+                        <div class="menu-row">
+                          <span class="text-lg font-black text-white">${item.name}</span>
+                          <span class="price-tag text-lg">₱${item.price}</span>
+                        </div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </section>
+            `;
+          }
 
           return `
-            <section id="${slugify(section.title)}" class="section-card p-4">
-              <div class="mb-4 flex items-center justify-between gap-3">
-                <h2 class="text-2xl font-black text-[#1d1d1f]">${section.title}</h2>
-                <span class="badge-pink rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em]">Hot</span>
+            <section class="menu-panel overflow-hidden rounded-[28px]">
+              <div class="menu-header px-5 py-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h2 class="fusion-title text-4xl leading-none text-[#17100d]">${section.title}</h2>
+                  <span class="mini-pill">Fresh</span>
+                </div>
               </div>
-              <div class="space-y-3">${items}</div>
+              <div class="p-4">
+                <div class="space-y-3">
+                  ${section.items.map(item => `
+                    <div class="menu-item py-2">
+                      <div class="menu-row">
+                        <span class="text-lg font-black text-white">${item.name}</span>
+                        <span class="price-tag text-lg">₱${item.price}</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
             </section>
           `;
         }).join('');
 
-        document.querySelectorAll('.add-item-btn').forEach(button => {
-          button.addEventListener('click', () => {
-            addToCart(button.dataset.name, Number(button.dataset.price || 0));
+        document.querySelectorAll('.add-item-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            addToCart(btn.dataset.name, Number(btn.dataset.price || 0));
           });
         });
       }
@@ -337,14 +527,6 @@
         renderCart();
       }
 
-      function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.remove('hidden');
-        clearTimeout(window.toastTimer);
-        window.toastTimer = setTimeout(() => toast.classList.add('hidden'), 1800);
-      }
-
       function renderCart() {
         const cartItemsEl = document.getElementById('cart-items');
         const subtotalEl = document.getElementById('subtotal');
@@ -352,7 +534,7 @@
         const cartCountEl = document.getElementById('cart-count');
 
         if (!cart.length) {
-          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#eddccb] bg-[#fffaf7] p-4 text-sm text-[#5b6473]">Your cart is empty.</div>';
+          cartItemsEl.innerHTML = '<div class="rounded-2xl border border-dashed border-[#17100d]/30 bg-[#fffaf2] p-4 text-sm text-[#17100d]/60">Your cart is empty.</div>';
           subtotalEl.textContent = '₱0';
           totalEl.textContent = '₱0';
           cartCountEl.textContent = '0';
@@ -363,16 +545,16 @@
         cartItemsEl.innerHTML = cart.map(item => {
           subtotal += item.price * item.quantity;
           return `
-            <div class="rounded-2xl border border-[#f3e5dd] bg-[#fffaf7] p-3">
+            <div class="rounded-2xl border border-[#17100d]/10 bg-[#fffaf2] p-3">
               <div class="flex items-center justify-between gap-3">
                 <div>
-                  <div class="font-black text-[#1d1d1f]">${item.name}</div>
-                  <div class="text-xs text-[#5b6473]">₱${item.price} each</div>
+                  <div class="font-black text-[#17100d]">${item.name}</div>
+                  <div class="text-xs text-[#17100d]/55">₱${item.price} each</div>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button class="minus-item rounded-full border border-[#f0e5dc] bg-white px-2 text-xs font-black text-[#1d1d1f]" data-name="${item.name}">−</button>
-                  <span class="text-sm font-black text-[#1d1d1f]">${item.quantity}</span>
-                  <button class="plus-item rounded-full border border-[#f0e5dc] bg-white px-2 text-xs font-black text-[#1d1d1f]" data-name="${item.name}">+</button>
+                  <button class="minus-item rounded-full border border-[#17100d]/20 bg-white px-2 text-xs font-black text-[#17100d]" data-name="${item.name}">−</button>
+                  <span class="text-sm font-black text-[#17100d]">${item.quantity}</span>
+                  <button class="plus-item rounded-full border border-[#17100d]/20 bg-white px-2 text-xs font-black text-[#17100d]" data-name="${item.name}">+</button>
                 </div>
               </div>
             </div>
@@ -384,13 +566,13 @@
         totalEl.textContent = `₱${total.toLocaleString()}`;
         cartCountEl.textContent = String(cart.reduce((sum, item) => sum + item.quantity, 0));
 
-        document.querySelectorAll('.minus-item').forEach(button => {
-          button.addEventListener('click', () => minusFromCart(button.dataset.name));
+        document.querySelectorAll('.minus-item').forEach(btn => {
+          btn.addEventListener('click', () => minusFromCart(btn.dataset.name));
         });
 
-        document.querySelectorAll('.plus-item').forEach(button => {
-          button.addEventListener('click', () => {
-            const entry = cart.find(item => item.name === button.dataset.name);
+        document.querySelectorAll('.plus-item').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const entry = cart.find(item => item.name === btn.dataset.name);
             if (entry) {
               entry.quantity += 1;
               saveCart();
@@ -398,6 +580,14 @@
             }
           });
         });
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(() => toast.classList.add('hidden'), 1800);
       }
 
       function collectOrderText() {
@@ -452,7 +642,6 @@
         if (event.target === this) closeConfirmModal();
       });
 
-      renderNavigation();
       renderMenu();
       renderCart();
     </script>
