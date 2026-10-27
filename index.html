@@ -4,26 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fusion Nook | Menu</title>
-    <meta name="description" content="Fusion Nook menu in a visual FoodPanda-inspired layout." />
+    <meta name="description" content="Fusion Nook menu with checkout and smooth navigation." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              cream: '#f8f1dd',
-              gold: '#f7c75d',
-              dark: '#120d0d',
-              orange: '#ff7b2d',
-              rose: '#ff5ca8',
+              cream: '#f8f0dc',
+              gold: '#f9c74f',
+              dark: '#120b0b',
+              rose: '#ff3d7a',
               red: '#d92d2d',
               green: '#7ac142',
-              panel: '#1a1312',
-              ink: '#17100d'
+              panda: {
+                pink: '#ff2b85',
+                rose: '#ff5fa2',
+                coral: '#ff8f6b',
+                cream: '#fffaf5',
+                latte: '#f6efe9',
+                ink: '#17100d'
+              }
             },
             boxShadow: {
-              brand: '0 14px 30px rgba(17, 24, 39, 0.08)',
-              punch: '0 10px 24px rgba(0,0,0,0.18)'
+              punch: '0 10px 24px rgba(0,0,0,0.18)',
+              soft: '0 18px 40px rgba(31,41,55,0.08)',
+              panda: '0 18px 30px rgba(255, 43, 133, 0.18)'
             }
           }
         }
@@ -33,84 +39,84 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        background: linear-gradient(180deg, #f9efe2 0%, #f4efe9 100%);
+        background: linear-gradient(180deg, #f9f0df 0%, #f5f1ea 100%);
         font-family: 'Inter', sans-serif;
       }
+
       .fusion-title {
         font-family: 'Black Ops One', cursive;
         letter-spacing: -0.08em;
       }
-      .menu-panel {
-        background: #17100d;
-        border: 3px solid #f7c75d;
-        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.15);
+
+      .menu-section {
+        background: #fff;
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        box-shadow: 0 16px 28px rgba(0, 0, 0, 0.06);
       }
+
       .menu-header {
-        background: linear-gradient(135deg, #f9d36c 0%, #f7ecbc 100%);
-        border-bottom: 3px solid #f7c75d;
+        background: linear-gradient(135deg, #ff2b85 0%, #ff7cb0 100%);
+        border-bottom: 1px solid rgba(23, 16, 13, 0.08);
       }
+
+      .section-nav a {
+        transition: all 0.2s ease;
+      }
+
+      .section-nav a.active,
+      .section-nav a:hover {
+        background: #17100d;
+        color: #f7c75d;
+      }
+
+      .price-tag {
+        color: #17100d;
+        font-weight: 900;
+      }
+
       .menu-item {
-        border-bottom: 1px dashed rgba(255,255,255,0.12);
+        border-bottom: 1px dashed rgba(23,16,13,0.12);
       }
+
       .menu-item:last-child {
         border-bottom: none;
       }
-      .menu-row {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 1rem;
-        align-items: center;
-      }
-      .price-tag {
-        color: #ffd859;
-        font-weight: 900;
-      }
-      .flavor-item {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.82rem;
-        color: rgba(255,255,255,0.9);
-      }
-      .mini-pill {
-        display: inline-block;
-        border-radius: 9999px;
-        background: #ffedb4;
-        color: #18100d;
-        padding: 0.22rem 0.6rem;
-        font-size: 0.65rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-      .cart-panel {
+
+      .order-panel {
         position: sticky;
         top: 1rem;
       }
-      .modal-open { overflow: hidden; }
-      @media (max-width: 640px) {
-        .menu-row {
-          grid-template-columns: 1fr auto;
-        }
+
+      .modal-open {
+        overflow: hidden;
+      }
+
+      .order-sheet {
+        background: rgba(22,15,14,0.92);
       }
     </style>
   </head>
   <body class="text-slate-800 antialiased">
-    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#12100d] px-4 py-3 text-sm font-semibold text-white shadow-punch"></div>
+    <div id="toast" class="fixed right-5 top-5 z-50 hidden rounded-2xl bg-[#12100d] px-4 py-3 text-sm font-semibold text-white shadow-soft"></div>
 
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <header class="mb-6 rounded-[28px] bg-[#f5e4b4] p-4 shadow-brand ring-2 ring-[#1f1612]">
+      <header class="mb-6 rounded-[28px] bg-[#f5e4b4] p-4 shadow-soft ring-2 ring-[#1f1612]">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex items-center gap-4">
             <div class="fusion-title text-5xl leading-none text-[#111111] sm:text-6xl">fusion</div>
             <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#17100d] text-3xl font-black text-[#f7c75d]">N</div>
             <div class="flex flex-col text-[#111111]">
-              <div class="text-xs font-extrabold uppercase tracking-[0.35em] text-[#111111]/75">Diverse restaurant cafe</div>
+              <div class="text-xs font-extrabold uppercase tracking-[0.35em] text-[#111111]/75">nook</div>
               <div class="mt-1 text-[10px] font-semibold uppercase tracking-[0.38em] text-[#111111]/60">Est. 2022</div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
+          <div class="flex flex-wrap items-center gap-3 rounded-full bg-[#17100d] px-4 py-2 text-sm font-black uppercase tracking-[0.12em] text-[#f7c75d]">
             <span>Good food</span>
             <span class="text-white">•</span>
             <span>Great vibes</span>
@@ -118,11 +124,19 @@
         </div>
       </header>
 
+      <nav class="section-nav mb-6 flex flex-wrap gap-2 rounded-full bg-white/85 p-2 shadow-soft ring-1 ring-[#17100d]/10 backdrop-blur-sm">
+        <a href="#popular" class="active rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#17100d]">Popular</a>
+        <a href="#wings" class="rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Wings</a>
+        <a href="#fries" class="rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Fries</a>
+        <a href="#salads" class="rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Salads</a>
+        <a href="#drinks" class="rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Drinks</a>
+      </nav>
+
       <main class="grid gap-6 xl:grid-cols-[1.6fr_0.8fr]">
         <div id="menu-container" class="space-y-6"></div>
 
-        <aside class="cart-panel">
-          <div class="rounded-[30px] bg-[#f7efdf] p-5 shadow-brand ring-2 ring-[#17100d]">
+        <aside class="order-panel">
+          <div class="rounded-[30px] bg-[#f7efdf] p-5 shadow-soft ring-2 ring-[#17100d]">
             <div class="mb-4 flex items-center justify-between">
               <div>
                 <p class="text-[10px] font-black uppercase tracking-[0.25em] text-[#17100d]/60">Your order</p>
@@ -148,18 +162,18 @@
                 <span>Total</span>
                 <span id="total">₱0</span>
               </div>
-              <p class="mt-3 text-[11px] font-semibold text-[#17100d]/70">Base delivery fee is ₱60 and may vary depending on your location.</p>
+              <p class="mt-3 text-[11px] font-semibold text-[#17100d]/70">Delivery rates may vary depending on your location.</p>
             </div>
 
             <form id="order-form" class="mt-6 space-y-3">
               <div>
                 <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Complete name</label>
-                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Enter your name" />
+                <input id="customer-name" type="text" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Your name" />
               </div>
 
               <div>
                 <label class="mb-1 block text-xs font-black uppercase tracking-[0.18em] text-[#17100d]/70">Address</label>
-                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Enter delivery address"></textarea>
+                <textarea id="customer-address" rows="3" class="w-full rounded-2xl border border-[#17100d]/20 bg-white px-3 py-2.5 text-sm text-[#17100d] outline-none focus:border-[#f7c75d]" placeholder="Delivery address"></textarea>
               </div>
 
               <div>
@@ -180,7 +194,7 @@
     </div>
 
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#17100d]/70 p-4">
-      <div class="order-sheet w-full max-w-md rounded-[28px] p-5 text-white shadow-2xl" style="background: rgba(22,15,14,0.92);">
+      <div class="order-sheet w-full max-w-md rounded-[28px] p-5 text-white shadow-2xl">
         <div class="mb-4 flex items-center justify-between">
           <div>
             <p class="text-[10px] font-black uppercase tracking-[0.28em] text-[#f7c75d]">Order ready</p>
@@ -205,15 +219,15 @@
         </div>
 
         <p class="mt-5 text-center text-xs text-white/70">Please click the link to confirm payment and send your order details.</p>
-        <p class="mt-2 text-center text-[11px] text-white/70">Base delivery fee is ₱60 and may vary depending on your location.</p>
+        <p class="mt-2 text-center text-[11px] text-white/70">Delivery rates may vary depending on your location.</p>
       </div>
     </div>
 
     <script>
       const defaultMenu = [
         {
-          title: 'Wings',
-          variant: 'large',
+          id: 'popular',
+          title: 'Popular Picks',
           items: [
             { name: '6 PCS', price: 189 },
             { name: '8 PCS', price: 240 },
@@ -223,168 +237,63 @@
           ]
         },
         {
-          title: 'Wings Flavors',
-          variant: 'flavors',
+          id: 'wings',
+          title: 'Wings',
           items: [
-            { name: 'Garlic Mayo', price: null },
-            { name: 'Teriyaki', price: null },
-            { name: 'Salted Egg', price: null },
-            { name: 'Parmigiana', price: null },
-            { name: 'Mango Habanero', price: null },
-            { name: 'Pesto', price: null },
-            { name: 'Garlic Parmesan', price: null },
-            { name: 'Buffalo', price: null },
-            { name: 'Japanese Nori', price: null },
-            { name: 'Sriracha', price: null },
-            { name: 'Classic', price: null },
-            { name: 'Cheesy', price: null }
+            { name: 'Buffalo Wings', price: 190 },
+            { name: 'Garlic Parmesan', price: 210 },
+            { name: 'Honey BBQ', price: 220 },
+            { name: 'Spicy Korean', price: 240 },
+            { name: 'Wings with Fries', price: 260 }
           ]
         },
         {
+          id: 'fries',
           title: 'Fries',
-          variant: 'fries',
           items: [
             { name: 'Plain', price: 70 },
             { name: 'Flavored', price: 85 },
             { name: 'Cheesy Beef Fries', price: 130 },
-            { name: 'Wings with Fries', price: 260 },
-            { name: 'Chicken Pops with Fries', price: 230 }
+            { name: 'Loaded Fries', price: 150 },
+            { name: 'Crispy Fries Combo', price: 200 }
           ]
         },
         {
+          id: 'salads',
           title: 'Salads',
-          variant: 'simple',
           items: [
             { name: 'Caesar Salad', price: 145 },
             { name: 'Mango Kani Salad', price: 150 },
             { name: 'Chef\'s Salad', price: 185 },
-            { name: 'Waldorf Salad', price: 160 },
             { name: 'California Maki', price: 180 },
-            { name: 'Kimbap', price: 180 },
-            { name: 'Crabsticks Roll', price: 180 },
-            { name: 'Kani Roll', price: 180 }
+            { name: 'Garden Melt', price: 200 }
           ]
         },
         {
-          title: 'Nachos',
-          variant: 'simple',
+          id: 'drinks',
+          title: 'Drinks',
           items: [
-            { name: 'Classic', price: 80 },
-            { name: 'Cheesy Beef Nachos', price: 100 },
-            { name: 'Overload Nachos', price: 160 }
-          ]
-        },
-        {
-          title: 'Pasta',
-          variant: 'simple',
-          items: [
-            { name: 'Carbonara', price: 130 },
-            { name: 'Spaghetti', price: 130 },
-            { name: 'Pesto', price: 130 },
-            { name: 'Baked Macaroni', price: 160 },
-            { name: 'Lasagna', price: 160 }
-          ]
-        },
-        {
-          title: 'Rice Meals',
-          variant: 'simple',
-          items: [
-            { name: 'Shanghai Rice', price: 70 },
-            { name: 'Hunagarian Rice', price: 180 },
-            { name: 'Chicken Fillet', price: 130 },
-            { name: 'Chicken Fillet Alaking', price: 150 },
-            { name: 'Hotdog Rice', price: 70 },
-            { name: '2pcs Wings', price: 180 },
-            { name: 'Pampisilog', price: 160 },
-            { name: 'Chicksilog', price: 180 },
-            { name: 'Sisigsilog', price: 180 },
-            { name: 'Bacon Silog', price: 160 },
-            { name: 'Chicken Toknatsu', price: 180 },
-            { name: 'Pork Toknatsu', price: 180 },
-            { name: 'Liemposilog', price: 180 },
-            { name: 'Tempura Rice', price: 230 }
-          ]
-        },
-        {
-          title: 'Chicken Biryani',
-          variant: 'compact',
-          items: [
-            { name: 'Solo', price: 229 },
-            { name: 'Duo', price: 429 },
-            { name: 'Barkada', price: 1499 }
-          ]
-        },
-        {
-          title: 'Spuds',
-          variant: 'simple',
-          items: [
-            { name: 'Medium', price: 160 },
-            { name: 'Large', price: 199 },
-            { name: 'XL', price: 229 }
-          ]
-        },
-        {
-          title: 'Coffee Latte',
-          variant: 'simple',
-          items: [
-            { name: 'Spanish Latte', price: 180 },
-            { name: 'Caramel Macchiato', price: 180 },
-            { name: 'Cafe Vanilla', price: 180 },
-            { name: 'French Vanilla', price: 180 },
-            { name: 'Butterscotch', price: 180 },
-            { name: 'Thai Tea Latte', price: 180 },
-            { name: 'Dark Mocha Latte', price: 180 }
-          ]
-        },
-        {
-          title: 'Frappe',
-          variant: 'simple',
-          items: [
-            { name: 'Java Chips', price: 220 },
-            { name: 'Caramel', price: 220 },
-            { name: 'Matcha', price: 220 },
-            { name: 'Biscoff', price: 220 }
-          ]
-        },
-        {
-          title: 'Fruit Soda',
-          variant: 'simple',
-          items: [
-            { name: 'Lychee', price: 110 },
-            { name: 'Passion Fruit', price: 110 },
-            { name: 'Green Apple', price: 110 },
-            { name: 'Kiwi', price: 110 }
-          ]
-        },
-        {
-          title: 'Cakes',
-          variant: 'simple',
-          items: [
-            { name: 'Cheesecakes Classic', price: 160 },
-            { name: 'Cheesecakes Premium', price: 200 },
-            { name: 'Egg Tart', price: 55 },
-            { name: 'Basque Burnt Classic', price: 55 },
-            { name: 'Croissant Classic', price: 180 },
-            { name: 'Croissant Premium', price: 220 },
-            { name: 'Cookies Classic', price: 35 },
-            { name: 'Cookie Premium', price: 65 },
-            { name: 'Classic Cakes Tin Can', price: 400 },
-            { name: 'Premium Cakes Tin Can', price: 550 },
-            { name: 'Classic Cakes Tub', price: 180 },
-            { name: 'Cinnamon Roll Classic', price: 245 }
+            { name: 'Coke', price: 45 },
+            { name: 'Sprite', price: 45 },
+            { name: 'Iced Tea', price: 60 },
+            { name: 'Lemonade', price: 70 },
+            { name: 'Milkshake', price: 120 }
           ]
         }
       ];
 
-      const STORAGE_KEY = 'fusionk_menu_data';
-      const BASE_DELIVERY_FEE = 60;
+      const STORAGE_KEY = 'fusion_nook_menu_data';
       let menuData = loadMenu();
-      let cart = JSON.parse(localStorage.getItem('fusion_k_cart')) || [];
+      let cart = JSON.parse(localStorage.getItem('fusion_nook_cart')) || [];
 
       function loadMenu() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-          try { return JSON.parse(saved); } catch { return [...defaultMenu]; }
+          try {
+            return JSON.parse(saved);
+          } catch {
+            return [...defaultMenu];
+          }
         }
         return [...defaultMenu];
       }
@@ -393,120 +302,45 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(menuData));
       }
 
-      function saveCart() {
-        localStorage.setItem('fusion_k_cart', JSON.stringify(cart));
-      }
-
       function renderMenu() {
         const container = document.getElementById('menu-container');
-
         container.innerHTML = menuData.map(section => {
-          const isLarge = section.variant === 'large';
-          const isFlavors = section.variant === 'flavors';
-          const isFries = section.variant === 'fries';
-
-          if (isFlavors) {
-            return `
-              <section class="menu-panel overflow-hidden rounded-[28px]">
-                <div class="menu-header px-5 py-4">
-                  <div class="flex items-center justify-between gap-3">
-                    <h2 class="fusion-title text-4xl leading-none text-[#17100d]">${section.title}</h2>
-                    <span class="mini-pill">Popular</span>
-                  </div>
-                </div>
-                <div class="p-4">
-                  <div class="grid gap-3 sm:grid-cols-2">
-                    ${section.items.map(item => `
-                      <div class="flavor-item menu-item py-2 px-1">
-                        <span>${item.name}</span>
-                        ${item.price !== null ? `<span class="price-tag">₱${item.price}</span>` : ''}
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              </section>
-            `;
-          }
-
-          if (isLarge) {
-            return `
-              <section class="menu-panel overflow-hidden rounded-[28px]">
-                <div class="menu-header px-5 py-4">
-                  <div class="flex items-center justify-between gap-3">
-                    <h2 class="fusion-title text-5xl leading-none text-[#17100d]">${section.title}</h2>
-                    <span class="mini-pill">Best</span>
-                  </div>
-                </div>
-                <div class="p-4">
-                  <div class="space-y-3">
-                    ${section.items.map(item => `
-                      <div class="menu-item py-2">
-                        <div class="menu-row">
-                          <span class="text-lg font-black text-white">${item.name}</span>
-                          <span class="price-tag text-lg">₱${item.price}</span>
-                        </div>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              </section>
-            `;
-          }
-
-          if (isFries) {
-            return `
-              <section class="menu-panel overflow-hidden rounded-[28px]">
-                <div class="menu-header px-5 py-4">
-                  <div class="flex items-center justify-between gap-3">
-                    <h2 class="fusion-title text-5xl leading-none text-[#17100d]">${section.title}</h2>
-                    <span class="mini-pill">Hot</span>
-                  </div>
-                </div>
-                <div class="p-4">
-                  <div class="space-y-3">
-                    ${section.items.map(item => `
-                      <div class="menu-item py-2">
-                        <div class="menu-row">
-                          <span class="text-lg font-black text-white">${item.name}</span>
-                          <span class="price-tag text-lg">₱${item.price}</span>
-                        </div>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              </section>
-            `;
-          }
+          const items = section.items.map(item => `
+            <div class="menu-item flex items-center justify-between gap-4 px-4 py-4">
+              <div>
+                <h3 class="text-lg font-black text-[#17100d]">${item.name}</h3>
+                <p class="mt-1 text-sm text-[#17100d]/60">${item.price > 0 ? 'Fresh item' : 'Flavor option'}</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="price-tag rounded-full bg-[#17100d] px-2.5 py-1 text-sm text-[#f7c75d]">₱${Number(item.price || 0).toLocaleString()}</span>
+                <button type="button" class="add-item-btn rounded-full bg-[#ff2b85] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white" data-name="${item.name}" data-price="${Number(item.price || 0)}">Add</button>
+              </div>
+            </div>
+          `).join('');
 
           return `
-            <section class="menu-panel overflow-hidden rounded-[28px]">
+            <section id="${section.id || section.title.toLowerCase().replace(/\s+/g, '-') }" class="menu-section overflow-hidden rounded-[28px]">
               <div class="menu-header px-5 py-4">
-                <div class="flex items-center justify-between gap-3">
-                  <h2 class="fusion-title text-4xl leading-none text-[#17100d]">${section.title}</h2>
-                  <span class="mini-pill">Fresh</span>
-                </div>
+                <h2 class="text-3xl font-black text-[#17100d]">${section.title}</h2>
               </div>
-              <div class="p-4">
-                <div class="space-y-3">
-                  ${section.items.map(item => `
-                    <div class="menu-item py-2">
-                      <div class="menu-row">
-                        <span class="text-lg font-black text-white">${item.name}</span>
-                        <span class="price-tag text-lg">₱${item.price}</span>
-                      </div>
-                    </div>
-                  `).join('')}
+              <div class="p-2 sm:p-3">
+                <div class="rounded-[20px] bg-[#fffaf2]">
+                  ${items}
                 </div>
               </div>
             </section>
           `;
         }).join('');
 
-        document.querySelectorAll('.add-item-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            addToCart(btn.dataset.name, Number(btn.dataset.price || 0));
+        document.querySelectorAll('.add-item-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            addToCart(button.dataset.name, Number(button.dataset.price || 0));
           });
         });
+      }
+
+      function saveCart() {
+        localStorage.setItem('fusion_nook_cart', JSON.stringify(cart));
       }
 
       function addToCart(name, price) {
@@ -525,6 +359,14 @@
         else cart = cart.filter(entry => entry.name !== name);
         saveCart();
         renderCart();
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(() => toast.classList.add('hidden'), 1800);
       }
 
       function renderCart() {
@@ -561,18 +403,18 @@
           `;
         }).join('');
 
-        const total = subtotal + BASE_DELIVERY_FEE;
+        const total = subtotal + 60;
         subtotalEl.textContent = `₱${subtotal.toLocaleString()}`;
         totalEl.textContent = `₱${total.toLocaleString()}`;
         cartCountEl.textContent = String(cart.reduce((sum, item) => sum + item.quantity, 0));
 
-        document.querySelectorAll('.minus-item').forEach(btn => {
-          btn.addEventListener('click', () => minusFromCart(btn.dataset.name));
+        document.querySelectorAll('.minus-item').forEach(button => {
+          button.addEventListener('click', () => minusFromCart(button.dataset.name));
         });
 
-        document.querySelectorAll('.plus-item').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const entry = cart.find(item => item.name === btn.dataset.name);
+        document.querySelectorAll('.plus-item').forEach(button => {
+          button.addEventListener('click', () => {
+            const entry = cart.find(item => item.name === button.dataset.name);
             if (entry) {
               entry.quantity += 1;
               saveCart();
@@ -580,14 +422,6 @@
             }
           });
         });
-      }
-
-      function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.remove('hidden');
-        clearTimeout(window.toastTimer);
-        window.toastTimer = setTimeout(() => toast.classList.add('hidden'), 1800);
       }
 
       function collectOrderText() {
@@ -598,7 +432,7 @@
         if (!name || !address || !cart.length) return null;
 
         const itemsText = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + BASE_DELIVERY_FEE;
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 60;
         return { name, address, payment, itemsText, total };
       }
 
@@ -640,6 +474,13 @@
       document.getElementById('close-modal').addEventListener('click', closeConfirmModal);
       document.getElementById('confirm-modal').addEventListener('click', function (event) {
         if (event.target === this) closeConfirmModal();
+      });
+
+      document.querySelectorAll('.section-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          document.querySelectorAll('.section-nav a').forEach(item => item.classList.remove('active'));
+          link.classList.add('active');
+        });
       });
 
       renderMenu();
